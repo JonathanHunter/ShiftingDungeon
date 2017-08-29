@@ -168,7 +168,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -191,7 +191,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 966782436}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 1.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 1001776140}
   - component: {fileID: 1001776141}
   - component: {fileID: 1001776142}
+  - component: {fileID: 1001776143}
   m_Layer: 0
   m_Name: DungeonManager
   m_TagString: Untagged
@@ -255,3 +256,26 @@ MonoBehaviour:
     type: 2}
   roomTemplet: {fileID: 114625670064248802, guid: abf6545948cadad4f9704112e77af265,
     type: 2}
+--- !u!114 &1001776143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1001776139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8024d9e41de7f0d4887c61d03478a344, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorTemplet: {fileID: 114652477613357814, guid: 914786d6ff86db9449f68620d4626f9c,
+    type: 2}
+  doorPoolSize: 4
+  floorTemplet: {fileID: 114245824525636318, guid: 21f1cd634f9ce1a4bb0e7f328c5c6801,
+    type: 2}
+  floorPoolSize: 225
+  wallTemplet: {fileID: 114584926879139566, guid: 55e5ad968e6c6374bacb8d8240ecda57,
+    type: 2}
+  wallPoolSize: 1
+  holeTemplet: {fileID: 114628601302540664, guid: 65fdcaeb4363d4f4ba90644ff15ebb72,
+    type: 2}
+  holePoolSize: 225

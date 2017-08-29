@@ -1,8 +1,9 @@
-﻿namespace ShiftingDungeon.Dungeon
+﻿namespace ShiftingDungeon.Dungeon.RoomParts
 {
     using UnityEngine;
+    using ObjectPooling;
 
-    public class Door : MonoBehaviour
+    public class Door : MonoBehaviour, IPoolable
     {
         /// <summary> True if this door is open and can be passed throught. </summary>
         public bool IsOpen { get; private set; }
@@ -12,6 +13,7 @@
         private Animator anim;
         private Collider2D trigger;
         private Room next;
+        private int referenceIndex;
 
         /// <summary> Initializes this door.</summary>
         /// <param name="parent"> The room this door is in. </param>
@@ -33,7 +35,7 @@
         public void SetOpen()
         {
             this.anim.SetBool("open", true);
-            this.trigger.enabled = true;
+            this.trigger.isTrigger = true;
             this.IsOpen = true;
         }
 
@@ -41,7 +43,7 @@
         public void SetClosed()
         {
             this.anim.SetBool("open", false);
-            this.trigger.enabled = false;
+            this.trigger.isTrigger = false;
             this.IsOpen = false;
         }
 
@@ -52,6 +54,42 @@
             if (this.next == null)
                 return -1;
             return this.next.Index;
+        }
+
+        public IPoolable SpawnCopy(int referenceIndex)
+        {
+            Door door = Instantiate<Door>(this);
+            door.referenceIndex = referenceIndex;
+            return door;
+        }
+
+        public int GetReferenceIndex()
+        {
+            return this.referenceIndex;
+        }
+
+        public GameObject GetGameObject()
+        {
+            return this.gameObject;
+        }
+
+        public void Initialize()
+        {
+        }
+
+        public void ReInitialize()
+        {
+            this.gameObject.SetActive(true);
+        }
+
+        public void Deallocate()
+        {
+            this.gameObject.SetActive(false);
+        }
+
+        public void Delete()
+        {
+            Destroy(this.gameObject);
         }
     }
 }

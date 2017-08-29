@@ -50,6 +50,8 @@
             {
                 rooms[i].Init(i);
             }
+
+            rooms[0].Activate();
         }
 
         /// <summary> 
@@ -90,30 +92,30 @@
 
         private void ConnectNeighbors(Room room)
         {
-            if (room.Row - 1 > 0 && this.Map[room.Row - 1, room.Col] != -1)
+            if (room.Col - 1 > 0 && this.Map[room.Row, room.Col - 1] != -1)
             {
-                Room up = this.Rooms[this.Map[room.Row - 1, room.Col]];
+                Room up = this.Rooms[this.Map[room.Row, room.Col - 1]];
                 room.Up = up;
                 up.Down = room;
             }
 
-            if (room.Row + 1 > 0 && this.Map[room.Row + 1, room.Col] != -1)
+            if (room.Col + 1 < this.MapCols && this.Map[room.Row, room.Col + 1] != -1)
             {
-                Room down = this.Rooms[this.Map[room.Row + 1, room.Col]];
+                Room down = this.Rooms[this.Map[room.Row, room.Col + 1]];
                 room.Down = down;
                 down.Up = room;
             }
 
-            if (room.Col - 1 > 0 && this.Map[room.Row, room.Col - 1] != -1)
+            if (room.Row - 1 > 0 && this.Map[room.Row - 1, room.Col] != -1)
             {
-                Room left = this.Rooms[this.Map[room.Row, room.Col - 1]];
+                Room left = this.Rooms[this.Map[room.Row - 1, room.Col]];
                 room.Left = left;
                 left.Right = room;
             }
 
-            if (room.Col + 1 > 0 && this.Map[room.Row, room.Col + 1] != -1)
+            if (room.Row + 1 < this.MapRows && this.Map[room.Row + 1, room.Col] != -1)
             {
-                Room right = this.Rooms[this.Map[room.Row, room.Col + 1]];
+                Room right = this.Rooms[this.Map[room.Row + 1, room.Col]];
                 room.Right = right;
                 right.Left = room;
             }
@@ -126,7 +128,9 @@
                 foreach(Room r in rooms)
                 {
                     Vector2 pos = new Vector2(this.transform.position.x + r.Row, this.transform.position.y - r.Col);
+                    Gizmos.color = r.gameObject.activeSelf ? Color.red : Color.gray;
                     Gizmos.DrawCube(pos, new Vector3(.5f, .5f, 1f));
+                    Gizmos.color = Color.white;
                     DrawArrow(this.transform.position, r, r.Up);
                     DrawArrow(this.transform.position, r, r.Down);
                     DrawArrow(this.transform.position, r, r.Left);
@@ -139,7 +143,6 @@
         {
             if (endRoom == null)
                 return;
-
             Vector3 start = new Vector2(rootPos.x + startRoom.Row, rootPos.y - startRoom.Col);
             Vector3 end = new Vector2(rootPos.x + endRoom.Row, rootPos.y - endRoom.Col);
             Vector3 es = Vector3.Normalize(start - end);

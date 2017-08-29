@@ -56,6 +56,7 @@
                 room.transform.localScale = Vector3.one;
                 room.Row = pattern[i].Row;
                 room.Col = pattern[i].Col;
+                room.IsGenerated = true;
                 rooms[i] = room;
             }
 
