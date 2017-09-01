@@ -13,6 +13,11 @@
 
         private void Start()
         {
+            // Ensure Pools are fully initialized before starting the map
+            ObjectPooling.ObjectPool[] pools = FindObjectsOfType<ObjectPooling.ObjectPool>() as ObjectPooling.ObjectPool[];
+            foreach(ObjectPooling.ObjectPool pool in pools)
+                pool.Init();
+
             // Generate Map
             if(this.map == null)
             {

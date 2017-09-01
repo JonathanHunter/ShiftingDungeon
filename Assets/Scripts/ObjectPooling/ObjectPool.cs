@@ -7,8 +7,9 @@
     {
         private Dictionary<IPoolable, PoolEntity[]> objectPools;
 
-        protected void Start()
+        public void Init()
         {
+            PreInit();
             this.objectPools = new Dictionary<IPoolable, PoolEntity[]>();
             IPoolable[] templets = GetTemplets();
             int[] poolSizes = GetPoolSizes();
@@ -18,20 +19,22 @@
             }
         }
 
-        private void SpawnPool(IPoolable templet, int poolSize)
+        /// <summary> Deletes all pooled objects and clears pool. </summary>
+        public void DeletePools()
         {
-            PoolEntity[] pool = new PoolEntity[poolSize];
-            for (int i = 0; i < poolSize; i++)
+            foreach (PoolEntity[] pes in this.objectPools.Values)
             {
-                IPoolable entity = templet.SpawnCopy(i);
-                entity.Initialize();
-                entity.Deallocate();
-                pool[i] = new PoolEntity(entity);                
+                foreach (PoolEntity pe in pes)
+                {
+                    pe.Delete();
+                }
             }
 
-            this.objectPools.Add(templet, pool);
+            this.objectPools.Clear();
         }
 
+        /// <summary> Any Initialization to be done before Pools are spawned. </summary>
+        protected abstract void PreInit();
         /// <summary> Gets the templets to be pooled. </summary>
         /// <returns> The array of templets. </returns>
         protected abstract IPoolable[] GetTemplets();
@@ -63,19 +66,19 @@
         {
             this.objectPools[templet][entity.GetReferenceIndex()].Deallocate();
         }
-
-        /// <summary> Deletes all pooled objects and clears pool. </summary>
-        public void DeletePools()
+        
+        private void SpawnPool(IPoolable templet, int poolSize)
         {
-            foreach (PoolEntity[] pes in this.objectPools.Values)
+            PoolEntity[] pool = new PoolEntity[poolSize];
+            for (int i = 0; i < poolSize; i++)
             {
-                foreach(PoolEntity pe in pes)
-                {
-                    pe.Delete();
-                }
+                IPoolable entity = templet.SpawnCopy(i);
+                entity.Initialize();
+                entity.Deallocate();
+                pool[i] = new PoolEntity(entity);
             }
 
-            this.objectPools.Clear();
+            this.objectPools.Add(templet, pool);
         }
     }
 }

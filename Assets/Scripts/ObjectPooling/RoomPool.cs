@@ -25,9 +25,9 @@
         /// <summary> Singleton instance for this object pool. </summary>
         public static RoomPool Instance { get; private set; }
 
-        protected new void Start()
+        protected override void PreInit()
         {
-            if(Instance != null && Instance != this)
+            if (Instance != null && Instance != this)
             {
                 Debug.LogError("Duplicate Room Pool detected: removing " + this.gameObject.name);
                 Destroy(this.gameObject);
@@ -35,7 +35,6 @@
             }
 
             Instance = this;
-            base.Start();
         }
 
         protected override IPoolable[] GetTemplets()

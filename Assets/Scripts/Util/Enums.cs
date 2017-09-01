@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Assets.Scripts.Util
+﻿namespace ShiftingDungeon.Util
 {
-    class Enums
+    public class Enums
     {
+        public enum PlayerState
+        {
+            Idle,
+            Move,
+            Attack,
+            Hurt,
+            length
+        }
     }
 }
