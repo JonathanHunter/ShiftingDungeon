@@ -50,7 +50,7 @@
         /// <summary> Centers the camera on the player immediately. </summary>
         public void ResetPosition()
         {
-            transform.position = new Vector3(player.position.x, transform.position.y, transform.position.z);
+            this.transform.position = new Vector3(player.position.x, player.position.y, transform.position.z);
         }
     }
 }

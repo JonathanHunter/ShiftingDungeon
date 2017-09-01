@@ -1,6 +1,7 @@
 ﻿namespace ShiftingDungeon.Dungeon
 {
     using UnityEngine;
+    using RoomParts;
 
     public class DungeonMap : MonoBehaviour
     {
@@ -119,6 +120,37 @@
                 room.Right = right;
                 right.Left = room;
             }
+        }
+
+        public void SwitchRooms(Door current)
+        {
+            Room next;
+            Vector2 postion;
+            if (current.Parent.upperDoor == current)
+            {
+                next = current.Parent.Up;
+                postion = new Vector2(0, -10);
+            }
+            else if (current.Parent.lowerDoor == current)
+            {
+                next = current.Parent.Down;
+                postion = new Vector2(0, 4);
+            }
+            else if (current.Parent.leftDoor == current)
+            {
+                next = current.Parent.Left;
+                postion = new Vector2(7, -3);
+            }
+            else
+            {
+                next = current.Parent.Right;
+                postion = new Vector2(-7, -3);
+            }
+
+            FindObjectOfType<Character.Player.PlayerBehavior>().gameObject.transform.position = postion;
+            current.Parent.Deactivate();
+            next.Activate();
+            FindObjectOfType<Util.CameraTracker>().ResetPosition();
         }
 
         private void OnDrawGizmos()

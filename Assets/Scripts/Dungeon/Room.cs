@@ -25,13 +25,13 @@
         private Room right = null;
 
         [SerializeField]
-        private Door upperDoor = null;
+        internal Door upperDoor = null;
         [SerializeField]
-        private Door lowerDoor = null;
+        internal Door lowerDoor = null;
         [SerializeField]
-        private Door leftDoor = null;
+        internal Door leftDoor = null;
         [SerializeField]
-        private Door rightDoor = null;
+        internal Door rightDoor = null;
 
         /// <summary> The index of this room in the map. </summary>
         public int Index { get; private set; }
