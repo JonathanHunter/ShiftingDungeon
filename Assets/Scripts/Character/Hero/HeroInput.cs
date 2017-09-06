@@ -1,12 +1,12 @@
-﻿namespace ShiftingDungeon.Character.Player
+﻿namespace ShiftingDungeon.Character.Hero
 {
     using UnityEngine;
     using Util;
 
-    public class PlayerInput : MonoBehaviour
+    public class HeroInput : MonoBehaviour
     {
         private Animator anim = null;
-        private PlayerBehavior behavior = null;
+        private HeroBehavior behavior = null;
         private int moveHash = 0;
         private int attackHash = 0;
 
@@ -18,7 +18,7 @@
         private void Start()
         {
             this.anim = GetComponent<Animator>();
-            this.behavior = GetComponent<PlayerBehavior>();
+            this.behavior = GetComponent<HeroBehavior>();
             this.moveHash = Animator.StringToHash("Move");
             this.attackHash = Animator.StringToHash("Attack");
         }

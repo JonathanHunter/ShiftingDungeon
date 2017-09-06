@@ -147,7 +147,7 @@
                 postion = new Vector2(-7, -3);
             }
 
-            FindObjectOfType<Character.Player.PlayerBehavior>().gameObject.transform.position = postion;
+            FindObjectOfType<Character.Hero.HeroBehavior>().gameObject.transform.position = postion;
             current.Parent.Deactivate();
             next.Activate();
             FindObjectOfType<Util.CameraTracker>().ResetPosition();

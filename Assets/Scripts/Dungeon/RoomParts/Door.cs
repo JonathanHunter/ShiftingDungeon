@@ -94,7 +94,7 @@
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(collision.gameObject.tag == "Player")
+            if (collision.gameObject.tag == Util.Enums.Tags.Hero.ToString())
             {
                 FindObjectOfType<DungeonMap>().SwitchRooms(this);
             }

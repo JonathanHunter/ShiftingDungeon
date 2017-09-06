@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114652477613357814}
   - component: {fileID: 95102981023958620}
   - component: {fileID: 61972570218316870}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -5,6 +5,7 @@
     using ProcGen.RoomGen;
     using ObjectPooling;
     using RoomParts;
+    using Util;
 
     public class Room : MonoBehaviour
     {
@@ -162,19 +163,19 @@
             this.leftDoor = RoomPool.Instance.GetDoor().GetComponent<Door>();
             this.rightDoor = RoomPool.Instance.GetDoor().GetComponent<Door>();
 
-            this.upperDoor.transform.position = new Vector2(0, 5);
+            this.upperDoor.transform.position = new Vector3(0, 5, Constants.ROOM_PART_Z_DEPTH);
             this.upperDoor.transform.rotation = Quaternion.identity;
             this.upperDoor.transform.localScale = Vector3.one;
 
-            this.lowerDoor.transform.position = new Vector2(0, -11);
+            this.lowerDoor.transform.position = new Vector3(0, -11, Constants.ROOM_PART_Z_DEPTH);
             this.lowerDoor.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
             this.lowerDoor.transform.localScale = Vector3.one;
 
-            this.leftDoor.transform.position = new Vector2(-8, -3);
+            this.leftDoor.transform.position = new Vector3(-8, -3, Constants.ROOM_PART_Z_DEPTH);
             this.leftDoor.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
             this.leftDoor.transform.localScale = Vector3.one;
 
-            this.rightDoor.transform.position = new Vector2(8, -3);
+            this.rightDoor.transform.position = new Vector3(8, -3, Constants.ROOM_PART_Z_DEPTH);
             this.rightDoor.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
             this.rightDoor.transform.localScale = Vector3.one;
 
@@ -187,7 +188,7 @@
         private void AllocateWalls()
         {
             GameObject wall = RoomPool.Instance.GetWall();
-            wall.transform.position = Vector3.zero;
+            wall.transform.position = new Vector3(0, 0, Constants.ROOM_PART_Z_DEPTH);
             wall.transform.rotation = Quaternion.identity;
             wall.transform.localScale = Vector3.one;
             this.walls.Add(wall);
@@ -202,7 +203,7 @@
                     if (this.Grid[r, c] == 1)
                     {
                         GameObject floor = RoomPool.Instance.GetFloor();
-                        floor.transform.position = new Vector2(-7 + r, 4 - c);
+                        floor.transform.position = new Vector3(-7 + r, 4 - c, Constants.ROOM_PART_Z_DEPTH);
                         floor.transform.rotation = Quaternion.identity;
                         floor.transform.localScale = Vector3.one;
                         this.floors.Add(floor);
@@ -210,7 +211,7 @@
                     else
                     {
                         GameObject hole = RoomPool.Instance.GetHole();
-                        hole.transform.position = new Vector2(-7 + r, 4 - c);
+                        hole.transform.position = new Vector3(-7 + r, 4 - c, Constants.ROOM_PART_Z_DEPTH);
                         hole.transform.rotation = Quaternion.identity;
                         hole.transform.localScale = Vector3.one;
                         this.holes.Add(hole);

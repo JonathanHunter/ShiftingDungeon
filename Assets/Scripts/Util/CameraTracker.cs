@@ -12,7 +12,7 @@
 
         void Start()
         {
-            this.player = FindObjectOfType<Character.Player.PlayerBehavior>().gameObject.transform;
+            this.player = FindObjectOfType<Character.Hero.HeroBehavior>().gameObject.transform;
         }
 
         void Update()

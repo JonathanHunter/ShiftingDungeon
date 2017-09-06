@@ -1,10 +1,10 @@
-﻿namespace ShiftingDungeon.Character.Player
+﻿namespace ShiftingDungeon.Character.Hero
 {
     using UnityEngine;
     using Util;
     using Weapons;
 
-    public class PlayerBehavior : MonoBehaviour
+    public class HeroBehavior : MonoBehaviour
     {
         [SerializeField]
         private int maxHealth = 10;
@@ -17,7 +17,7 @@
 
         private Animator anim = null;
         private Rigidbody2D rgby = null;
-        private PlayerInput input = null;
+        private HeroInput input = null;
         private StateMap stateMap = null;
         private bool doOnce = false;
         private int attackFinishedHash = 0;
@@ -28,20 +28,20 @@
         /// <summary> The player's current weapon. </summary>
         public int CurrentWeapon { get; private set; }
         /// <summary> The player's current state. </summary>
-        public Enums.PlayerState CurrentState { get; private set; }
+        public Enums.HeroState CurrentState { get; private set; }
 
         private void Start()
         {
             this.anim = GetComponent<Animator>();
             this.rgby = GetComponent<Rigidbody2D>();
-            this.input = GetComponent<PlayerInput>();
+            this.input = GetComponent<HeroInput>();
             this.stateMap = new StateMap();
             this.doOnce = false;
             this.attackFinishedHash = Animator.StringToHash("AttackFinished");
             this.hitHash = Animator.StringToHash("Hit");
             this.Health = this.maxHealth;
             this.CurrentWeapon = 0;
-            this.CurrentState = Enums.PlayerState.Idle;
+            this.CurrentState = Enums.HeroState.Idle;
 
             foreach (Weapon w in this.weapons)
             {
@@ -52,7 +52,7 @@
 
         private void Update()
         {
-            Enums.PlayerState temp = this.CurrentState;
+            Enums.HeroState temp = this.CurrentState;
             this.CurrentState = this.stateMap.GetState(this.anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
             if (temp != CurrentState)
             {
@@ -62,33 +62,40 @@
 
             switch(this.CurrentState)
             {
-                case Enums.PlayerState.Idle: Idle(); break;
-                case Enums.PlayerState.Move: Move(); break;
-                case Enums.PlayerState.Attack: Attack(); break;
-                case Enums.PlayerState.Hurt: Hurt(); break;
+                case Enums.HeroState.Idle: Idle(); break;
+                case Enums.HeroState.Move: Move(); break;
+                case Enums.HeroState.Attack: Attack(); break;
+                case Enums.HeroState.Hurt: Hurt(); break;
             }
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.collider.gameObject.tag == "Enemy")
+            if (collision.collider.gameObject.tag == Enums.Tags.Enemy.ToString() ||
+                collision.collider.gameObject.tag == Enums.Tags.EnemyWeapon.ToString())
                 anim.SetTrigger(this.hitHash);
         }
 
         /// <summary> Cycles to the next weapon in the players list. </summary>
         public void GoToNextWeapon()
         {
-            this.CurrentWeapon++;
-            if (this.CurrentWeapon >= this.weapons.Length)
-                this.CurrentWeapon = 0;
+            if (this.CurrentState != Enums.HeroState.Attack)
+            {
+                this.CurrentWeapon++;
+                if (this.CurrentWeapon >= this.weapons.Length)
+                    this.CurrentWeapon = 0;
+            }
         }
 
         /// <summary> Cycles to the previous weapon in the players list. </summary>
         public void GoToPreviousWeapon()
         {
-            this.CurrentWeapon--;
-            if (this.CurrentWeapon < 0)
-                this.CurrentWeapon = this.weapons.Length - 1;
+            if (this.CurrentState != Enums.HeroState.Attack)
+            {
+                this.CurrentWeapon--;
+                if (this.CurrentWeapon < 0)
+                    this.CurrentWeapon = this.weapons.Length - 1;
+            }
         }
 
         private void Idle()

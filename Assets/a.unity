@@ -280,6 +280,7 @@ GameObject:
   - component: {fileID: 1001776141}
   - component: {fileID: 1001776142}
   - component: {fileID: 1001776143}
+  - component: {fileID: 1001776144}
   m_Layer: 0
   m_Name: DungeonManager
   m_TagString: Untagged
@@ -351,6 +352,20 @@ MonoBehaviour:
   holeTemplet: {fileID: 114628601302540664, guid: 65fdcaeb4363d4f4ba90644ff15ebb72,
     type: 2}
   holePoolSize: 225
+--- !u!114 &1001776144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1001776139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 821f8bc2373ee294bbed083cfef46b37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerBulletPools:
+  - {fileID: 114465480071990346, guid: a1b6433ff53690b4287561932ad4bd2b, type: 2}
+  playerBulletPoolSizes: 03000000
 --- !u!1 &1127804461
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,7 +411,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4898259387095710, guid: 43fab8e420984474c9adb8399d12662d, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4898259387095710, guid: 43fab8e420984474c9adb8399d12662d, type: 2}
       propertyPath: m_LocalRotation.x
@@ -417,10 +432,6 @@ Prefab:
     - target: {fileID: 4898259387095710, guid: 43fab8e420984474c9adb8399d12662d, type: 2}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1517940743405926, guid: 43fab8e420984474c9adb8399d12662d, type: 2}
-      propertyPath: m_TagString
-      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 43fab8e420984474c9adb8399d12662d, type: 2}
