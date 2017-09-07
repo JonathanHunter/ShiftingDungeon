@@ -12,6 +12,8 @@
         private float bulletSpeed = 0;
         [SerializeField]
         private float lagTime = 0;
+        [SerializeField]
+        private SoundPlayer sfx;
 
         private bool doOnce = false;
         private float lag = 0;
@@ -39,7 +41,9 @@
                     b.transform.rotation = this.transform.rotation;
                     b.transform.localScale = Vector3.one;
                     b.GetComponent<Rigidbody2D>().velocity = b.transform.right * bulletSpeed;
+                    this.sfx.PlaySong(0);
                 }
+
                 this.doOnce = true;
             }
 

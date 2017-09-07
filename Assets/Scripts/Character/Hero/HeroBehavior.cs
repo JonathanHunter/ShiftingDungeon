@@ -14,6 +14,8 @@
         private float maxSpeed = 5;
         [SerializeField]
         private Weapon[] weapons = null;
+        [SerializeField]
+        private SoundPlayer sfx;
 
         private Animator anim = null;
         private Rigidbody2D rgbdy = null;
@@ -82,6 +84,7 @@
                     this.Health -= collision.collider.gameObject.GetComponent<IDamageDealer>().GetDamage();
                     Vector2 position = this.transform.position;
                     this.rgbdy.AddForce((position - collision.contacts[0].point).normalized * 5f, ForceMode2D.Impulse);
+                    sfx.PlaySong(0);
                 }
 
                 anim.SetTrigger(this.hitHash);

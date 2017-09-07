@@ -1,6 +1,7 @@
 ﻿namespace ShiftingDungeon.Character.Weapons
 {
     using UnityEngine;
+    using Util;
 
     public class Sword : Weapon
     {
@@ -8,8 +9,11 @@
         private float swingSpeed = 400f;
         [SerializeField]
         private float arcLength = 120f;
+        [SerializeField]
+        private SoundPlayer sfx;
 
-        private float arc = 0;        
+        private bool doOnce;
+        private float arc;        
 
         protected override void LocalInit()
         {
@@ -20,10 +24,17 @@
         {
             this.transform.localRotation = Quaternion.identity;
             this.arc = 0;
+            this.doOnce = false;
         }
 
         public override bool WeaponUpdate()
         {
+            if(!this.doOnce)
+            {
+                this.sfx.PlaySong(0);
+                this.doOnce = true;
+            }
+
             this.arc += Time.deltaTime * this.swingSpeed;
             this.transform.localRotation = Quaternion.Euler(0, 0, -this.arc);
             return this.arc >= this.arcLength;
