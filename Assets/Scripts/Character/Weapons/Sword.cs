@@ -9,7 +9,7 @@
         [SerializeField]
         private float arcLength = 120f;
 
-        private float arc = 0;
+        private float arc = 0;        
 
         protected override void LocalInit()
         {

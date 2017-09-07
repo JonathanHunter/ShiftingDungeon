@@ -3,8 +3,10 @@
     public class Enums
     {
         public enum HeroState { Idle, Move, Attack, Hurt, length }
-        
+
         public enum BulletTypes { HeroBasic }
+
+        public enum EnemyTypes { Basic }
 
         public enum Tags { Hero, Enemy, HeroWeapon, EnemyWeapon, DungeonHazard }
 

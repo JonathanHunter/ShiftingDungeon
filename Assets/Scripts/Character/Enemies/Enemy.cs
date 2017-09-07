@@ -1,41 +1,54 @@
-﻿namespace ShiftingDungeon.Character.Weapons.Bullets
+﻿namespace ShiftingDungeon.Character.Enemies
 {
     using UnityEngine;
     using ObjectPooling;
     using Util;
+    using Weapons;
+    using Weapons.Bullets;
 
-    public abstract class Bullet : MonoBehaviour, IPoolable, IDamageDealer
+    public abstract class Enemy : MonoBehaviour, IPoolable, IDamageDealer
     {
         [SerializeField]
         private int damage = 1;
         [SerializeField]
-        private float lifeTime = 1;
-        [SerializeField]
-        private Enums.BulletTypes type = Enums.BulletTypes.HeroBasic;
-        
-        [SerializeField]
         private int referenceIndex = 0;
-        private float currentLifeTime = 0;
+        [SerializeField]
+        private int maxHealth = 3;
+        [SerializeField]
+        private Enums.EnemyTypes type = Enums.EnemyTypes.Basic;
+
+        /// <summary> The type of this enemy. </summary>
+        public Enums.EnemyTypes Type { get { return this.type; } }
+        /// <summary> The health of this enemy. </summary>
+        public int Health { get; private set; }
 
         private void Update()
         {
             LocalUpdate();
-            if ((this.currentLifeTime -= Time.deltaTime) <= 0)
+            if(this.Health <= 0)
             {
-                ReturnBullet();
+                EnemyPool.Instance.ReturnEnemy(this.type, this.gameObject);
             }
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            this.currentLifeTime = 0;
+            if(collision.collider.tag == Enums.Tags.HeroWeapon.ToString())
+            {
+                if(collision.collider.gameObject.GetComponent<IDamageDealer>() != null)
+                {
+                    this.Health -= collision.collider.gameObject.GetComponent<IDamageDealer>().GetDamage();
+                }
+            }
+
+            LocalCollision(collision);
         }
 
         public IPoolable SpawnCopy(int referenceIndex)
         {
-            Bullet bullet = Instantiate<Bullet>(this);
-            bullet.referenceIndex = referenceIndex;
-            return bullet;
+            Enemy enemy = Instantiate<Enemy>(this);
+            enemy.referenceIndex = referenceIndex;
+            return enemy;
         }
 
         public GameObject GetGameObject()
@@ -56,7 +69,7 @@
         public void ReInitialize()
         {
             LocalReInitialize();
-            this.currentLifeTime = this.lifeTime;
+            this.Health = maxHealth;
             this.gameObject.SetActive(true);
         }
 
@@ -77,11 +90,6 @@
             return this.damage;
         }
 
-        protected void ReturnBullet()
-        {
-            BulletPool.Instance.ReturnBullet(this.type, this.gameObject);
-        }
-
         /// <summary> Local Update for subclasses. </summary>
         protected abstract void LocalUpdate();
         /// <summary> Local Initialize for subclasses. </summary>
@@ -92,5 +100,7 @@
         protected abstract void LocalDeallocate();
         /// <summary> Local Delete for subclasses. </summary>
         protected abstract void LocalDelete();
+        /// <summary> Local Collision for subclasses. </summary>
+        protected abstract void LocalCollision(Collision2D collision);
     }
 }

@@ -16,13 +16,15 @@
         private Weapon[] weapons = null;
 
         private Animator anim = null;
-        private Rigidbody2D rgby = null;
+        private Rigidbody2D rgbdy = null;
         private HeroInput input = null;
         private StateMap stateMap = null;
         private bool doOnce = false;
         private int attackFinishedHash = 0;
         private int hitHash = 0;
 
+        /// <summary> The player's max health. </summary>
+        public int MaxHealth { get { return this.maxHealth; } }
         /// <summary> The player's current health. </summary>
         public int Health { get; private set; }
         /// <summary> The player's current weapon. </summary>
@@ -33,7 +35,7 @@
         private void Start()
         {
             this.anim = GetComponent<Animator>();
-            this.rgby = GetComponent<Rigidbody2D>();
+            this.rgbdy = GetComponent<Rigidbody2D>();
             this.input = GetComponent<HeroInput>();
             this.stateMap = new StateMap();
             this.doOnce = false;
@@ -73,7 +75,17 @@
         {
             if (collision.collider.gameObject.tag == Enums.Tags.Enemy.ToString() ||
                 collision.collider.gameObject.tag == Enums.Tags.EnemyWeapon.ToString())
+            {
+                if (this.CurrentState != Enums.HeroState.Hurt &&
+                    collision.collider.gameObject.GetComponent<IDamageDealer>() != null)
+                {
+                    this.Health -= collision.collider.gameObject.GetComponent<IDamageDealer>().GetDamage();
+                    Vector2 position = this.transform.position;
+                    this.rgbdy.AddForce((position - collision.contacts[0].point).normalized * 5f, ForceMode2D.Impulse);
+                }
+
                 anim.SetTrigger(this.hitHash);
+            }
         }
 
         /// <summary> Cycles to the next weapon in the players list. </summary>
@@ -124,9 +136,9 @@
             if(dir != Vector2.zero)
                 this.transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, dir));
             Vector2 right = this.transform.right;
-            Vector2 speed = this.rgby.velocity + right * this.acceleration;
+            Vector2 speed = this.rgbdy.velocity + right * this.acceleration;
             if (speed.magnitude < this.maxSpeed)
-                this.rgby.velocity = speed;
+                this.rgbdy.velocity = speed;
         }
 
         private void Attack()
@@ -148,7 +160,7 @@
         {
             if(!this.doOnce)
             {
-                this.Health--;
+                this.weapons[this.CurrentWeapon].CleanUp();
                 this.doOnce = true;
             }
         }

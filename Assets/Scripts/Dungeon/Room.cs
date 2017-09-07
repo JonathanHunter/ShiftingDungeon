@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using UnityEngine;
+    using Character.Enemies;
     using ProcGen.RoomGen;
     using ObjectPooling;
     using RoomParts;
@@ -57,6 +58,7 @@
         private List<GameObject> walls;
         private List<GameObject> floors;
         private List<GameObject> holes;
+        private List<Enemy> enemies;
 
         /// <summary> Initializes this Room. </summary>
         internal void Init(int index)
@@ -85,6 +87,7 @@
             this.walls = new List<GameObject>();
             this.floors = new List<GameObject>();
             this.holes = new List<GameObject>();
+            this.enemies = new List<Enemy>();
             Deactivate();
         }
 
@@ -120,6 +123,10 @@
                 RoomPool.Instance.ReturnHole(hole);
             this.holes.Clear();
 
+            foreach (Enemy e in this.enemies)
+                EnemyPool.Instance.ReturnEnemy(e.Type, e.gameObject);
+            this.enemies.Clear();
+
             this.gameObject.SetActive(false);
         }
         
@@ -154,6 +161,7 @@
             AllocateDoors();
             AllocateWalls();
             AllocateFloorsAndHoles();
+            AllocateEnemies();
         }
 
         private void AllocateDoors()
@@ -216,6 +224,33 @@
                         hole.transform.localScale = Vector3.one;
                         this.holes.Add(hole);
                     }
+                }
+            }
+        }
+
+        private void AllocateEnemies()
+        {
+            List<Vector2> positions = new List<Vector2>();
+            for (int i = 0; i < 4; i++)
+            {
+                bool placed = false;
+                int tries = 0;
+                while (!placed && tries < 100)
+                {
+                    int r = Random.Range(1, 15);
+                    int c = Random.Range(1, 15);
+                    Vector2 position = new Vector2(-7 + r, 4 - c);
+                    if (this.Grid[r, c] == 1 && !positions.Contains(position))
+                    {
+                        GameObject enemy = EnemyPool.Instance.GetEnemy(Enums.EnemyTypes.Basic);
+                        enemy.transform.position = position;
+                        enemy.transform.rotation = Quaternion.identity;
+                        this.enemies.Add(enemy.GetComponent<Enemy>());
+                        positions.Add(position);
+                        placed = true;
+                    }
+
+                    tries++;
                 }
             }
         }
