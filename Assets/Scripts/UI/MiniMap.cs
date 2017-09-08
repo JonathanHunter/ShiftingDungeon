@@ -67,7 +67,7 @@
                     if (x < 0 ||
                         x >= this.grid.GetLength(0) ||
                         y < 0 ||
-                        y >= this.grid.GetLength(0) ||
+                        y >= this.grid.GetLength(1) ||
                         this.grid[x, y] <= 1)
                         GetImageAt(r, c).sprite = this.off;
                     else if (this.grid[x, y] == 2)

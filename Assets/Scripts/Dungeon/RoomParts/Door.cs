@@ -25,10 +25,13 @@
             this.Parent = parent;
             this.next = next;
 
-            if (this.next != null)
-                SetOpen();
-            else
-                SetClosed();
+            if (this.gameObject.activeInHierarchy)
+            {
+                if (this.next != null)
+                    SetOpen();
+                else
+                    SetClosed();
+            }
         }
 
         /// <summary> Sets this door to be open. </summary>

@@ -4,7 +4,6 @@
     using ObjectPooling;
     using Util;
     using Weapons;
-    using Weapons.Bullets;
 
     public abstract class Enemy : MonoBehaviour, IPoolable, IDamageDealer
     {
@@ -24,6 +23,9 @@
 
         private void Update()
         {
+            if (Managers.GameState.Instance.IsPaused)
+                return;
+
             LocalUpdate();
             if(this.Health <= 0)
             {

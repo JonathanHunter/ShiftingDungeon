@@ -56,6 +56,9 @@
 
         private void Update()
         {
+            if (Managers.GameState.Instance.IsPaused)
+                return;
+
             Enums.HeroState temp = this.CurrentState;
             this.CurrentState = this.stateMap.GetState(this.anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
             if (temp != CurrentState)

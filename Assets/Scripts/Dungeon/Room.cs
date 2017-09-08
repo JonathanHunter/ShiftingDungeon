@@ -96,13 +96,13 @@
             if (this.IsGenerated)
             {
                 AllocateObjects();
-                this.upperDoor.Init(this, this.Up);
-                this.lowerDoor.Init(this, this.Down);
-                this.leftDoor.Init(this, this.Left);
-                this.rightDoor.Init(this, this.Right);
             }
 
             this.gameObject.SetActive(true);
+            this.upperDoor.Init(this, this.Up);
+            this.lowerDoor.Init(this, this.Down);
+            this.leftDoor.Init(this, this.Left);
+            this.rightDoor.Init(this, this.Right);
         }
 
         public void Deactivate()

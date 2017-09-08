@@ -25,6 +25,9 @@
 
         private void Update()
         {
+            if (Managers.GameState.Instance.IsPaused)
+                return;
+
             this.Up = CustomInput.BoolHeld(CustomInput.UserInput.Up);
             this.Down = CustomInput.BoolHeld(CustomInput.UserInput.Down);
             this.Left = CustomInput.BoolHeld(CustomInput.UserInput.Left);

@@ -60,7 +60,8 @@
             if (this.miniMap == null)
                 this.miniMap = FindObjectOfType<UI.MiniMap>();
 
-            this.miniMap.Init(this.Map, new Vector2(this.Rooms[0].Row, this.Rooms[0].Col));
+            if(this.miniMap != null)
+                this.miniMap.Init(this.Map, new Vector2(this.Rooms[0].Row, this.Rooms[0].Col));
         }
 
         /// <summary> 
@@ -161,7 +162,9 @@
             }
 
 
-            this.miniMap.UpdateMiniMap(directionMoved);
+            if (this.miniMap != null)
+                this.miniMap.UpdateMiniMap(directionMoved);
+
             FindObjectOfType<Character.Hero.HeroBehavior>().gameObject.transform.position = postion;
             current.Parent.Deactivate();
             next.Activate();
