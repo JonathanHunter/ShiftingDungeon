@@ -19,6 +19,9 @@
         private int[,] grid;
         private Vector2 current;
 
+        /// <summary> Initialize minimap. </summary>
+        /// <param name="grid"> The room grid. </param>
+        /// <param name="start"> The starting room. </param>
         public void Init(int[,] grid, Vector2 start)
         {
             this.grid = new int[grid.GetLength(0), grid.GetLength(1)];
@@ -38,6 +41,8 @@
             UpdateMapState();
         }
 
+        /// <summary> Update the minimap to the direction the hero went. </summary>
+        /// <param name="direction"> The direction the hero moved in. </param>
         public void UpdateMiniMap(Util.Enums.Direction direction)
         {
             if (this.grid == null)

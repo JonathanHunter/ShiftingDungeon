@@ -10,9 +10,13 @@
         private int moveHash = 0;
         private int attackHash = 0;
 
+        /// <summary> True if up is pressed. </summary>
         public bool Up { get; private set; }
+        /// <summary> True if down is pressed. </summary>
         public bool Down { get; private set; }
+        /// <summary> True if left is pressed. </summary>
         public bool Left { get; private set; }
+        /// <summary> True if right is pressed. </summary>
         public bool Right { get; private set; }
 
         private void Start()
