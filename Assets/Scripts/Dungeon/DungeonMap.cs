@@ -10,6 +10,8 @@
         private bool visializeMap = false;
         [SerializeField]
         private Room[] rooms = null;
+        [SerializeField]
+        private UI.MiniMap miniMap = null;
 
         /// <summary> The size of this map. </summary>
         public Vector2 mapSize = Vector2.zero;
@@ -40,19 +42,25 @@
                     this.Map[r, c] = -1;
 
             // Add rooms to map
-            for (int i = 0; i < rooms.Length; i++)
+            for (int i = 0; i < this.Rooms.Length; i++)
             {
                 if (!AddRoomToMap(this.Rooms[i], i))
                     return;
             }
 
             // Initialize room state
-            for(int i = 0; i < rooms.Length; i++)
+            for(int i = 0; i < this.Rooms.Length; i++)
             {
-                rooms[i].Init(i);
+                this.Rooms[i].Init(i);
             }
 
-            rooms[0].Activate();
+            this.Rooms[0].Activate();
+
+            // Initialize Mini map
+            if (this.miniMap == null)
+                this.miniMap = FindObjectOfType<UI.MiniMap>();
+
+            this.miniMap.Init(this.Map, new Vector2(this.Rooms[0].Row, this.Rooms[0].Col));
         }
 
         /// <summary> 
@@ -126,27 +134,34 @@
         {
             Room next;
             Vector2 postion;
+            Util.Enums.Direction directionMoved = Util.Enums.Direction.None;
             if (current.Parent.upperDoor == current)
             {
                 next = current.Parent.Up;
                 postion = new Vector2(0, -10);
+                directionMoved = Util.Enums.Direction.Up;
             }
             else if (current.Parent.lowerDoor == current)
             {
                 next = current.Parent.Down;
                 postion = new Vector2(0, 4);
+                directionMoved = Util.Enums.Direction.Down;
             }
             else if (current.Parent.leftDoor == current)
             {
                 next = current.Parent.Left;
                 postion = new Vector2(7, -3);
+                directionMoved = Util.Enums.Direction.Left;
             }
             else
             {
                 next = current.Parent.Right;
                 postion = new Vector2(-7, -3);
+                directionMoved = Util.Enums.Direction.Right;
             }
 
+
+            this.miniMap.UpdateMiniMap(directionMoved);
             FindObjectOfType<Character.Hero.HeroBehavior>().gameObject.transform.position = postion;
             current.Parent.Deactivate();
             next.Activate();

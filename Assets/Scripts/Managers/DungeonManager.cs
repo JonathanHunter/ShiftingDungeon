@@ -28,6 +28,7 @@
                 }
 
                 this.map = this.dungeonGenerator.GenerateMap(10);
+
             }
 
             this.map.Init();

@@ -8,6 +8,8 @@
 
         public enum EnemyTypes { Basic }
 
+        public enum Direction { None, Up, Down, Left, Right }
+
         public enum Tags { Hero, Enemy, HeroWeapon, EnemyWeapon, DungeonHazard }
 
         public enum Layers { Hero, Enemy, HeroWeapon, EnemyWeapon, DungeonHazard, Dungeon }
