@@ -2,6 +2,8 @@
 {
     public class Enums
     {
+        public enum GameState { Playing, Paused, Tranisioning, Cutscene }
+
         public enum HeroState { Idle, Move, Attack, Hurt, length }
 
         public enum BulletTypes { HeroBasic }

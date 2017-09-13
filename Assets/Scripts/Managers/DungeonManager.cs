@@ -2,6 +2,7 @@
 {
     using System.Collections;
     using UnityEngine;
+    using UnityEngine.SceneManagement;
     using Dungeon;
     using Dungeon.ProcGen;
     using Dungeon.RoomParts;
@@ -9,7 +10,11 @@
     public class DungeonManager : MonoBehaviour
     {
         [SerializeField]
-        private DungeonMap map = null;
+        private bool isTitleScreen;
+        [SerializeField]
+        private DungeonMap[] floors = null;
+        [SerializeField]
+        private string nextScene = "Title";
         [SerializeField]
         private DungeonGenerator dungeonGenerator = null;
         [SerializeField]
@@ -18,7 +23,9 @@
         private UI.MiniMap miniMap = null;
         [SerializeField]
         private Character.Hero.HeroBehavior heroTemplet = null;
-
+        [SerializeField]
+        private int currentFloor = 0;
+        
         private static DungeonManager instance;
         private static DungeonManager Instance
         {
@@ -31,6 +38,7 @@
             }
         }
 
+        private DungeonMap map;
         private Character.Hero.HeroBehavior hero;
         private Util.CameraTracker cameraTracker;
 
@@ -54,7 +62,7 @@
                 this.hero = Instantiate(this.heroTemplet);
 
             this.cameraTracker = FindObjectOfType<Util.CameraTracker>();
-            StartCoroutine(MapSetup());
+            StartCoroutine(SwitchMaps());
         }
 
         /// <summary> Gets the hero. </summary>
@@ -67,6 +75,16 @@
             return Instance.hero.gameObject;
         }
 
+        /// <summary> Transitions from the current map to the next. </summary>
+        public static void TransitionMaps()
+        {
+            Instance.currentFloor++;
+            if (Instance.currentFloor >= Instance.floors.Length)
+                SceneManager.LoadScene(Instance.nextScene);
+            else
+                Instance.StartCoroutine(Instance.SwitchMaps());
+        }
+
         /// <summary> Transitions from the current room to the next. </summary>
         /// <param name="current"> The current room's door. </param>
         public static void TransitionRooms(Door current)
@@ -74,11 +92,28 @@
             Instance.StartCoroutine(Instance.SwitchRooms(current));
         }
 
-        private IEnumerator MapSetup()
+        private IEnumerator SwitchMaps()
         {
             this.overlay.Show();
+            GameState.Instance.State = Util.Enums.GameState.Tranisioning;
+
+            if(this.map != null)
+            {
+                // Initialize room state
+                for (int i = 0; i < this.map.Rooms.Length; i++)
+                {
+                    this.map.Rooms[i].Deactivate();
+                    Destroy(this.map.Rooms[i].gameObject);
+                    yield return 0;
+                }
+
+                Destroy(this.map.gameObject);
+                this.map = null;
+                yield return 0;
+            }
+
             // Generate Map
-            if (this.map == null)
+            if (this.floors[this.currentFloor] == null)
             {
                 if (this.dungeonGenerator == null)
                 {
@@ -87,8 +122,11 @@
                 }
 
                 this.map = this.dungeonGenerator.GenerateMap(10);
-                yield return 0;
             }
+            else
+                this.map = Instantiate(this.floors[this.currentFloor]);
+
+            yield return 0;
 
             // Initialize the Map
             this.map.Init();
@@ -102,18 +140,24 @@
             // Initialize room state
             for (int i = 0; i < this.map.Rooms.Length; i++)
             {
-                this.map.Rooms[i].Init(i);
+                this.map.Rooms[i].Init(i, i == (this.map.Rooms.Length - 1));
                 yield return 0;
             }
 
             this.map.Rooms[0].Activate();
             this.overlay.FadeOut();
+            if(this.isTitleScreen)
+                GameState.Instance.State = Util.Enums.GameState.Paused;
+            else
+                GameState.Instance.State = Util.Enums.GameState.Playing;
+
             yield break;
         }
 
         private IEnumerator SwitchRooms(Door current)
         {
             this.overlay.FadeIn();
+            GameState.Instance.State = Util.Enums.GameState.Tranisioning;
             Room next;
             Vector2 postion;
             Util.Enums.Direction directionMoved = Util.Enums.Direction.None;
@@ -156,6 +200,7 @@
 
             next.Activate();
             this.overlay.FadeOut();
+            GameState.Instance.State = Util.Enums.GameState.Playing;
             yield break;
         }
     }

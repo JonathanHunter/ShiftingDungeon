@@ -163,7 +163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcde6bc94d67f6f40a8186de9b5f1031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPaused: 0
 --- !u!4 &201204391
 Transform:
   m_ObjectHideFlags: 0
@@ -564,12 +563,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d22a2d00f1ada342a3653e5e9633d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 0}
+  floors:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  nextScene: Title
   dungeonGenerator: {fileID: 1001776142}
   overlay: {fileID: 2061034858}
   miniMap: {fileID: 2059499942}
   heroTemplet: {fileID: 114618599996926252, guid: 43fab8e420984474c9adb8399d12662d,
     type: 2}
+  currentFloor: 0
 --- !u!114 &1001776142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -608,6 +612,9 @@ MonoBehaviour:
   holeTemplet: {fileID: 114628601302540664, guid: 65fdcaeb4363d4f4ba90644ff15ebb72,
     type: 2}
   holePoolSize: 225
+  stairTemplet: {fileID: 114194785172027990, guid: 6b25bb3e79a6f4343a7ae829fbf31d40,
+    type: 2}
+  stairPoolSize: 1
 --- !u!114 &1001776144
 MonoBehaviour:
   m_ObjectHideFlags: 0

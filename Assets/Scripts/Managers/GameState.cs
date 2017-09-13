@@ -1,26 +1,39 @@
 ﻿namespace ShiftingDungeon.Managers
 {
     using UnityEngine;
+    using Util;
 
     public class GameState : MonoBehaviour
     {
-        [SerializeField]
-        private bool isPaused;
+        private static GameState instance;
+        /// <summary> The GameState for this scene. </summary>
+        public static GameState Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = FindObjectOfType<GameState>();
 
-        public static GameState Instance { get; private set; }
-        
-        public bool IsPaused { get { return this.isPaused; } }
+                return instance;
+            }
+        }
+
+        /// <summary> If true the game is paused. </summary>
+        public bool IsPaused { get { return State != Enums.GameState.Playing; } }
+
+        /// <summary> The game's current state. </summary>
+        public Enums.GameState State { get; set; }
 
         private void Start()
         {
-            if (Instance != null && Instance != this)
+            if (instance != null && instance != this)
             {
                 Debug.LogError("Duplicate GameState detected: removing " + this.gameObject.name);
                 Destroy(this.gameObject);
                 return;
             }
 
-            Instance = this;
+            instance = this;
         }
 
     }

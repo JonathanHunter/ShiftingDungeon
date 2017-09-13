@@ -10,8 +10,6 @@
         private bool visializeMap = false;
         [SerializeField]
         private Room[] rooms = null;
-        [SerializeField]
-        private UI.MiniMap miniMap = null;
 
         /// <summary> The size of this map. </summary>
         public Vector2 mapSize = Vector2.zero;
