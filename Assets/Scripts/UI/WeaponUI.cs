@@ -16,7 +16,7 @@
 
         private void Start()
         {
-            this.hero = FindObjectOfType<HeroBehavior>();
+            this.hero = Managers.DungeonManager.GetHero().GetComponent<HeroBehavior>();
             this.currentIndex = 0;
             this.image.sprite = sprites[0];
         }

@@ -99,7 +99,7 @@
         {
             if (collision.gameObject.tag == Util.Enums.Tags.Hero.ToString())
             {
-                FindObjectOfType<DungeonMap>().SwitchRooms(this);
+                Managers.DungeonManager.TransitionRooms(this);
             }
         }
     }

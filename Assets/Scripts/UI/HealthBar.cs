@@ -14,7 +14,7 @@
 
         private void Start()
         {
-            this.hero = FindObjectOfType<HeroBehavior>();
+            this.hero = Managers.DungeonManager.GetHero().GetComponent<HeroBehavior>();
             this.originalPosition = bar.anchoredPosition;
             this.originalScale = this.transform.localScale;
         }
