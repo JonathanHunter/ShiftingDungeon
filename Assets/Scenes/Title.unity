@@ -481,6 +481,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &733406894
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4343973672719034, guid: bafa36e8ff7909b499c9ab943fca8508, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1.9368439
+      objectReference: {fileID: 0}
+    - target: {fileID: 4343973672719034, guid: bafa36e8ff7909b499c9ab943fca8508, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.7095926
+      objectReference: {fileID: 0}
+    - target: {fileID: 4343973672719034, guid: bafa36e8ff7909b499c9ab943fca8508, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4343973672719034, guid: bafa36e8ff7909b499c9ab943fca8508, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4343973672719034, guid: bafa36e8ff7909b499c9ab943fca8508, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4343973672719034, guid: bafa36e8ff7909b499c9ab943fca8508, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4343973672719034, guid: bafa36e8ff7909b499c9ab943fca8508, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4343973672719034, guid: bafa36e8ff7909b499c9ab943fca8508, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: bafa36e8ff7909b499c9ab943fca8508, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &832579318
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,6 +536,7 @@ GameObject:
   - component: {fileID: 832579321}
   - component: {fileID: 832579320}
   - component: {fileID: 832579319}
+  - component: {fileID: 832579325}
   m_Layer: 0
   m_Name: DungeonManager
   m_TagString: Untagged
@@ -604,6 +647,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &832579325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 832579318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0165d54279ca54f4b8ff55bd76a12f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goldTemplet: {fileID: 114548095390915292, guid: 6d2e3ebd86735144cb18bb06fa993d36,
+    type: 2}
+  goldPoolSize: 10
 --- !u!1 &1184143613
 GameObject:
   m_ObjectHideFlags: 0

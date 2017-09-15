@@ -47,7 +47,7 @@
                 this.doOnce = true;
             }
 
-            return (this.lag -= Time.deltaTime) <= 0;            
+            return (this.lag -= Time.deltaTime * (1f + .5f * this.Level)) <= 0;            
         }
 
         protected override void LocalCleanUp()

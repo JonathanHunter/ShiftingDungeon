@@ -7,9 +7,12 @@
         [SerializeField]
         private int damage = 1;
 
+        [SerializeField]
+        internal int level = 0;
+
         public int GetDamage()
         {
-            return this.damage;
+            return this.damage + level;
         }
     }
 }

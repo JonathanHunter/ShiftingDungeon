@@ -9,6 +9,7 @@
 
         public void Load()
         {
+            Random.InitState(System.DateTime.Now.Millisecond);
             SceneManager.LoadScene(this.Scene);
         }
     }

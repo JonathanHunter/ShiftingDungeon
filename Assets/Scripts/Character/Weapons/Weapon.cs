@@ -4,6 +4,9 @@
 
     public abstract class Weapon : MonoBehaviour
     {
+        /// <summary> The level of this weapon. </summary>
+        public int Level { get; internal set; }
+
         /// <summary> Initializes this weapon. </summary>
         public void Init()
         {

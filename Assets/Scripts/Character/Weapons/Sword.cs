@@ -11,6 +11,8 @@
         private float arcLength = 120f;
         [SerializeField]
         private SoundPlayer sfx;
+        [SerializeField]
+        private ContactDamage damageDealer;
 
         private bool doOnce;
         private float arc;        
@@ -25,6 +27,7 @@
             this.transform.localRotation = Quaternion.identity;
             this.arc = 0;
             this.doOnce = false;
+            this.damageDealer.level = this.Level;
         }
 
         public override bool WeaponUpdate()
@@ -35,7 +38,7 @@
                 this.doOnce = true;
             }
 
-            this.arc += Time.deltaTime * this.swingSpeed;
+            this.arc += Time.deltaTime * (this.swingSpeed + (50f * this.Level));
             this.transform.localRotation = Quaternion.Euler(0, 0, -this.arc);
             return this.arc >= this.arcLength;
         }
