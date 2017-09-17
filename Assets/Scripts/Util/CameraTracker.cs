@@ -12,7 +12,7 @@
 
         void Start()
         {
-            this.player = FindObjectOfType<Character.Hero.HeroBehavior>().gameObject.transform;
+            this.player = Managers.DungeonManager.GetHero().transform;
         }
 
         void Update()

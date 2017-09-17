@@ -1,14 +1,10 @@
 ﻿namespace ShiftingDungeon.Dungeon.RoomParts
 {
     using UnityEngine;
-    using UnityEngine.SceneManagement;
     using ObjectPooling;
 
     public class Stairs : MonoBehaviour, IPoolable
     {
-        [SerializeField]
-        private string scene;
-
         private int referenceIndex;
 
         public IPoolable SpawnCopy(int referenceIndex)
@@ -51,7 +47,7 @@
         {
             if (collision.gameObject.tag == Util.Enums.Tags.Hero.ToString())
             {
-                SceneManager.LoadScene(this.scene);
+                Managers.DungeonManager.TransitionMaps();
             }
         }
     }

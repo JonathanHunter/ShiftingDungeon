@@ -27,7 +27,7 @@
 
         protected override void LocalReInitialize()
         {
-            this.hero = FindObjectOfType<Hero.HeroBehavior>().transform;
+            this.hero = Managers.DungeonManager.GetHero().transform;
             this.rgbdy = this.gameObject.GetComponent<Rigidbody2D>();
             this.walkCounter = Random.Range(0, this.walkTime + 1);
             this.timesWalked = 0;

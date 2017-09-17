@@ -47,11 +47,20 @@
             this.CurrentWeapon = 0;
             this.CurrentState = Enums.HeroState.Idle;
 
+            if(HeroData.Instance.weaponLevels == null || HeroData.Instance.weaponLevels.Length == 0)
+            {
+                HeroData.Instance.weaponLevels = new int[this.weapons.Length];
+                for (int i = 0; i < this.weapons.Length; i++)
+                    HeroData.Instance.weaponLevels[i] = 0;
+            }
+
             foreach (Weapon w in this.weapons)
             {
                 w.Init();
                 w.CleanUp();
             }
+
+            this.weapons[this.CurrentWeapon].Level = HeroData.Instance.weaponLevels[this.CurrentWeapon];
         }
 
         private void Update()
@@ -78,19 +87,28 @@
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.collider.gameObject.tag == Enums.Tags.Enemy.ToString() ||
-                collision.collider.gameObject.tag == Enums.Tags.EnemyWeapon.ToString())
+            if (collision.gameObject.tag == Enums.Tags.Enemy.ToString() ||
+                collision.gameObject.tag == Enums.Tags.EnemyWeapon.ToString())
             {
                 if (this.CurrentState != Enums.HeroState.Hurt &&
-                    collision.collider.gameObject.GetComponent<IDamageDealer>() != null)
+                    collision.gameObject.GetComponent<IDamageDealer>() != null)
                 {
-                    this.Health -= collision.collider.gameObject.GetComponent<IDamageDealer>().GetDamage();
+                    this.Health -= collision.gameObject.GetComponent<IDamageDealer>().GetDamage();
                     Vector2 position = this.transform.position;
                     this.rgbdy.AddForce((position - collision.contacts[0].point).normalized * 5f, ForceMode2D.Impulse);
                     sfx.PlaySong(0);
                 }
 
                 anim.SetTrigger(this.hitHash);
+            }
+            else if(collision.gameObject.tag == Enums.Tags.Pickup.ToString())
+            {
+                if(collision.gameObject.GetComponent<Pickups.Money>() != null)
+                {
+                    Pickups.Money gold = collision.gameObject.GetComponent<Pickups.Money>();
+                    HeroData.Instance.money += gold.Value;
+                    ObjectPooling.PickupPool.Instance.ReturnGold(gold.gameObject);
+                }
             }
         }
 
@@ -103,6 +121,8 @@
                 if (this.CurrentWeapon >= this.weapons.Length)
                     this.CurrentWeapon = 0;
             }
+
+            this.weapons[this.CurrentWeapon].Level = HeroData.Instance.weaponLevels[this.CurrentWeapon];
         }
 
         /// <summary> Cycles to the previous weapon in the players list. </summary>
@@ -114,6 +134,8 @@
                 if (this.CurrentWeapon < 0)
                     this.CurrentWeapon = this.weapons.Length - 1;
             }
+
+            this.weapons[this.CurrentWeapon].Level = HeroData.Instance.weaponLevels[this.CurrentWeapon];
         }
 
         private void Idle()

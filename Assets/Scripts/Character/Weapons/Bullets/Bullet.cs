@@ -13,7 +13,6 @@
         [SerializeField]
         private Enums.BulletTypes type = Enums.BulletTypes.HeroBasic;
         
-        [SerializeField]
         private int referenceIndex = 0;
         private float currentLifeTime = 0;
 

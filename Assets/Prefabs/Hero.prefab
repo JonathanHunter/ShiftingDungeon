@@ -524,6 +524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  level: 0
 --- !u!114 &114296336668261468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -569,6 +570,7 @@ MonoBehaviour:
   swingSpeed: 400
   arcLength: 120
   sfx: {fileID: 114497856314377662}
+  damageDealer: {fileID: 114230977575690038}
 --- !u!114 &114388107633363118
 MonoBehaviour:
   m_ObjectHideFlags: 1

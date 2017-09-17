@@ -21,6 +21,10 @@
         private StaticRoomPiece holeTemplet = null;
         [SerializeField]
         private int holePoolSize = 225;
+        [SerializeField]
+        private Stairs stairTemplet = null;
+        [SerializeField]
+        private int stairPoolSize = 1;
 
         /// <summary> Singleton instance for this object pool. </summary>
         public static RoomPool Instance { get; private set; }
@@ -39,12 +43,12 @@
 
         protected override IPoolable[] GetTemplets()
         {
-            return new IPoolable[] { this.doorTemplet, this.floorTemplet, this.wallTemplet, this.holeTemplet };
+            return new IPoolable[] { this.doorTemplet, this.floorTemplet, this.wallTemplet, this.holeTemplet, this.stairTemplet };
         }
 
         protected override int[] GetPoolSizes()
         {
-            return new int[] { this.doorPoolSize, this.floorPoolSize, this.wallPoolSize, this.holePoolSize };
+            return new int[] { this.doorPoolSize, this.floorPoolSize, this.wallPoolSize, this.holePoolSize, this.stairPoolSize };
         }
 
         public GameObject GetDoor()
@@ -67,6 +71,11 @@
             return GetPart(this.holeTemplet);
         }
 
+        public GameObject GetStair()
+        {
+            return GetPart(this.stairTemplet);
+        }
+
         public void ReturnDoor(GameObject door)
         {
             ReturnPart(this.doorTemplet, door);
@@ -85,6 +94,11 @@
         public void ReturnHole(GameObject hole)
         {
             ReturnPart(this.holeTemplet, hole);
+        }
+
+        public void ReturnStair(GameObject stair)
+        {
+            ReturnPart(this.stairTemplet, stair);
         }
 
         private GameObject GetPart(IPoolable templet)

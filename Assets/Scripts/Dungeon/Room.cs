@@ -58,10 +58,11 @@
         private List<GameObject> walls;
         private List<GameObject> floors;
         private List<GameObject> holes;
+        private List<GameObject> stairs;
         private List<Enemy> enemies;
 
         /// <summary> Initializes this Room. </summary>
-        internal void Init(int index)
+        internal void Init(int index, bool hasStairs)
         {
             this.Index = index;
 
@@ -81,12 +82,15 @@
                 CellularAutomata ca = new CellularAutomata(15);
                 ca.GeneratePattern(30);
                 this.Grid = ca.GetPattern();
+                if (hasStairs)
+                    this.Grid[7, 7] = 2;
             }
 
             this.doors = new List<GameObject>();
             this.walls = new List<GameObject>();
             this.floors = new List<GameObject>();
             this.holes = new List<GameObject>();
+            this.stairs = new List<GameObject>();
             this.enemies = new List<Enemy>();
             Deactivate();
         }
@@ -122,6 +126,10 @@
             foreach (GameObject hole in this.holes)
                 RoomPool.Instance.ReturnHole(hole);
             this.holes.Clear();
+
+            foreach (GameObject stair in this.stairs)
+                RoomPool.Instance.ReturnStair(stair);
+            this.stairs.Clear();
 
             foreach (Enemy e in this.enemies)
                 EnemyPool.Instance.ReturnEnemy(e.Type, e.gameObject);
@@ -215,6 +223,14 @@
                         floor.transform.rotation = Quaternion.identity;
                         floor.transform.localScale = Vector3.one;
                         this.floors.Add(floor);
+                    }
+                    else if(this.Grid[r, c] == 2)
+                    {
+                        GameObject stair = RoomPool.Instance.GetStair();
+                        stair.transform.position = new Vector3(-7 + r, 4 - c, Constants.ROOM_PART_Z_DEPTH);
+                        stair.transform.rotation = Quaternion.identity;
+                        stair.transform.localScale = Vector3.one;
+                        this.stairs.Add(stair);
                     }
                     else
                     {
