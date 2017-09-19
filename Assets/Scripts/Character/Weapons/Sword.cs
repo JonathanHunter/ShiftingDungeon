@@ -27,6 +27,7 @@
             this.playerBody = GetComponentInParent<Rigidbody2D>();
             this.spriteRenderer = GetComponentInChildren<SpriteRenderer>();
             this.arc = 0;
+            this.maxCombo = 3;
         }
 
         protected override void LocalReInit()
@@ -35,7 +36,6 @@
             this.arc = 0;
             this.doOnce = false;
             this.damageDealer.level = this.Level;
-
 
             Vector3 spritePosition;
             switch (comboCounter)

@@ -7,8 +7,17 @@
         /// <summary> The level of this weapon. </summary>
         public int Level { get; internal set; }
 
-        /// <summary> The combo counter of this weapon </summary>
-        private int comboCounter = 0;
+        /// <summary> The numerical progression this weapon's combo </summary>
+        protected int comboCounter = 0;
+
+        /// <summary> The maximum number of attacks in a weapon's combo </summary>
+        protected int maxCombo;
+
+        /// <summary> The maximum time interval between attacks to continue the combo in milliseconds </summary>
+        protected float comboInterval = 400f;
+
+        /// <summary> The last game time moment an attack was made </summary>
+        private float lastAttackTime;
 
         /// <summary> Initializes this weapon. </summary>
         public void Init()
@@ -19,6 +28,8 @@
         /// <summary> Readys this weapon to attack. </summary>
         public void ReInit()
         {
+            comboCounter = Time.time - lastAttackTime <= comboInterval / 1000f
+                ? (comboCounter + 1) % maxCombo : 0;
             LocalReInit();
             this.gameObject.SetActive(true);
         }
@@ -27,6 +38,7 @@
         public void CleanUp()
         {
             LocalCleanUp();
+            lastAttackTime = Time.time;
             this.gameObject.SetActive(false);
         }
 
