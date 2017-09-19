@@ -7,6 +7,9 @@
         /// <summary> The level of this weapon. </summary>
         public int Level { get; internal set; }
 
+        /// <summary> The combo counter of this weapon </summary>
+        private int comboCounter = 0;
+
         /// <summary> Initializes this weapon. </summary>
         public void Init()
         {
