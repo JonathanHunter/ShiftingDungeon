@@ -568,6 +568,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swingSpeed: 400
+  lungeForce: 5
   arcLength: 120
   sfx: {fileID: 114497856314377662}
   damageDealer: {fileID: 114230977575690038}

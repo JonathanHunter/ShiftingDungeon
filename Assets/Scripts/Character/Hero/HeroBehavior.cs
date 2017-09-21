@@ -23,6 +23,7 @@
         private StateMap stateMap = null;
         private bool doOnce = false;
         private int attackFinishedHash = 0;
+        private int attackQueuedHash = 0;
         private int hitHash = 0;
 
         /// <summary> The player's max health. </summary>
@@ -42,6 +43,7 @@
             this.stateMap = new StateMap();
             this.doOnce = false;
             this.attackFinishedHash = Animator.StringToHash("AttackFinished");
+            this.attackQueuedHash = Animator.StringToHash("AttackQueued");
             this.hitHash = Animator.StringToHash("Hit");
             this.Health = this.maxHealth;
             this.CurrentWeapon = 0;
@@ -179,8 +181,18 @@
             
             if(this.weapons[this.CurrentWeapon].WeaponUpdate())
             {
-                anim.SetBool(this.attackFinishedHash, true);
+                
                 this.weapons[this.CurrentWeapon].CleanUp();
+                if (this.anim.GetBool(attackQueuedHash))
+                {
+                    this.doOnce = false;
+                    this.anim.SetBool(this.attackQueuedHash, false);
+                    this.anim.SetBool("Attack", true);
+                }
+                else
+                {
+                    anim.SetBool(this.attackFinishedHash, true);
+                }
             }
         }
 
