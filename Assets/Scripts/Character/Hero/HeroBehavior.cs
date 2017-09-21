@@ -22,6 +22,7 @@
         private HeroInput input = null;
         private StateMap stateMap = null;
         private bool doOnce = false;
+        private int attackHash = 0;
         private int attackFinishedHash = 0;
         private int attackQueuedHash = 0;
         private int hitHash = 0;
@@ -42,6 +43,7 @@
             this.input = GetComponent<HeroInput>();
             this.stateMap = new StateMap();
             this.doOnce = false;
+            this.attackHash = Animator.StringToHash("Attack");
             this.attackFinishedHash = Animator.StringToHash("AttackFinished");
             this.attackQueuedHash = Animator.StringToHash("AttackQueued");
             this.hitHash = Animator.StringToHash("Hit");
@@ -181,13 +183,12 @@
             
             if(this.weapons[this.CurrentWeapon].WeaponUpdate())
             {
-                
                 this.weapons[this.CurrentWeapon].CleanUp();
                 if (this.anim.GetBool(attackQueuedHash))
                 {
                     this.doOnce = false;
                     this.anim.SetBool(this.attackQueuedHash, false);
-                    this.anim.SetBool("Attack", true);
+                    this.anim.SetBool(this.attackHash, true);
                 }
                 else
                 {
