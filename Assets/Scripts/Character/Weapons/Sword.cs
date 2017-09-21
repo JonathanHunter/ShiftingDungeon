@@ -40,14 +40,15 @@
             Vector3 spritePosition;
             switch (comboCounter)
             {
-                //Swing left
+                //Lunge left
                 case 1:
                     this.spriteRenderer.flipY = true;
                     spritePosition = this.transform.GetChild(0).transform.localPosition;
                     spritePosition.y = -Mathf.Abs(spritePosition.y);
                     this.transform.GetChild(0).transform.localPosition = spritePosition;
+                    this.playerBody.AddForce(playerBody.transform.right * lungeForce);
                     break;
-                //Spin swing
+                //Lunge right
                 case 2:
                     this.spriteRenderer.flipY = false;
                     spritePosition = this.transform.GetChild(0).transform.localPosition;
@@ -77,12 +78,12 @@
             
             switch (comboCounter)
             {
-                //Swing left
+                //Lunge left
                 case 1:
-                    this.arc += Time.deltaTime * (this.swingSpeed + (50f * this.Level));
+                    this.arc += Time.deltaTime * (this.swingSpeed * 2 + (50f * this.Level));
                     this.transform.localRotation = Quaternion.Euler(0, 0, this.arc);
                     return this.arc >= this.arcLength;
-                //Lunge swing
+                //Lunge right
                 case 2:
                     this.arc += Time.deltaTime * (this.swingSpeed * 2 + (50f * this.Level));
                     this.transform.localRotation = Quaternion.Euler(0, 0, -this.arc);
