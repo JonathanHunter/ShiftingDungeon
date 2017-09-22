@@ -26,6 +26,9 @@
         [SerializeField]
         private int stairPoolSize = 1;
 
+        /// <summary> The sprites for holes of various edges. </summary>
+        public Sprite[] holeSprites;
+
         /// <summary> Singleton instance for this object pool. </summary>
         public static RoomPool Instance { get; private set; }
 
