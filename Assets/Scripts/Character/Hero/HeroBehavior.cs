@@ -88,7 +88,8 @@
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.tag == Enums.Tags.Enemy.ToString() ||
-                collision.gameObject.tag == Enums.Tags.EnemyWeapon.ToString())
+                collision.gameObject.tag == Enums.Tags.EnemyWeapon.ToString() ||
+                collision.gameObject.tag == Enums.Tags.Trap.ToString())
             {
                 if (this.CurrentState != Enums.HeroState.Hurt &&
                     collision.gameObject.GetComponent<IDamageDealer>() != null)
