@@ -12,8 +12,10 @@
 
         public enum Direction { None, Up, Down, Left, Right }
 
-        public enum Tags { Hero, Enemy, HeroWeapon, EnemyWeapon, DungeonHazard, Pickup }
+        public enum Tags { Hero, Enemy, HeroWeapon, EnemyWeapon, DungeonHazard, Pickup, Trap }
 
         public enum Layers { Hero, Enemy, HeroWeapon, EnemyWeapon, DungeonHazard, Dungeon, Pickup }
+
+        public enum Traps { Spike }
     }
 }
