@@ -22,6 +22,7 @@
         private HeroInput input = null;
         private StateMap stateMap = null;
         private bool doOnce = false;
+        private int attackHash = 0;
         private int attackFinishedHash = 0;
         private int hitHash = 0;
 
@@ -34,6 +35,8 @@
         /// <summary> The player's current state. </summary>
         public Enums.HeroState CurrentState { get; private set; }
 
+        public bool AttackQueued { get; internal set; }
+
         private void Start()
         {
             this.anim = GetComponent<Animator>();
@@ -41,6 +44,7 @@
             this.input = GetComponent<HeroInput>();
             this.stateMap = new StateMap();
             this.doOnce = false;
+            this.attackHash = Animator.StringToHash("Attack");
             this.attackFinishedHash = Animator.StringToHash("AttackFinished");
             this.hitHash = Animator.StringToHash("Hit");
             this.Health = this.maxHealth;
@@ -180,8 +184,17 @@
             
             if(this.weapons[this.CurrentWeapon].WeaponUpdate())
             {
-                anim.SetBool(this.attackFinishedHash, true);
                 this.weapons[this.CurrentWeapon].CleanUp();
+                if (this.AttackQueued)
+                {
+                    this.doOnce = false;
+                    this.anim.SetBool(attackHash, true);
+                    this.AttackQueued = false;
+                }
+                else
+                {
+                    anim.SetBool(this.attackFinishedHash, true);
+                }
             }
         }
 
