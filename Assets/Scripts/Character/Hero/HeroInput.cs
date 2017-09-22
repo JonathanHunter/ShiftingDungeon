@@ -49,7 +49,11 @@
             this.anim.SetBool(this.leftHash, this.Left);
             this.anim.SetBool(this.rigthHash, this.Right);
             this.anim.SetBool(this.moveHash, this.Up || this.Down || this.Left || this.Right);
-            this.anim.SetBool(this.attackHash, CustomInput.BoolHeld(CustomInput.UserInput.Attack));
+
+            if (behavior.CurrentState == Enums.HeroState.Attack && CustomInput.BoolFreshPress(CustomInput.UserInput.Attack))
+                this.behavior.AttackQueued = true;
+
+            this.anim.SetBool(this.attackHash, CustomInput.BoolFreshPress(CustomInput.UserInput.Attack));
             if (CustomInput.BoolFreshPress(CustomInput.UserInput.NextWeapon))
                 this.behavior.GoToNextWeapon();
             if (CustomInput.BoolFreshPress(CustomInput.UserInput.PrevWeapon))
