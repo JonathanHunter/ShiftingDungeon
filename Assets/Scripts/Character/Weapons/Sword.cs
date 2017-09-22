@@ -16,8 +16,16 @@
         [SerializeField]
         private ContactDamage damageDealer;
 
+        /// <summary> The numerical progression this weapon's combo </summary>
+        private int comboCounter = 0;
+        /// <summary> The maximum number of attacks in a weapon's combo </summary>
+        private int maxCombo;
         private bool doOnce;
         private float arc;
+        /// <summary> The last game time moment an attack was made </summary>
+        private float lastAttackTime;
+        /// <summary> The maximum time interval between attacks to continue the combo in milliseconds </summary>
+        private float comboInterval = 400f;
 
         private SpriteRenderer spriteRenderer;
         private Rigidbody2D playerBody;
@@ -32,6 +40,7 @@
 
         protected override void LocalReInit()
         {
+            this.comboCounter = Time.time - lastAttackTime <= comboInterval / 1000f ? (comboCounter + 1) % maxCombo : 0;
             this.transform.localRotation = Quaternion.identity;
             this.arc = 0;
             this.doOnce = false;
@@ -73,8 +82,6 @@
                 this.sfx.PlaySong(0);
                 this.doOnce = true;
             }
-
-
             
             switch (comboCounter)
             {
@@ -100,6 +107,7 @@
 
         protected override void LocalCleanUp()
         {
+            lastAttackTime = Time.time;
         }
     }
 }
