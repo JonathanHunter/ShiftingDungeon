@@ -9,6 +9,10 @@
         private HeroBehavior behavior = null;
         private int moveHash = 0;
         private int attackHash = 0;
+        private int upHash = 0;
+        private int downHash = 0;
+        private int leftHash = 0;
+        private int rigthHash = 0;
 
         /// <summary> True if up is pressed. </summary>
         public bool Up { get; private set; }
@@ -25,6 +29,10 @@
             this.behavior = GetComponent<HeroBehavior>();
             this.moveHash = Animator.StringToHash("Move");
             this.attackHash = Animator.StringToHash("Attack");
+            this.upHash = Animator.StringToHash("Up");
+            this.downHash = Animator.StringToHash("Down");
+            this.leftHash = Animator.StringToHash("Left");
+            this.rigthHash = Animator.StringToHash("Right");
         }
 
         private void Update()
@@ -36,6 +44,10 @@
             this.Down = CustomInput.BoolHeld(CustomInput.UserInput.Down);
             this.Left = CustomInput.BoolHeld(CustomInput.UserInput.Left);
             this.Right = CustomInput.BoolHeld(CustomInput.UserInput.Right);
+            this.anim.SetBool(this.upHash, this.Up);
+            this.anim.SetBool(this.downHash, this.Down);
+            this.anim.SetBool(this.leftHash, this.Left);
+            this.anim.SetBool(this.rigthHash, this.Right);
             this.anim.SetBool(this.moveHash, this.Up || this.Down || this.Left || this.Right);
             this.anim.SetBool(this.attackHash, CustomInput.BoolHeld(CustomInput.UserInput.Attack));
             if (CustomInput.BoolFreshPress(CustomInput.UserInput.NextWeapon))
