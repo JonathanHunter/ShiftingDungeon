@@ -22,7 +22,9 @@
         private HeroInput input = null;
         private StateMap stateMap = null;
         private bool doOnce = false;
+        private int attackHash = 0;
         private int attackFinishedHash = 0;
+        private int attackQueuedHash = 0;
         private int hitHash = 0;
 
         /// <summary> The player's max health. </summary>
@@ -41,7 +43,9 @@
             this.input = GetComponent<HeroInput>();
             this.stateMap = new StateMap();
             this.doOnce = false;
+            this.attackHash = Animator.StringToHash("Attack");
             this.attackFinishedHash = Animator.StringToHash("AttackFinished");
+            this.attackQueuedHash = Animator.StringToHash("AttackQueued");
             this.hitHash = Animator.StringToHash("Hit");
             this.Health = this.maxHealth;
             this.CurrentWeapon = 0;
@@ -180,8 +184,17 @@
             
             if(this.weapons[this.CurrentWeapon].WeaponUpdate())
             {
-                anim.SetBool(this.attackFinishedHash, true);
                 this.weapons[this.CurrentWeapon].CleanUp();
+                if (this.anim.GetBool(attackQueuedHash))
+                {
+                    this.doOnce = false;
+                    this.anim.SetBool(this.attackQueuedHash, false);
+                    this.anim.SetBool(this.attackHash, true);
+                }
+                else
+                {
+                    anim.SetBool(this.attackFinishedHash, true);
+                }
             }
         }
 

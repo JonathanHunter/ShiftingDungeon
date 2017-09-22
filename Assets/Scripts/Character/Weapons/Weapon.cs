@@ -11,7 +11,7 @@
         protected int comboCounter = 0;
 
         /// <summary> The maximum number of attacks in a weapon's combo </summary>
-        protected int maxCombo;
+        protected int maxCombo = 1;
 
         /// <summary> The maximum time interval between attacks to continue the combo in milliseconds </summary>
         protected float comboInterval = 400f;

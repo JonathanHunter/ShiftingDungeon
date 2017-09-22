@@ -9,6 +9,7 @@
         private HeroBehavior behavior = null;
         private int moveHash = 0;
         private int attackHash = 0;
+        private int attackQueuedHash = 0;
 
         /// <summary> True if up is pressed. </summary>
         public bool Up { get; private set; }
@@ -25,6 +26,7 @@
             this.behavior = GetComponent<HeroBehavior>();
             this.moveHash = Animator.StringToHash("Move");
             this.attackHash = Animator.StringToHash("Attack");
+            this.attackQueuedHash = Animator.StringToHash("AttackQueued");
         }
 
         private void Update()
@@ -37,7 +39,13 @@
             this.Left = CustomInput.BoolHeld(CustomInput.UserInput.Left);
             this.Right = CustomInput.BoolHeld(CustomInput.UserInput.Right);
             this.anim.SetBool(this.moveHash, this.Up || this.Down || this.Left || this.Right);
-            this.anim.SetBool(this.attackHash, CustomInput.BoolHeld(CustomInput.UserInput.Attack));
+
+
+            this.anim.SetBool(this.attackHash, CustomInput.BoolFreshPress(CustomInput.UserInput.Attack));
+            if (behavior.CurrentState == Enums.HeroState.Attack && CustomInput.BoolFreshPress(CustomInput.UserInput.Attack))
+                this.anim.SetBool(this.attackQueuedHash, true);
+
+            
             if (CustomInput.BoolFreshPress(CustomInput.UserInput.NextWeapon))
                 this.behavior.GoToNextWeapon();
             if (CustomInput.BoolFreshPress(CustomInput.UserInput.PrevWeapon))

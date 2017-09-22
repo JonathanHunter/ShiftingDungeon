@@ -8,7 +8,7 @@
         [SerializeField]
         private float swingSpeed = 400f;
         [SerializeField]
-        private float lungeForce = 200f;
+        private float lungeForce = 5f;
         [SerializeField]
         private float arcLength = 120f;
         [SerializeField]
@@ -46,7 +46,7 @@
                     spritePosition = this.transform.GetChild(0).transform.localPosition;
                     spritePosition.y = -Mathf.Abs(spritePosition.y);
                     this.transform.GetChild(0).transform.localPosition = spritePosition;
-                    this.playerBody.AddForce(playerBody.transform.right * lungeForce);
+                    this.playerBody.AddForce(playerBody.transform.right * lungeForce, ForceMode2D.Impulse);
                     break;
                 //Lunge right
                 case 2:
@@ -54,7 +54,7 @@
                     spritePosition = this.transform.GetChild(0).transform.localPosition;
                     spritePosition.y = Mathf.Abs(spritePosition.y);
                     this.transform.GetChild(0).transform.localPosition = spritePosition;
-                    this.playerBody.AddForce(playerBody.transform.right * lungeForce);
+                    this.playerBody.AddForce(playerBody.transform.right * lungeForce, ForceMode2D.Impulse);
                     break;
                 //Swing right
                 default:
@@ -80,12 +80,12 @@
             {
                 //Lunge left
                 case 1:
-                    this.arc += Time.deltaTime * (this.swingSpeed * 2 + (50f * this.Level));
+                    this.arc += Time.deltaTime * (this.swingSpeed + (50f * this.Level));
                     this.transform.localRotation = Quaternion.Euler(0, 0, this.arc);
                     return this.arc >= this.arcLength;
                 //Lunge right
                 case 2:
-                    this.arc += Time.deltaTime * (this.swingSpeed * 2 + (50f * this.Level));
+                    this.arc += Time.deltaTime * (this.swingSpeed + (50f * this.Level));
                     this.transform.localRotation = Quaternion.Euler(0, 0, -this.arc);
                     return this.arc >= this.arcLength;
                 //Swing right
