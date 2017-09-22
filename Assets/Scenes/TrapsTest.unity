@@ -608,7 +608,7 @@ MonoBehaviour:
   doorPoolSize: 4
   floorTemplet: {fileID: 114245824525636318, guid: 21f1cd634f9ce1a4bb0e7f328c5c6801,
     type: 2}
-  floorPoolSize: 255
+  floorPoolSize: 225
   wallTemplet: {fileID: 114584926879139566, guid: 55e5ad968e6c6374bacb8d8240ecda57,
     type: 2}
   wallPoolSize: 1
@@ -618,6 +618,23 @@ MonoBehaviour:
   stairTemplet: {fileID: 114194785172027990, guid: 6b25bb3e79a6f4343a7ae829fbf31d40,
     type: 2}
   stairPoolSize: 1
+  holeSprites:
+  - {fileID: 21300000, guid: 8389f0f01c07ce34fb63b60989c03dcd, type: 3}
+  - {fileID: 21300000, guid: b819ef362b2b04a429bc9e5bb617240b, type: 3}
+  - {fileID: 21300000, guid: 1c3157aecfae4c74a82a81b900930325, type: 3}
+  - {fileID: 21300000, guid: fa143a25aa07c4343af1fad6a935fd97, type: 3}
+  - {fileID: 21300000, guid: 7584918406261d847a16b2b27a723aeb, type: 3}
+  - {fileID: 21300000, guid: 5d84847c7a0eb7849a5875275efe8d29, type: 3}
+  - {fileID: 21300000, guid: 651d71e17eaec2547b89ead4b7af7866, type: 3}
+  - {fileID: 21300000, guid: 852119884b4eac1499331313142d09f4, type: 3}
+  - {fileID: 21300000, guid: cefccb3e0141b864baf17813ebbfb896, type: 3}
+  - {fileID: 21300000, guid: ea25b461f36bc1146b8b347e3d33dafb, type: 3}
+  - {fileID: 21300000, guid: 2483ffc716a022f43bf8766237b91233, type: 3}
+  - {fileID: 21300000, guid: 06c2b78b92a72b942aa2c66a6335cde4, type: 3}
+  - {fileID: 21300000, guid: f63f76bce3328ba4b8288215e901c07f, type: 3}
+  - {fileID: 21300000, guid: 5dd79a5242df0c64fb397a00082348dd, type: 3}
+  - {fileID: 21300000, guid: 5a542221e65ca0746971afe5a61096a7, type: 3}
+  - {fileID: 21300000, guid: b44a10d8f187b96488163b3ddfd798d0, type: 3}
 --- !u!114 &1001776144
 MonoBehaviour:
   m_ObjectHideFlags: 0
