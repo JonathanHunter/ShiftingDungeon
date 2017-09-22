@@ -246,6 +246,7 @@
                         hole.transform.position = new Vector3(-7 + r, 4 - c, Constants.ROOM_PART_Z_DEPTH);
                         hole.transform.rotation = Quaternion.identity;
                         hole.transform.localScale = Vector3.one;
+                        SetHoleImage(hole, r, c);
                         this.holes.Add(hole);
                     }
                 }
@@ -310,6 +311,25 @@
                     }
                 }
             }
+        }
+
+        private void SetHoleImage(GameObject hole, int r, int c)
+        {
+            bool up = c == 0 || this.Grid[r, c - 1] != 0;
+            bool down = c == this.Grid.GetLength(1) - 1 || this.Grid[r, c + 1] != 0;
+            bool left = r == 0 || this.Grid[r - 1, c] != 0;
+            bool right = r == this.Grid.GetLength(0) - 1 || this.Grid[r + 1, c] != 0;
+            int sprite = 0;
+            if (up)
+                sprite |= 0x8;
+            if (down)
+                sprite |= 0x4;
+            if (left)
+                sprite |= 0x2;
+            if (right)
+                sprite |= 0x1;
+
+            hole.GetComponent<SpriteRenderer>().sprite = RoomPool.Instance.holeSprites[sprite];
         }
     }
 }

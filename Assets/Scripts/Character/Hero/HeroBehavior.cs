@@ -83,7 +83,14 @@
             switch(this.CurrentState)
             {
                 case Enums.HeroState.Idle: Idle(); break;
-                case Enums.HeroState.Move: Move(); break;
+                case Enums.HeroState.North: Move(); break;
+                case Enums.HeroState.NorthEast: Move(); break;
+                case Enums.HeroState.East: Move(); break;
+                case Enums.HeroState.SouthEast: Move(); break;
+                case Enums.HeroState.South: Move(); break;
+                case Enums.HeroState.SouthWest: Move(); break;
+                case Enums.HeroState.West: Move(); break;
+                case Enums.HeroState.NorthWest: Move(); break;
                 case Enums.HeroState.Attack: Attack(); break;
                 case Enums.HeroState.Hurt: Hurt(); break;
             }
