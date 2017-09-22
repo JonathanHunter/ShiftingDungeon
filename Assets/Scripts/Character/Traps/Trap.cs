@@ -12,12 +12,13 @@
         [SerializeField]
         protected int damage = 0;
         [SerializeField]
-        protected Sprite[] sprites = new Sprite[0];
+        protected Sprite[] sprites = null;
         [SerializeField]
         private Enums.Traps type = Enums.Traps.Spike;
 
+        /// <summary> The type of this trap. </summary>
         public Enums.Traps Type { get { return this.type; } }
-        // Update is called once per frame
+
         private void Update()
         {
             if (Managers.GameState.Instance.IsPaused)
@@ -74,6 +75,7 @@
         {
             return this.damage;
         }
+
         protected abstract void LocalUpdate();
         protected abstract void LocalInitialize();
         protected abstract void LocalReInitialize();

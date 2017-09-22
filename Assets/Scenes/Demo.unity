@@ -533,6 +533,7 @@ GameObject:
   - component: {fileID: 1001776144}
   - component: {fileID: 1001776145}
   - component: {fileID: 1001776146}
+  - component: {fileID: 1001776147}
   m_Layer: 0
   m_Name: DungeonManager
   m_TagString: Untagged
@@ -659,6 +660,20 @@ MonoBehaviour:
   goldTemplet: {fileID: 114548095390915292, guid: 6d2e3ebd86735144cb18bb06fa993d36,
     type: 2}
   goldPoolSize: 10
+--- !u!114 &1001776147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1001776139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a9bd47355a5a644eaaab93c68488587, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trapPools:
+  - {fileID: 114415233566366564, guid: bde87224391efd341a59f2e698f2eaa3, type: 2}
+  trapPoolSizes: 03000000
 --- !u!1001 &1016406864
 Prefab:
   m_ObjectHideFlags: 0
@@ -1128,7 +1143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   song:
-  - {fileID: 8300000, guid: 337ac3bdda6b4a24c8227022995f1481, type: 3}
+  - {fileID: 8300000, guid: 210ef48e096e68e4aa99a90db9da1c9f, type: 3}
   audio: {fileID: 1564812970}
   SFX: 0
   playOnLoad: 1

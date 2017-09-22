@@ -49,7 +49,5 @@
             IPoolable entity = trap.GetComponent<IPoolable>();
             DeallocateEntity(trapPools[(int)type], entity);
         }
-
     }
-
 }
