@@ -302,7 +302,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -568,6 +568,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swingSpeed: 400
+  lungeForce: 5
   arcLength: 120
   sfx: {fileID: 114497856314377662}
   damageDealer: {fileID: 114230977575690038}
