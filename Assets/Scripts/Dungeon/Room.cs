@@ -36,6 +36,9 @@
         [SerializeField]
         internal Door rightDoor = null;
 
+        [SerializeField]
+        private Spawners.Spawner[] entitiesToSpawn;
+
         /// <summary> The index of this room in the map. </summary>
         public int Index { get; private set; }
         /// <summary> The map row this room is on. </summary>
@@ -104,6 +107,11 @@
             {
                 AllocateObjects();
             }
+            else
+            {
+                foreach (Spawners.Spawner spawner in this.entitiesToSpawn)
+                    spawner.Spawn();
+            }
 
             this.gameObject.SetActive(true);
             this.upperDoor.Init(this, this.Up);
@@ -141,6 +149,9 @@
             foreach (Trap t in this.traps)
                 TrapPool.Instance.ReturnTrap(t.Type, t.gameObject);
             this.traps.Clear();
+            
+            foreach (Spawners.Spawner spawner in this.entitiesToSpawn)
+                spawner.Return();
 
             this.gameObject.SetActive(false);
         }
