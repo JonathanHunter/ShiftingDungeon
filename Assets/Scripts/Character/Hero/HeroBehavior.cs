@@ -22,6 +22,7 @@
         private HeroInput input = null;
         private StateMap stateMap = null;
         private bool doOnce = false;
+        private int attackHash = 0;
         private int attackFinishedHash = 0;
         private int hitHash = 0;
 
@@ -34,6 +35,8 @@
         /// <summary> The player's current state. </summary>
         public Enums.HeroState CurrentState { get; private set; }
 
+        public bool AttackQueued { get; internal set; }
+
         private void Start()
         {
             this.anim = GetComponent<Animator>();
@@ -41,6 +44,7 @@
             this.input = GetComponent<HeroInput>();
             this.stateMap = new StateMap();
             this.doOnce = false;
+            this.attackHash = Animator.StringToHash("Attack");
             this.attackFinishedHash = Animator.StringToHash("AttackFinished");
             this.hitHash = Animator.StringToHash("Hit");
             this.Health = this.maxHealth;
@@ -79,7 +83,14 @@
             switch(this.CurrentState)
             {
                 case Enums.HeroState.Idle: Idle(); break;
-                case Enums.HeroState.Move: Move(); break;
+                case Enums.HeroState.North: Move(); break;
+                case Enums.HeroState.NorthEast: Move(); break;
+                case Enums.HeroState.East: Move(); break;
+                case Enums.HeroState.SouthEast: Move(); break;
+                case Enums.HeroState.South: Move(); break;
+                case Enums.HeroState.SouthWest: Move(); break;
+                case Enums.HeroState.West: Move(); break;
+                case Enums.HeroState.NorthWest: Move(); break;
                 case Enums.HeroState.Attack: Attack(); break;
                 case Enums.HeroState.Hurt: Hurt(); break;
             }
@@ -88,7 +99,8 @@
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.tag == Enums.Tags.Enemy.ToString() ||
-                collision.gameObject.tag == Enums.Tags.EnemyWeapon.ToString())
+                collision.gameObject.tag == Enums.Tags.EnemyWeapon.ToString() ||
+                collision.gameObject.tag == Enums.Tags.Trap.ToString())
             {
                 if (this.CurrentState != Enums.HeroState.Hurt &&
                     collision.gameObject.GetComponent<IDamageDealer>() != null)
@@ -179,8 +191,17 @@
             
             if(this.weapons[this.CurrentWeapon].WeaponUpdate())
             {
-                anim.SetBool(this.attackFinishedHash, true);
                 this.weapons[this.CurrentWeapon].CleanUp();
+                if (this.AttackQueued)
+                {
+                    this.doOnce = false;
+                    this.anim.SetBool(attackHash, true);
+                    this.AttackQueued = false;
+                }
+                else
+                {
+                    anim.SetBool(this.attackFinishedHash, true);
+                }
             }
         }
 
