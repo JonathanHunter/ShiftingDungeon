@@ -25,7 +25,7 @@
         /// <summary> The last game time moment an attack was made </summary>
         private float lastAttackTime;
         /// <summary> The maximum time interval between attacks to continue the combo in milliseconds </summary>
-        private float comboInterval = 400f;
+        private float comboInterval = 270f;
 
         private Transform child;
         private Rigidbody2D playerBody;
