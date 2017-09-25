@@ -19,7 +19,7 @@
         /// <summary> The type of this enemy. </summary>
         public Enums.EnemyTypes Type { get { return this.type; } }
         /// <summary> The health of this enemy. </summary>
-        public int Health { get; private set; }
+        public int Health { get; protected set; }
 
         private void Update()
         {
@@ -48,17 +48,19 @@
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        private void OnTriggerEnter2D(Collider2D collider)
         {
-            if(collision.collider.tag == Enums.Tags.HeroWeapon.ToString())
+            //Disabled for now. Not all enemies might take direct damage.
+            //BasicEnemy only takes damage when not stunned, so damage is handled in LocalCollision
+            /*if(collider.tag == Enums.Tags.HeroWeapon.ToString())
             {
-                if(collision.collider.gameObject.GetComponent<IDamageDealer>() != null)
+                if(collider.gameObject.GetComponent<IDamageDealer>() != null)
                 {
-                    this.Health -= collision.collider.gameObject.GetComponent<IDamageDealer>().GetDamage();
+                    this.Health -= collider.gameObject.GetComponent<IDamageDealer>().GetDamage();
                 }
-            }
+            }*/
 
-            LocalCollision(collision);
+            LocalCollision(collider);
         }
 
         public IPoolable SpawnCopy(int referenceIndex)
@@ -118,6 +120,6 @@
         /// <summary> Local Delete for subclasses. </summary>
         protected abstract void LocalDelete();
         /// <summary> Local Collision for subclasses. </summary>
-        protected abstract void LocalCollision(Collision2D collision);
+        protected abstract void LocalCollision(Collider2D collision);
     }
 }
