@@ -15,6 +15,10 @@
         [SerializeField]
         private float agroRange = 3;
         [SerializeField]
+        private float stunLength = 0.15f;
+        [SerializeField]
+        private float maxTimeBetweenHits = .8f;
+        [SerializeField]
         private SoundPlayer sfx;
 
         private Transform hero;
@@ -24,8 +28,10 @@
         private int timesWalked;
         private int hitHash;
 
+        private int numHits;
+        private float hitCounter;
         private float stunCounter;
-        private float stunLength = 0.15f;
+        
 
         protected override void LocalInitialize()
         {
@@ -44,6 +50,8 @@
 
         protected override void LocalUpdate()
         {
+            if ((this.hitCounter -= Time.deltaTime) <= 0)
+                this.numHits = 0;
             if ((this.stunCounter -= Time.deltaTime) > 0)
                 return;
             if (Vector2.Distance(this.hero.transform.position, this.transform.position) > this.agroRange)
@@ -80,19 +88,29 @@
                 return;
             if (collider.tag == Enums.Tags.HeroWeapon.ToString())
             {
-                //If on the 2nd combo attack, apply force
-                Sword playerSword = collider.GetComponentInParent<Sword>();
-                if (playerSword && playerSword.ComboCounter == 2)
+                numHits++;
+                if (numHits > 2)
                 {
-                    Vector2 position = this.transform.position;
-                    this.rgbdy.AddForce(collider.transform.parent.transform.parent.transform.right * 9f, ForceMode2D.Impulse);
+                    //Melee weapons
+                    if (collider.transform.parent)
+                        this.rgbdy.AddForce(collider.transform.parent.transform.parent.transform.right * 9f, ForceMode2D.Impulse);
+                    //Everything else
+                    else
+                        this.rgbdy.AddForce(collider.transform.right * 9f, ForceMode2D.Impulse);
+                    numHits = 0;
                 }
-
-                this.Health -= collider.gameObject.GetComponent<IDamageDealer>().GetDamage();
                 this.anim.SetTrigger(hitHash);
                 this.stunCounter = stunLength;
+                this.hitCounter = maxTimeBetweenHits;
                 sfx.PlaySongModPitch(0, .1f);
             }
+        }
+
+        protected override void TakeDamage(int damage)
+        {
+            if (this.stunCounter > 0)
+                return;
+            this.Health -= damage;
         }
 
         private void RotateToPlayer()

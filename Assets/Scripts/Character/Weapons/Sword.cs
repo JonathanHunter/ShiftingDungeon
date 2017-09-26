@@ -8,8 +8,6 @@
         [SerializeField]
         private float swingSpeed = 400f;
         [SerializeField]
-        private float lungeForce = 5f;
-        [SerializeField]
         private float arcLength = 120f;
         [SerializeField]
         private SoundPlayer sfx;
@@ -17,7 +15,7 @@
         private ContactDamage damageDealer;
 
         /// <summary> The numerical progression this weapon's combo </summary>
-        public int ComboCounter { get; private set; }
+        private int comboCounter;
         /// <summary> The maximum number of attacks in a weapon's combo </summary>
         private int maxCombo;
         private bool doOnce;
@@ -35,36 +33,27 @@
             this.playerBody = GetComponentInParent<Rigidbody2D>();
             this.child = this.transform.GetChild(0);
             this.arc = 0;
-            this.maxCombo = 3;
+            this.maxCombo = 2;
         }
 
         protected override void LocalReInit()
         {
-            this.ComboCounter = Time.time - lastAttackTime <= comboInterval / 1000f 
-                ? (ComboCounter) % (maxCombo - 1) + 1 : 0;
+            this.comboCounter = Time.time - lastAttackTime <= comboInterval / 1000f 
+                ? (comboCounter + 1) % maxCombo : 0;
             this.transform.localRotation = Quaternion.identity;
             this.arc = 0;
             this.doOnce = false;
             this.damageDealer.level = this.Level;
 
             Vector3 spritePosition;
-            switch (ComboCounter)
+            switch (comboCounter)
             {
-                //Lunge left
+                //Swing left
                 case 1:
                     this.child.localRotation = Quaternion.Euler(0, 0, 180);
                     spritePosition = this.transform.GetChild(0).transform.localPosition;
                     spritePosition.y = -Mathf.Abs(spritePosition.y);
                     this.transform.GetChild(0).transform.localPosition = spritePosition;
-                    //this.playerBody.AddForce(playerBody.transform.right * lungeForce, ForceMode2D.Impulse);
-                    break;
-                //Lunge right
-                case 2:
-                    this.child.localRotation = Quaternion.Euler(0, 0, 0);
-                    spritePosition = this.transform.GetChild(0).transform.localPosition;
-                    spritePosition.y = Mathf.Abs(spritePosition.y);
-                    this.transform.GetChild(0).transform.localPosition = spritePosition;
-                    //this.playerBody.AddForce(playerBody.transform.right * lungeForce, ForceMode2D.Impulse);
                     break;
                 //Swing right
                 default:
@@ -84,17 +73,12 @@
                 this.doOnce = true;
             }
             
-            switch (ComboCounter)
+            switch (comboCounter)
             {
-                //Lunge left
+                //Swing left
                 case 1:
                     this.arc += Time.deltaTime * (this.swingSpeed + (50f * this.Level));
                     this.transform.localRotation = Quaternion.Euler(0, 0, this.arc);
-                    return this.arc >= this.arcLength;
-                //Lunge right
-                case 2:
-                    this.arc += Time.deltaTime * (this.swingSpeed + (50f * this.Level));
-                    this.transform.localRotation = Quaternion.Euler(0, 0, -this.arc);
                     return this.arc >= this.arcLength;
                 //Swing right
                 default:

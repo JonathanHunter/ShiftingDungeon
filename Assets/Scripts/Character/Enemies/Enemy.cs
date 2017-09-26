@@ -50,15 +50,13 @@
 
         private void OnTriggerEnter2D(Collider2D collider)
         {
-            //Disabled for now. Not all enemies might take direct damage.
-            //BasicEnemy only takes damage when not stunned, so damage is handled in LocalCollision
-            /*if(collider.tag == Enums.Tags.HeroWeapon.ToString())
+            if(collider.tag == Enums.Tags.HeroWeapon.ToString())
             {
                 if(collider.gameObject.GetComponent<IDamageDealer>() != null)
                 {
-                    this.Health -= collider.gameObject.GetComponent<IDamageDealer>().GetDamage();
+                    TakeDamage(collider.GetComponent<IDamageDealer>().GetDamage());
                 }
-            }*/
+            }
 
             LocalCollision(collider);
         }
@@ -121,5 +119,7 @@
         protected abstract void LocalDelete();
         /// <summary> Local Collision for subclasses. </summary>
         protected abstract void LocalCollision(Collider2D collision);
+        /// <summary> Take Damage for subclasses. </summary>
+        protected abstract void TakeDamage(int damage);
     }
 }
