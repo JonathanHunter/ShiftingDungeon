@@ -2,6 +2,7 @@
 {
     using UnityEngine;
     using Util;
+    using Weapons;
 
     public class BasicEnemy : Enemy
     {
@@ -14,27 +15,45 @@
         [SerializeField]
         private float agroRange = 3;
         [SerializeField]
+        private float stunLength = 0.15f;
+        [SerializeField]
+        private float maxTimeBetweenHits = .8f;
+        [SerializeField]
         private SoundPlayer sfx;
 
         private Transform hero;
         private Rigidbody2D rgbdy;
+        private Animator anim;
         private float walkCounter;
         private int timesWalked;
+        private int hitHash;
+
+        private int numHits;
+        private float hitCounter;
+        private float stunCounter;
+        
 
         protected override void LocalInitialize()
         {
+            
         }
 
         protected override void LocalReInitialize()
         {
             this.hero = Managers.DungeonManager.GetHero().transform;
             this.rgbdy = this.gameObject.GetComponent<Rigidbody2D>();
+            this.anim = this.gameObject.GetComponent<Animator>();
             this.walkCounter = Random.Range(0, this.walkTime + 1);
             this.timesWalked = 0;
+            this.hitHash = Animator.StringToHash("Hit");
         }
 
         protected override void LocalUpdate()
         {
+            if ((this.hitCounter -= Time.deltaTime) <= 0)
+                this.numHits = 0;
+            if ((this.stunCounter -= Time.deltaTime) > 0)
+                return;
             if (Vector2.Distance(this.hero.transform.position, this.transform.position) > this.agroRange)
                 return;
 
@@ -63,14 +82,35 @@
         {
         }
 
-        protected override void LocalCollision(Collision2D collision)
+        protected override void LocalCollision(Collider2D collider)
         {
-            if (collision.collider.tag == Enums.Tags.HeroWeapon.ToString())
+            if (this.stunCounter > 0)
+                return;
+            if (collider.tag == Enums.Tags.HeroWeapon.ToString())
             {
-                Vector2 position = this.transform.position;
-                this.rgbdy.AddForce((position - collision.contacts[0].point).normalized * 5f, ForceMode2D.Impulse);
-                sfx.PlaySong(0);
+                numHits++;
+                if (numHits > 2)
+                {
+                    //Melee weapons
+                    if (collider.transform.parent)
+                        this.rgbdy.AddForce(collider.transform.parent.transform.parent.transform.right * 9f, ForceMode2D.Impulse);
+                    //Everything else
+                    else
+                        this.rgbdy.AddForce(collider.transform.right * 9f, ForceMode2D.Impulse);
+                    numHits = 0;
+                }
+                this.anim.SetTrigger(hitHash);
+                this.stunCounter = stunLength;
+                this.hitCounter = maxTimeBetweenHits;
+                sfx.PlaySongModPitch(0, .1f);
             }
+        }
+
+        protected override void TakeDamage(int damage)
+        {
+            if (this.stunCounter > 0)
+                return;
+            this.Health -= damage;
         }
 
         private void RotateToPlayer()
