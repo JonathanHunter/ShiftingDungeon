@@ -14,6 +14,8 @@
         private float upTime = 3f;
         [SerializeField]
         private float downTime = 6f;
+        [SerializeField]
+        private float upDownTimeMaxVariation = 1f;
 
         //TODO Add sfx
 
@@ -61,8 +63,8 @@
                 }
 
                 if (activeTime <= 0f || inactiveTime <= 0f) {
-                    activeTime = upTime;
-                    inactiveTime = downTime;
+                    activeTime = upTime + Random.Range(-upDownTimeMaxVariation, upDownTimeMaxVariation);
+                    inactiveTime = downTime + Random.Range(-upDownTimeMaxVariation, upDownTimeMaxVariation);
                     active = !active;
                 }
             }

@@ -85,10 +85,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1f40c62896fa5634da82b30b987c00bb, type: 3}
   type: 1
   slowDuration: 5
-  slowedPlayerSpeedPercentage: 0.5
+  slowedPlayerSpeedPercentage: 0.35
   isAlwaysActive: 0
   upTime: 5
   downTime: 2.5
+  upDownTimeMaxVariation: 1
 --- !u!212 &212153210445338562
 SpriteRenderer:
   m_ObjectHideFlags: 1
