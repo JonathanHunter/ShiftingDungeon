@@ -1,8 +1,10 @@
 ﻿namespace ShiftingDungeon.Character.Hero
 {
     using System.Collections.Generic;
+    using System.Text;
     using UnityEngine;
     using Util;
+    using Util.Attributes;
 
     public class StateMap
     {
@@ -35,7 +37,12 @@
         /// <returns> The hash. </returns>
         public int GetPathHash(Enums.HeroState state)
         {
-            return Animator.StringToHash("Base Layer." + state.ToString());
+            StateMapAttribute metadata = (StateMapAttribute)typeof(Enums.HeroState).GetField(state.ToString()).GetCustomAttributes(false)[0];
+            StringBuilder path = new StringBuilder(metadata.Layer + ".");
+            foreach (string machine in metadata.StateMachines)
+                path.Append(machine + ".");
+            path.Append(state.ToString());
+            return Animator.StringToHash(path.ToString());
         }
 
         /// <summary> Returns the AnimatorState enum corresponding to the current state of the provided animator. </summary>
