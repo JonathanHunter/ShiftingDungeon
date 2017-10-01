@@ -58,6 +58,8 @@
                 this.behavior.GoToNextWeapon();
             if (CustomInput.BoolFreshPress(CustomInput.UserInput.PrevWeapon))
                 this.behavior.GoToPreviousWeapon();
+            if (CustomInput.BoolFreshPress(CustomInput.UserInput.Target))
+                this.behavior.TargetEnemy();
         }
     }
 }

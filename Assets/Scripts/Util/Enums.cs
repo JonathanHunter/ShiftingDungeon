@@ -52,7 +52,7 @@
 
         public enum Tags { Hero, Enemy, HeroWeapon, EnemyWeapon, DungeonHazard, Pickup, Trap }
 
-        public enum Layers { Hero, Enemy, HeroWeapon, EnemyWeapon, DungeonHazard, Dungeon, Pickup }
+        public enum Layers { Hero = 8, Enemy = 9, HeroWeapon = 10, EnemyWeapon = 11, DungeonHazard = 12, Dungeon = 13, Pickup = 14 }
 
         public enum Traps { Spike }
     }
