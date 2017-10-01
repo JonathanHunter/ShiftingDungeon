@@ -9,6 +9,8 @@
         [SerializeField]
         private float slowedPlayerSpeedPercentage = 0.5f;
         [SerializeField]
+        private bool isAlwaysActive = true;
+        [SerializeField]
         private float upTime = 3f;
         [SerializeField]
         private float downTime = 6f;
@@ -49,17 +51,21 @@
 
         protected override void LocalUpdate() {
             this.collider2d.enabled = active;
-            /*sprite.sprite = active ? sprites[1] : sprites[0];
-            if (active)
-                activeTime -= Time.deltaTime;
-            else
-                inactiveTime -= Time.deltaTime;
+            sprite.sprite = active ? sprites[1] : sprites[0];
 
-            if (activeTime <= 0f || inactiveTime <= 0f) {
-                activeTime = upTime;
-                inactiveTime = downTime;
-                //active = !active;
-            }*/
+            if (!isAlwaysActive) {
+                if (active) {
+                    activeTime -= Time.deltaTime;
+                } else {
+                    inactiveTime -= Time.deltaTime;
+                }
+
+                if (activeTime <= 0f || inactiveTime <= 0f) {
+                    activeTime = upTime;
+                    inactiveTime = downTime;
+                    active = !active;
+                }
+            }
         }
     }
 }

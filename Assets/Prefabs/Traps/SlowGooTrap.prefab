@@ -80,12 +80,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   referenceIndex: 1
   damage: 0
-  sprites: []
+  sprites:
+  - {fileID: 21300000, guid: 6d23574acb0468c40aaa8e6c7c009e61, type: 3}
+  - {fileID: 21300000, guid: 1f40c62896fa5634da82b30b987c00bb, type: 3}
   type: 1
   slowDuration: 5
   slowedPlayerSpeedPercentage: 0.5
-  upTime: 3
-  downTime: 6
+  isAlwaysActive: 0
+  upTime: 5
+  downTime: 2.5
 --- !u!212 &212153210445338562
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -118,8 +121,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8c022a5d561297e448011e8ce020abf0, type: 3}
-  m_Color: {r: 1, g: 0.30882353, b: 0.30882353, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 1f40c62896fa5634da82b30b987c00bb, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
