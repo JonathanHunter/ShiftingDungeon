@@ -54,6 +54,6 @@
 
         public enum Layers { Hero, Enemy, HeroWeapon, EnemyWeapon, DungeonHazard, Dungeon, Pickup }
 
-        public enum Traps { Spike }
+        public enum Traps { Spike, SlowGoo }
     }
 }

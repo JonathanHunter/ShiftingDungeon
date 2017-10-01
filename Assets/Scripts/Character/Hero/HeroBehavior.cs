@@ -22,9 +22,12 @@
         private HeroInput input = null;
         private StateMap stateMap = null;
         private bool doOnce = false;
+        private bool isSpeedAltered = false;
         private int attackHash = 0;
         private int attackFinishedHash = 0;
         private int hitHash = 0;
+        private float alteredSpeedPercentage = 0;
+        private float alteredSpeedDuration = 0;
 
         /// <summary> The player's max health. </summary>
         public int MaxHealth { get { return this.maxHealth; } }
@@ -176,8 +179,18 @@
             if(dir != Vector2.zero)
                 this.transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, dir));
             Vector2 right = this.transform.right;
-            Vector2 speed = this.rgbdy.velocity + right * this.acceleration;
-            if (speed.magnitude < this.maxSpeed)
+
+            float currentMaxSpeed = maxSpeed;
+            float currentAcceleration = this.acceleration;
+            if (isSpeedAltered) {
+                currentMaxSpeed *= alteredSpeedPercentage;
+                currentAcceleration *= alteredSpeedPercentage;
+                alteredSpeedDuration -= Time.deltaTime;
+                isSpeedAltered = alteredSpeedDuration > 0;
+            }
+
+            Vector2 speed = this.rgbdy.velocity + right * currentAcceleration;
+            if (speed.magnitude < currentMaxSpeed)
                 this.rgbdy.velocity = speed;
         }
 
@@ -212,6 +225,18 @@
                 this.weapons[this.CurrentWeapon].CleanUp();
                 this.doOnce = true;
             }
+        }
+
+        /// <summary>
+        /// Reduces the player's max speed and acceleration to the specified amount, for the sepcified duration
+        /// </summary>
+        /// <param name="newSpeedPercentage">What percent speed the player should maintain (e.g., 0.8 would result in the player moving at 80% their normal speed)</param>
+        /// <param name="duration">How long (in seconds) the slow effect lasts</param>
+        public void AlterPlayerMaxSpeed(float newSpeedPercentage, float duration) {
+            alteredSpeedPercentage = newSpeedPercentage;
+            alteredSpeedDuration = duration;
+
+            isSpeedAltered = true;
         }
     }
 }
