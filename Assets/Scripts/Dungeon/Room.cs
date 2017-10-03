@@ -298,34 +298,31 @@
         private void AllocateTraps()
         {
             List<Vector2> positions = new List<Vector2>();
-            if (Random.Range(0f, 1f) < .4f)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    if (Random.Range(0f, 1f) < .6f)
-                    {
-                        bool placed = false;
-                        int tries = 0;
-                        while (!placed && tries < 100)
-                        {
-                            int r = Random.Range(1, 15);
-                            int c = Random.Range(1, 15);
-                            Vector3 position = new Vector3(-7 + r, 4 - c, Constants.ROOM_PART_Z_DEPTH - 1);
-                            if (this.Grid[r, c] == 1 && !positions.Contains(position))
-                            {
-                                GameObject trap = TrapPool.Instance.GetTrap(Enums.Traps.Spike);
-                                trap.transform.position = position;
-                                trap.transform.rotation = Quaternion.identity;
-                                this.traps.Add(trap.GetComponent<Trap>());
-                                positions.Add(position);
-                                placed = true;
-                            }
+                for (int i = 0; i < System.Enum.GetNames(typeof(Enums.Traps)).Length; i++) {
+                    if (Random.Range(0f, 1f) < .4f) {
+                        for (int j = 0; j < 3; j++) {
+                            if (Random.Range(0f, 1f) < .6f) {
+                                bool placed = false;
+                                int tries = 0;
+                                while (!placed && tries < 100) {
+                                    int r = Random.Range(1, 15);
+                                    int c = Random.Range(1, 15);
+                                    Vector3 position = new Vector3(-7 + r, 4 - c, Constants.ROOM_PART_Z_DEPTH - 1);
+                                    if (this.Grid[r, c] == 1 && !positions.Contains(position)) {
+                                        GameObject trap = TrapPool.Instance.GetTrap((Enums.Traps) i);
+                                        trap.transform.position = position;
+                                        trap.transform.rotation = Quaternion.identity;
+                                        this.traps.Add(trap.GetComponent<Trap>());
+                                        positions.Add(position);
+                                        placed = true;
+                                    }
 
-                            tries++;
+                                    tries++;
+                                }
+                            }
                         }
                     }
                 }
-            }
         }
 
         private void SetHoleImage(GameObject hole, int r, int c)
