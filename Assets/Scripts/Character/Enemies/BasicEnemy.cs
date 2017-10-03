@@ -7,13 +7,13 @@
     public class BasicEnemy : Enemy
     {
         [SerializeField]
-        private float walkTime = 1;
+        protected float walkTime = 1;
         [SerializeField]
-        private int walkCount = 3;
+        protected int walkCount = 3;
         [SerializeField]
-        private float walkSpeed = 2;
+        protected float walkSpeed = 2;
         [SerializeField]
-        private float agroRange = 3;
+        protected float agroRange = 3;
         [SerializeField]
         private float stunLength = 0.15f;
         [SerializeField]
@@ -21,16 +21,16 @@
         [SerializeField]
         private SoundPlayer sfx;
 
-        private Transform hero;
-        private Rigidbody2D rgbdy;
+        protected Transform hero;
+        protected Rigidbody2D rgbdy;
         private Animator anim;
-        private float walkCounter;
-        private int timesWalked;
+        protected float walkCounter;
+        protected int timesWalked;
         private int hitHash;
 
-        private int numHits;
-        private float hitCounter;
-        private float stunCounter;
+        protected int numHits;
+        protected float hitCounter;
+        protected float stunCounter;
         
 
         protected override void LocalInitialize()
@@ -113,7 +113,7 @@
             this.Health -= damage;
         }
 
-        private void RotateToPlayer()
+        protected void RotateToPlayer()
         {
             Vector2 towards = this.hero.transform.position - this.transform.position;
             this.transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, towards));

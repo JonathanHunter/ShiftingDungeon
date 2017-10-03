@@ -44,9 +44,9 @@
             length
         }
 
-        public enum BulletTypes { HeroBasic }
+        public enum BulletTypes { HeroBasic, EnemyBasic }
 
-        public enum EnemyTypes { Basic }
+        public enum EnemyTypes { Basic, Shooter }
 
         public enum Direction { None, Up, Down, Left, Right }
 
