@@ -14,13 +14,13 @@
         /// <summary> This is used to define user inputs, changed to add or remove buttons. </summary>
         public enum UserInput
         {
-            Up, Down, Left, Right, Attack, NextWeapon, PrevWeapon, Pause, Accept, Cancel
+            Up, Down, Left, Right, Attack, NextWeapon, PrevWeapon, Pause, Accept, Cancel, Target
         }
 
         /// <summary> The file to save the bindings to. </summary>
         private const string filename = "config.xml";
 
-        /// <summary> This is used to define whether to return a positive or negative value for a specfic raw input. </summary>
+        /// <summary> This is used to define whether to return a positive or negative value for a specific raw input. </summary>
         public static void RawSign()
         {
             if (rawSign == null)
@@ -36,6 +36,7 @@
             rawSign[(int)UserInput.Pause] = 1;
             rawSign[(int)UserInput.Accept] = 1;
             rawSign[(int)UserInput.Cancel] = 1;
+            rawSign[(int)UserInput.Target] = 1;
         }
 
         /// <summary> 
@@ -58,6 +59,7 @@
             keyboard[(int)UserInput.Pause, 0] = KeyCode.Space;
             keyboard[(int)UserInput.Accept, 0] = KeyCode.Return;
             keyboard[(int)UserInput.Cancel, 0] = KeyCode.Escape;
+            keyboard[(int)UserInput.Target, 0] = KeyCode.K;
         }
 
         /// <summary> 
@@ -80,6 +82,7 @@
             gamepad[(int)UserInput.Pause, 0] = START;
             gamepad[(int)UserInput.Accept, 0] = A;
             gamepad[(int)UserInput.Cancel, 0] = B;
+            gamepad[(int)UserInput.Cancel, 0] = RIGHT_TRIGGER;
         }
 
         public static float MouseX
@@ -144,7 +147,7 @@
         /// <summary> Constant used to define a possible controller button. </summary>
         public const string RIGHT_STICK_CLICK = "Right Stick Click";
 
-        //  Note all of the following strings should not be edited and should match the ones in Unity's innput manager for the project
+        //  Note all of the following strings should not be edited and should match the ones in Unity's input manager for the project
 
         /// <summary> Constant used to access controller data via Unity's innput manager. </summary>
         private const string LEFT_OSX_TRIGGER = "LeftOSXTrigger";
