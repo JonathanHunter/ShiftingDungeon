@@ -558,7 +558,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPools:
   - {fileID: 114612294171028128, guid: 2b12646ab889a7744bfc7bb714a9d7af, type: 2}
-  enemyPoolSizes: 04000000
+  - {fileID: 114226745421153134, guid: 7e935a26fae7b9a43b8ad1104687756a, type: 2}
+  enemyPoolSizes: 0400000004000000
 --- !u!114 &832579320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -631,6 +632,7 @@ MonoBehaviour:
     type: 2}
   roomTemplet: {fileID: 114625670064248802, guid: abf6545948cadad4f9704112e77af265,
     type: 2}
+  procEnemies: 0000000001000000
 --- !u!114 &832579323
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using UnityEngine;
+    using Util;
 
     // Dielectric Breakdown Model
     public class DBM
@@ -44,7 +45,7 @@
         /// <summary> Converts the DBM cell pattern into a list of rooms. </summary>
         /// <param name="roomTemplet"> The templet Room GameObject used for instantiation. </param>
         /// <returns> The DBM pattern as an array of rooms. </returns>
-        public Room[] GetPatternAsRooms(Room roomTemplet)
+        public Room[] GetPatternAsRooms(Room roomTemplet, Enums.EnemyTypes[] procEnemies)
         {
             Room[] rooms = new Room[pattern.Count];
             for(int i = 0; i < rooms.Length; i++)
@@ -57,6 +58,7 @@
                 room.Row = pattern[i].Row;
                 room.Col = pattern[i].Col;
                 room.IsGenerated = true;
+                room.proceduralEnemies = procEnemies;
                 rooms[i] = room;
             }
 
