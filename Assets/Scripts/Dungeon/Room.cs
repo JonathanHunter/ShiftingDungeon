@@ -241,6 +241,7 @@
                         floor.transform.position = new Vector3(-7 + r, 4 - c, Constants.ROOM_PART_Z_DEPTH);
                         floor.transform.rotation = Quaternion.identity;
                         floor.transform.localScale = Vector3.one;
+                        SetFloorImage(floor, r, c);
                         this.floors.Add(floor);
                     }
                     else if(this.Grid[r, c] == 2)
@@ -319,6 +320,25 @@
                         }
                     }
                 }
+        }
+
+        private void SetFloorImage(GameObject floor, int r, int c)
+        {
+            bool up = c == 0 || this.Grid[r, c - 1] != 1;
+            bool down = c == this.Grid.GetLength(1) - 1 || this.Grid[r, c + 1] != 1;
+            bool left = r == 0 || this.Grid[r - 1, c] != 1;
+            bool right = r == this.Grid.GetLength(0) - 1 || this.Grid[r + 1, c] != 1;
+            int sprite = 0;
+            if (up)
+                sprite |= 0x8;
+            if (down)
+                sprite |= 0x4;
+            if (left)
+                sprite |= 0x2;
+            if (right)
+                sprite |= 0x1;
+
+            floor.GetComponent<SpriteRenderer>().sprite = RoomPool.Instance.floorSprites[sprite];
         }
 
         private void SetHoleImage(GameObject hole, int r, int c)
