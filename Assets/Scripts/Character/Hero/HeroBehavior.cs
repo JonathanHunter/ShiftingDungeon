@@ -1,5 +1,7 @@
 ﻿namespace ShiftingDungeon.Character.Hero
 {
+    using System;
+    using System.Collections.Generic;
     using UnityEngine;
     using Util;
     using Weapons;
@@ -12,6 +14,9 @@
         private float acceleration = 1;
         [SerializeField]
         private float maxSpeed = 5;
+        /// <summary> The range of the player's enemy-targeting ability. </summary>
+        [SerializeField]
+        private float targetRange = 7.5f;
         [SerializeField]
         private Weapon[] weapons = null;
         [SerializeField]
@@ -22,9 +27,18 @@
         private HeroInput input = null;
         private StateMap stateMap = null;
         private bool doOnce = false;
+        private bool isSpeedAltered = false;
         private int attackHash = 0;
         private int attackFinishedHash = 0;
         private int hitHash = 0;
+        private float alteredSpeedPercentage = 0;
+        private float alteredSpeedDuration = 0;
+
+        /// <summary> The index of the last target the player locked onto. </summary>
+        private int targetIndex = 0;
+        /// <summary> A crosshair sprite for indicating the enemy target. </summary>
+        [SerializeField]
+        private Crosshair crosshair;
 
         /// <summary> The player's max health. </summary>
         public int MaxHealth { get { return this.maxHealth; } }
@@ -50,6 +64,7 @@
             this.Health = this.maxHealth;
             this.CurrentWeapon = 0;
             this.CurrentState = Enums.HeroState.Idle;
+            this.crosshair = Instantiate(crosshair);
 
             if(HeroData.Instance.weaponLevels == null || HeroData.Instance.weaponLevels.Length == 0)
             {
@@ -150,6 +165,36 @@
             this.weapons[this.CurrentWeapon].Level = HeroData.Instance.weaponLevels[this.CurrentWeapon];
         }
 
+        /// <summary>
+        /// Faces the next enemy in the room according to order of distance.
+        /// Faces the nearest enemy if the target array needs to be reset.
+        /// </summary>
+        public void TargetEnemy()
+        {
+            if (this.CurrentState != Enums.HeroState.Attack)
+            {
+                Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, 5, 1 << (int) Enums.Layers.Enemy);
+                // Sort targets by ascending order of distance from the player.
+                Array.Sort(targets, (t1, t2) => 
+                           Comparer<float>.Default.Compare(Vector2.Distance(t1.transform.position, transform.position),
+                                                           Vector2.Distance(t2.transform.position, transform.position)));
+                if (targetIndex >= targets.Length)
+                    targetIndex = 0;
+                if (targets.Length == 0)
+                {
+                    sfx.PlaySong(2);
+                }
+                else
+                {
+                    // TODO Account for walls that cannot be shot through once they are added.
+                    Vector3 targetPos = targets[targetIndex++].transform.position;
+                    transform.Rotate(Vector3.forward, Vector2.SignedAngle(transform.right, targetPos - transform.position));
+                    crosshair.Target(targetPos);
+                    sfx.PlaySong(1);
+                }
+            }
+        }
+
         private void Idle()
         {
         }
@@ -176,9 +221,22 @@
             if(dir != Vector2.zero)
                 this.transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, dir));
             Vector2 right = this.transform.right;
-            Vector2 speed = this.rgbdy.velocity + right * this.acceleration;
-            if (speed.magnitude < this.maxSpeed)
+
+            float currentMaxSpeed = maxSpeed;
+            float currentAcceleration = this.acceleration;
+            if (isSpeedAltered) {
+                currentMaxSpeed *= alteredSpeedPercentage;
+                currentAcceleration *= alteredSpeedPercentage;
+                alteredSpeedDuration -= Time.deltaTime;
+                isSpeedAltered = alteredSpeedDuration > 0;
+            }
+
+            Vector2 speed = this.rgbdy.velocity + right * currentAcceleration;
+            if (speed.magnitude < currentMaxSpeed)
                 this.rgbdy.velocity = speed;
+
+            // Hero moved, so go back to targeting the closest enemy.
+            targetIndex = 0;
         }
 
         private void Attack()
@@ -212,6 +270,20 @@
                 this.weapons[this.CurrentWeapon].CleanUp();
                 this.doOnce = true;
             }
+
+            targetIndex = 0;
+        }
+
+        /// <summary>
+        /// Reduces the player's max speed and acceleration to the specified amount, for the sepcified duration
+        /// </summary>
+        /// <param name="newSpeedPercentage">What percent speed the player should maintain (e.g., 0.8 would result in the player moving at 80% their normal speed)</param>
+        /// <param name="duration">How long (in seconds) the slow effect lasts</param>
+        public void AlterPlayerMaxSpeed(float newSpeedPercentage, float duration) {
+            alteredSpeedPercentage = newSpeedPercentage;
+            alteredSpeedDuration = duration;
+
+            isSpeedAltered = true;
         }
     }
 }
