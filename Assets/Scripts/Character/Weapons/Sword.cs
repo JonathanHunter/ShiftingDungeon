@@ -26,11 +26,9 @@
         private float comboInterval = 270f;
 
         private Transform child;
-        private Rigidbody2D playerBody;
 
         protected override void LocalInit()
         {
-            this.playerBody = GetComponentInParent<Rigidbody2D>();
             this.child = this.transform.GetChild(0);
             this.arc = 0;
             this.maxCombo = 2;
