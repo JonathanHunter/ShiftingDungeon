@@ -10,34 +10,13 @@
                 StateMachines = new string[] {})]
             Idle,
             [Attributes.StateMap(Layer = "Base Layer",
-                StateMachines = new string[] { "Movement" })]
-            North,
+                StateMachines = new string[] {})]
+            Move,
             [Attributes.StateMap(Layer = "Base Layer",
-                StateMachines = new string[] { "Movement" })]
-            NorthEast,
-            [Attributes.StateMap(Layer = "Base Layer",
-                StateMachines = new string[] { "Movement" })]
-            East,
-            [Attributes.StateMap(Layer = "Base Layer",
-                StateMachines = new string[] { "Movement" })]
-            SouthEast,
-            [Attributes.StateMap(Layer = "Base Layer",
-                StateMachines = new string[] { "Movement" })]
-            South,
-            [Attributes.StateMap(Layer = "Base Layer",
-                StateMachines = new string[] { "Movement" })]
-            SouthWest,
-            [Attributes.StateMap(Layer = "Base Layer",
-                StateMachines = new string[] { "Movement" })]
-            West,
-            [Attributes.StateMap(Layer = "Base Layer",
-                StateMachines = new string[] { "Movement" })]
-            NorthWest,
-            [Attributes.StateMap(Layer = "Base Layer",
-                StateMachines = new string[] { })]
+                StateMachines = new string[] {})]
             Attack,
             [Attributes.StateMap(Layer = "Base Layer",
-                StateMachines = new string[] { })]
+                StateMachines = new string[] {})]
             Hurt,
             [Attributes.StateMap(Layer = "Base Layer",
                 StateMachines = new string[] {})]

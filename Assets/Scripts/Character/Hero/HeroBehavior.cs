@@ -17,10 +17,17 @@
         /// <summary> The range of the player's enemy-targeting ability. </summary>
         [SerializeField]
         private float targetRange = 7.5f;
+        /// <summary> A crosshair sprite for indicating the enemy target. </summary>
+        [SerializeField]
+        private Crosshair crosshair;
         [SerializeField]
         private Weapon[] weapons = null;
         [SerializeField]
         private SoundPlayer sfx;
+        [SerializeField]
+        private Transform weaponHolder;
+        [SerializeField]
+        private AnimationClip[] MovementClips;
 
         private Animator anim = null;
         private Rigidbody2D rgbdy = null;
@@ -33,12 +40,10 @@
         private int hitHash = 0;
         private float alteredSpeedPercentage = 0;
         private float alteredSpeedDuration = 0;
-
         /// <summary> The index of the last target the player locked onto. </summary>
         private int targetIndex = 0;
-        /// <summary> A crosshair sprite for indicating the enemy target. </summary>
-        [SerializeField]
-        private Crosshair crosshair;
+        private AnimationOverrideHandler animOverride;
+        private int currentClipSet;
 
         /// <summary> The player's max health. </summary>
         public int MaxHealth { get { return this.maxHealth; } }
@@ -48,12 +53,13 @@
         public int CurrentWeapon { get; private set; }
         /// <summary> The player's current state. </summary>
         public Enums.HeroState CurrentState { get; private set; }
-
+        /// <summary> True if the player has an attack queued. </summary>
         public bool AttackQueued { get; internal set; }
 
         private void Start()
         {
             this.anim = GetComponent<Animator>();
+            this.animOverride = new AnimationOverrideHandler(this.anim);
             this.rgbdy = GetComponent<Rigidbody2D>();
             this.input = GetComponent<HeroInput>();
             this.stateMap = new StateMap();
@@ -65,6 +71,7 @@
             this.CurrentWeapon = 0;
             this.CurrentState = Enums.HeroState.Idle;
             this.crosshair = Instantiate(crosshair);
+            this.currentClipSet = 0;
 
             if(HeroData.Instance.weaponLevels == null || HeroData.Instance.weaponLevels.Length == 0)
             {
@@ -98,14 +105,7 @@
             switch(this.CurrentState)
             {
                 case Enums.HeroState.Idle: Idle(); break;
-                case Enums.HeroState.North: Move(); break;
-                case Enums.HeroState.NorthEast: Move(); break;
-                case Enums.HeroState.East: Move(); break;
-                case Enums.HeroState.SouthEast: Move(); break;
-                case Enums.HeroState.South: Move(); break;
-                case Enums.HeroState.SouthWest: Move(); break;
-                case Enums.HeroState.West: Move(); break;
-                case Enums.HeroState.NorthWest: Move(); break;
+                case Enums.HeroState.Move: Move(); break;
                 case Enums.HeroState.Attack: Attack(); break;
                 case Enums.HeroState.Hurt: Hurt(); break;
             }
@@ -173,7 +173,7 @@
         {
             if (this.CurrentState != Enums.HeroState.Attack)
             {
-                Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, 5, 1 << (int) Enums.Layers.Enemy);
+                Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, this.targetRange, 1 << (int) Enums.Layers.Enemy);
                 // Sort targets by ascending order of distance from the player.
                 Array.Sort(targets, (t1, t2) => 
                            Comparer<float>.Default.Compare(Vector2.Distance(t1.transform.position, transform.position),
@@ -188,11 +188,26 @@
                 {
                     // TODO Account for walls that cannot be shot through once they are added.
                     Vector3 targetPos = targets[targetIndex++].transform.position;
-                    transform.Rotate(Vector3.forward, Vector2.SignedAngle(transform.right, targetPos - transform.position));
+                    float angle = Vector2.SignedAngle(this.weaponHolder.right, (targetPos - transform.position).normalized);
+                    this.weaponHolder.Rotate(Vector3.forward, angle);
+                    CalculateSpriteSet(angle);
                     crosshair.Target(targetPos);
                     sfx.PlaySong(1);
                 }
             }
+        }
+
+        /// <summary>
+        /// Reduces the player's max speed and acceleration to the specified amount, for the sepcified duration
+        /// </summary>
+        /// <param name="newSpeedPercentage">What percent speed the player should maintain (e.g., 0.8 would result in the player moving at 80% their normal speed)</param>
+        /// <param name="duration">How long (in seconds) the slow effect lasts</param>
+        public void AlterPlayerMaxSpeed(float newSpeedPercentage, float duration)
+        {
+            alteredSpeedPercentage = newSpeedPercentage;
+            alteredSpeedDuration = duration;
+
+            isSpeedAltered = true;
         }
 
         private void Idle()
@@ -218,9 +233,13 @@
                 x = 0;
 
             Vector2 dir = new Vector2(x, y);
-            if(dir != Vector2.zero)
-                this.transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, dir));
-            Vector2 right = this.transform.right;
+            if (dir != Vector2.zero)
+            {
+                float angle = Vector2.SignedAngle(Vector2.right, dir);
+                this.weaponHolder.rotation = Quaternion.Euler(0, 0, angle);
+                CalculateSpriteSet(angle);
+            }
+            Vector2 right = this.weaponHolder.right;
 
             float currentMaxSpeed = maxSpeed;
             float currentAcceleration = this.acceleration;
@@ -274,16 +293,35 @@
             targetIndex = 0;
         }
 
-        /// <summary>
-        /// Reduces the player's max speed and acceleration to the specified amount, for the sepcified duration
-        /// </summary>
-        /// <param name="newSpeedPercentage">What percent speed the player should maintain (e.g., 0.8 would result in the player moving at 80% their normal speed)</param>
-        /// <param name="duration">How long (in seconds) the slow effect lasts</param>
-        public void AlterPlayerMaxSpeed(float newSpeedPercentage, float duration) {
-            alteredSpeedPercentage = newSpeedPercentage;
-            alteredSpeedDuration = duration;
+        private void CalculateSpriteSet(float angle)
+        {
+            if (angle < 0)
+                angle += 360f;
 
-            isSpeedAltered = true;
+            int sprite = 0;
+            if (angle < 45)
+                sprite = 0;
+            else if (angle < 90)
+                sprite = 1;
+            else if (angle < 135)
+                sprite = 2;
+            else if (angle < 180)
+                sprite = 3;
+            else if (angle < 225)
+                sprite = 4;
+            else if (angle < 270)
+                sprite = 5;
+            else if (angle < 315)
+                sprite = 6;
+            else
+                sprite = 7;
+
+            if (sprite != this.currentClipSet)
+            {
+                this.animOverride.OverrideClip(this.MovementClips[0], this.MovementClips[sprite]);
+                this.animOverride.ApplyOverrides();
+                this.currentClipSet = sprite;
+            }
         }
     }
 }
