@@ -30,6 +30,8 @@
         private AnimationClip[] MovementClips;
         [SerializeField]
         private AnimationClip[] AttackClips;
+        [SerializeField]
+        private AnimationClip[] HurtClips;
 
         private Animator anim = null;
         private Rigidbody2D rgbdy = null;
@@ -322,6 +324,7 @@
             {
                 this.animOverride.OverrideClip(this.MovementClips[0], this.MovementClips[sprite]);
                 this.animOverride.OverrideClip(this.AttackClips[0], this.AttackClips[sprite]);
+                this.animOverride.OverrideClip(this.HurtClips[0], this.HurtClips[sprite]);
                 this.animOverride.ApplyOverrides();
                 this.currentClipSet = sprite;
             }
