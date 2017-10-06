@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212081217546178592}
   - component: {fileID: 61516056505928650}
   - component: {fileID: 114230977575690038}
+  - component: {fileID: 50958626998577358}
   m_Layer: 10
   m_Name: SwordSprite
   m_TagString: HeroWeapon
