@@ -18,10 +18,10 @@ namespace ShiftingDungeon.Util
 		{
             if (dontDestroy)
                 DontDestroyOnLoad(this.gameObject);
-            //if (SFX)
-            //    audio.volume = Managers.GameManager.SFXVol;
-            //else
-            //    audio.volume = Managers.GameManager.MusicVol;
+            if (SFX)
+                audio.volume = Managers.GameState.Instance.SFXVol;
+            else
+                audio.volume = Managers.GameState.Instance.MusicVol;
             if (playOnLoad)
                 PlaySong(0);
         }

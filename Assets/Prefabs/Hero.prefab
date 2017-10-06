@@ -668,6 +668,24 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 3ba9f66882e4d9d45b1c9f220c269e32, type: 2}
   - {fileID: 7400000, guid: f664d21a3e0c4f8448b43e6af43a4fa3, type: 2}
   - {fileID: 7400000, guid: d51d09df2fa938646bbcad2f56571366, type: 2}
+  AttackClips:
+  - {fileID: 7400000, guid: b38d23409646e2f4b8655e9d58bdebad, type: 2}
+  - {fileID: 7400000, guid: ae921f9745f3f704f807779f621a9607, type: 2}
+  - {fileID: 7400000, guid: f61642bf0857c2049baee636fd4e0de1, type: 2}
+  - {fileID: 7400000, guid: 7b25794962fdc26479a68643fe1fc3c0, type: 2}
+  - {fileID: 7400000, guid: 3212a7e661d9ce14db969b895420bd24, type: 2}
+  - {fileID: 7400000, guid: f6670cbf4000d5845b08d24ffb1c1a6c, type: 2}
+  - {fileID: 7400000, guid: ff0fb92d7daffc245b90e0196898cf04, type: 2}
+  - {fileID: 7400000, guid: 4f3cacdbbc69d7646830aeb0929db510, type: 2}
+  HurtClips:
+  - {fileID: 7400000, guid: 13d3e85d249b33249ad12f19e2a5e9ec, type: 2}
+  - {fileID: 7400000, guid: 3069ca4fcc0e64e40a54885c943a0d16, type: 2}
+  - {fileID: 7400000, guid: 52ec28b348c956f458d350d081ce7e3f, type: 2}
+  - {fileID: 7400000, guid: 0c5ee2dd422076349af8353f632773fc, type: 2}
+  - {fileID: 7400000, guid: 06bc7192bfc583a43936233af43fda6e, type: 2}
+  - {fileID: 7400000, guid: 4f032726f5f2ddc4e9d399fb14aa5d9e, type: 2}
+  - {fileID: 7400000, guid: 9a62e2e7ff67d2e4fa91a6efcee9ece7, type: 2}
+  - {fileID: 7400000, guid: e83e981729077d04a901c676a534dbbc, type: 2}
 --- !u!212 &212056521413125730
 SpriteRenderer:
   m_ObjectHideFlags: 1

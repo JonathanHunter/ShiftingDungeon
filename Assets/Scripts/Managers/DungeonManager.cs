@@ -133,7 +133,7 @@
 
             // Initialize Mini Map
             if (this.miniMap != null)
-                this.miniMap.Init(this.map.Map, new Vector2(this.map.Rooms[0].Row, this.map.Rooms[0].Col));
+                this.miniMap.Init(this.map.Map, new Vector2(this.map.Rooms[0].Col, this.map.Rooms[0].Row));
             
             yield return 0;
 

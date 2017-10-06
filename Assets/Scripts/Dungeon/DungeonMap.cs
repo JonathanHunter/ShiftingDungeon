@@ -62,53 +62,53 @@
 
         private bool AddRoomToMap(Room room, int index)
         {
-            if (room.Row < 0 || room.Row >= this.MapRows)
+            if (room.Col < 0 || room.Col >= this.MapRows)
             {
                 Debug.Log("Room " + room.name + " has an out of bounds row number");
                 return false;
             }
-            if (room.Col < 0 || room.Col >= this.MapCols)
+            if (room.Row < 0 || room.Row >= this.MapCols)
             {
                 Debug.Log("Room " + room.name + " has an out of bounds column number");
                 return false;
             }
-            if(this.Map[room.Row, room.Col] != -1)
+            if(this.Map[room.Col, room.Row] != -1)
             {
                 Debug.Log("Room " + room.name + " is trying to be placed on top of another room");
                 return false;
             }
 
-            this.Map[room.Row, room.Col] = index;
+            this.Map[room.Col, room.Row] = index;
             ConnectNeighbors(room);
             return true;
         }
 
         private void ConnectNeighbors(Room room)
         {
-            if (room.Col - 1 > 0 && this.Map[room.Row, room.Col - 1] != -1)
+            if (room.Row - 1 > 0 && this.Map[room.Col, room.Row - 1] != -1)
             {
-                Room up = this.Rooms[this.Map[room.Row, room.Col - 1]];
+                Room up = this.Rooms[this.Map[room.Col, room.Row - 1]];
                 room.Up = up;
                 up.Down = room;
             }
 
-            if (room.Col + 1 < this.MapCols && this.Map[room.Row, room.Col + 1] != -1)
+            if (room.Row + 1 < this.MapCols && this.Map[room.Col, room.Row + 1] != -1)
             {
-                Room down = this.Rooms[this.Map[room.Row, room.Col + 1]];
+                Room down = this.Rooms[this.Map[room.Col, room.Row + 1]];
                 room.Down = down;
                 down.Up = room;
             }
 
-            if (room.Row - 1 > 0 && this.Map[room.Row - 1, room.Col] != -1)
+            if (room.Col - 1 > 0 && this.Map[room.Col - 1, room.Row] != -1)
             {
-                Room left = this.Rooms[this.Map[room.Row - 1, room.Col]];
+                Room left = this.Rooms[this.Map[room.Col - 1, room.Row]];
                 room.Left = left;
                 left.Right = room;
             }
 
-            if (room.Row + 1 < this.MapRows && this.Map[room.Row + 1, room.Col] != -1)
+            if (room.Col + 1 < this.MapRows && this.Map[room.Col + 1, room.Row] != -1)
             {
-                Room right = this.Rooms[this.Map[room.Row + 1, room.Col]];
+                Room right = this.Rooms[this.Map[room.Col + 1, room.Row]];
                 room.Right = right;
                 right.Left = room;
             }
@@ -120,7 +120,7 @@
             {
                 foreach(Room r in rooms)
                 {
-                    Vector2 pos = new Vector2(this.transform.position.x + r.Row, this.transform.position.y - r.Col);
+                    Vector2 pos = new Vector2(this.transform.position.x + r.Col, this.transform.position.y - r.Row);
                     Gizmos.color = r.gameObject.activeSelf ? Color.red : Color.gray;
                     Gizmos.DrawCube(pos, new Vector3(.5f, .5f, 1f));
                     Gizmos.color = Color.white;
@@ -136,8 +136,8 @@
         {
             if (endRoom == null)
                 return;
-            Vector3 start = new Vector2(rootPos.x + startRoom.Row, rootPos.y - startRoom.Col);
-            Vector3 end = new Vector2(rootPos.x + endRoom.Row, rootPos.y - endRoom.Col);
+            Vector3 start = new Vector2(rootPos.x + startRoom.Col, rootPos.y - startRoom.Row);
+            Vector3 end = new Vector2(rootPos.x + endRoom.Col, rootPos.y - endRoom.Row);
             Vector3 es = Vector3.Normalize(start - end);
             Vector3 left = new Vector3(-es.y, es.x);
             Vector3 leftDiagonal = Vector3.Normalize(es + left / 2f) / 3f;
