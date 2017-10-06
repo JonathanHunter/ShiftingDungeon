@@ -113,7 +113,7 @@
             this.Health -= damage;
         }
 
-        protected void RotateToPlayer()
+        private void RotateToPlayer()
         {
             Vector2 towards = this.hero.transform.position - this.transform.position;
             this.transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, towards));
