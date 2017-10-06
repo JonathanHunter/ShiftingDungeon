@@ -14,7 +14,7 @@
         [SerializeField]
         private int maxHealth = 3;
         [SerializeField]
-        private Enums.EnemyTypes type = Enums.EnemyTypes.Basic;
+        private Enums.EnemyTypes type;
 
         /// <summary> The type of this enemy. </summary>
         public Enums.EnemyTypes Type { get { return this.type; } }
