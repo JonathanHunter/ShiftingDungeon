@@ -26,7 +26,7 @@
         private State state;
         private bool start;
 
-        void OnTriggerEnter2D(Collider2D coll)
+        private void OnTriggerEnter2D(Collider2D coll)
         {
             if (!GameState.Instance.IsPaused)
             {
@@ -39,61 +39,67 @@
 
         void Start()
         {
-            //sound.SetVolume(GameManager.SFXVol % .75f);
-            state = State.waiting;
-            currentText = new System.Text.StringBuilder();
-            currentPage = 0;
-            currentLetter = 0;
-            pageStrings = new string[pages.Length];
+            sound.SetVolume(GameState.Instance.SFXVol * .75f);
+            this.state = State.waiting;
+            this.currentText = new System.Text.StringBuilder();
+            this.currentPage = 0;
+            this.currentLetter = 0;
+            this.pageStrings = new string[pages.Length];
             for (int i = 0; i < pages.Length; i++)
-            {
-                pageStrings[i] = pages[i].text;
-            }
+                this.pageStrings[i] = this.pages[i].text;
+
+            if (this.image == null)
+                this.image = CutsceneManager.Instance.globalImage;
+
+            if (this.text == null)
+                this.text = CutsceneManager.Instance.globalText;
+
+            if (this.canvas == null)
+                this.canvas = CutsceneManager.Instance.globlaCanvas;
         }
 
         void Update()
         {
-            if (state != State.waiting)
+            if (this.state != State.waiting)
             {
-                image.sprite = backgrounds[whichBackgroundForWhichPage[currentPage]];
-                text.text = currentText.ToString();
+                this.image.sprite = this.backgrounds[this.whichBackgroundForWhichPage[currentPage]];
+                this.text.text = this.currentText.ToString();
             }
-            if (state == State.waiting)
+            if (this.state == State.waiting)
             {
                 if (start)
                 {
                     GameState.Instance.State = Enums.GameState.Cutscene;
-                    state = State.displaying;
-                    pageChars = pageStrings[currentPage].ToCharArray();
-                    canvas.SetActive(true);
+                    this.state = State.displaying;
+                    this.pageChars = this.pageStrings[this.currentPage].ToCharArray();
+                    this.canvas.SetActive(true);
                 }
             }
-            else if (state == State.displaying)
+            else if (this.state == State.displaying)
             {
-                if (Util.CustomInput.BoolFreshPress(Util.CustomInput.UserInput.Pause))
+                if (CustomInput.BoolFreshPress(CustomInput.UserInput.Pause))
                 {
-                    for (int i = Mathf.RoundToInt(currentLetter); i < pageChars.Length; i++)
-                        currentText.Append(pageChars[i]);
-                    state = State.paused;
+                    this.currentText = new System.Text.StringBuilder(this.pageStrings[this.currentPage]);
+                    this.state = State.paused;
                 }
                 else
                 {
-                    if (currentLetter == 0)
-                        currentText.Append(pageChars[(int)currentLetter]);
+                    if (this.currentLetter == 0)
+                        this.currentText.Append(this.pageChars[(int)currentLetter]);
                     int a = (int)(currentLetter);
-                    float temp = textSpeed;
-                    if (Util.CustomInput.BoolHeld(Util.CustomInput.UserInput.Accept) || Util.CustomInput.BoolHeld(Util.CustomInput.UserInput.Attack))
+                    float temp = this.textSpeed;
+                    if (CustomInput.BoolHeld(CustomInput.UserInput.Accept) || CustomInput.BoolHeld(CustomInput.UserInput.Attack))
                         temp *= 2;
-                    currentLetter += temp * Time.deltaTime;
-                    if (a < (int)currentLetter && currentLetter < pageChars.Length)
+                    this.currentLetter += temp * Time.deltaTime;
+                    if (a < (int)this.currentLetter && this.currentLetter < this.pageChars.Length)
                     {
-                        currentText.Append(pageChars[(int)currentLetter]);
-                        sound.PlaySong(0);
+                        this.currentText.Append(this.pageChars[(int)this.currentLetter]);
+                        this.sound.PlaySong(0);
                     }
-                    if (currentLetter >= pageChars.Length)
+                    if (this.currentLetter >= this.pageChars.Length)
                     {
                         //currentText = new System.Text.StringBuilder(pageStrings[currentPage]);
-                        state = State.paused;
+                        this.state = State.paused;
                     }
                 }
             }
@@ -103,20 +109,20 @@
                     CustomInput.BoolFreshPress(CustomInput.UserInput.Attack) || 
                     CustomInput.BoolFreshPress(CustomInput.UserInput.Pause))
                 {
-                    currentLetter = 0;
-                    currentPage++;
-                    if (currentPage >= pages.Length)
+                    this.currentLetter = 0;
+                    this.currentPage++;
+                    if (this.currentPage >= this.pages.Length)
                     {
-                        text.text = "";
+                        this.text.text = "";
                         GameState.Instance.State = Enums.GameState.Playing;
-                        canvas.SetActive(false);
+                        this.canvas.SetActive(false);
                         Destroy(this.gameObject);
                     }
                     else
                     {
-                        pageChars = pageStrings[currentPage].ToCharArray();
-                        currentText = new System.Text.StringBuilder();
-                        state = State.displaying;
+                        this.pageChars = this.pageStrings[this.currentPage].ToCharArray();
+                        this.currentText = new System.Text.StringBuilder();
+                        this.state = State.displaying;
                     }
                 }
             }
