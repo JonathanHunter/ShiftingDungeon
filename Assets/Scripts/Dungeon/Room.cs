@@ -241,6 +241,7 @@
                         floor.transform.position = new Vector3(-7 + r, 4 - c, Constants.ROOM_PART_Z_DEPTH);
                         floor.transform.rotation = Quaternion.identity;
                         floor.transform.localScale = Vector3.one;
+                        SetFloorImage(floor, r, c);
                         this.floors.Add(floor);
                     }
                     else if(this.Grid[r, c] == 2)
@@ -294,34 +295,50 @@
         private void AllocateTraps()
         {
             List<Vector2> positions = new List<Vector2>();
-            if (Random.Range(0f, 1f) < .4f)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    if (Random.Range(0f, 1f) < .6f)
-                    {
-                        bool placed = false;
-                        int tries = 0;
-                        while (!placed && tries < 100)
-                        {
-                            int r = Random.Range(1, 15);
-                            int c = Random.Range(1, 15);
-                            Vector3 position = new Vector3(-7 + r, 4 - c, Constants.ROOM_PART_Z_DEPTH - 1);
-                            if (this.Grid[r, c] == 1 && !positions.Contains(position))
-                            {
-                                GameObject trap = TrapPool.Instance.GetTrap(Enums.Traps.Spike);
-                                trap.transform.position = position;
-                                trap.transform.rotation = Quaternion.identity;
-                                this.traps.Add(trap.GetComponent<Trap>());
-                                positions.Add(position);
-                                placed = true;
-                            }
+                for (int i = 0; i < System.Enum.GetNames(typeof(Enums.Traps)).Length; i++) {
+                    if (Random.Range(0f, 1f) < .4f) {
+                        for (int j = 0; j < 3; j++) {
+                            if (Random.Range(0f, 1f) < .6f) {
+                                bool placed = false;
+                                int tries = 0;
+                                while (!placed && tries < 100) {
+                                    int r = Random.Range(1, 15);
+                                    int c = Random.Range(1, 15);
+                                    Vector3 position = new Vector3(-7 + r, 4 - c, Constants.ROOM_PART_Z_DEPTH - 1);
+                                    if (this.Grid[r, c] == 1 && !positions.Contains(position)) {
+                                        GameObject trap = TrapPool.Instance.GetTrap((Enums.Traps) i);
+                                        trap.transform.position = position;
+                                        trap.transform.rotation = Quaternion.identity;
+                                        this.traps.Add(trap.GetComponent<Trap>());
+                                        positions.Add(position);
+                                        placed = true;
+                                    }
 
-                            tries++;
+                                    tries++;
+                                }
+                            }
                         }
                     }
                 }
-            }
+        }
+
+        private void SetFloorImage(GameObject floor, int r, int c)
+        {
+            bool up = c == 0 || this.Grid[r, c - 1] != 1;
+            bool down = c == this.Grid.GetLength(1) - 1 || this.Grid[r, c + 1] != 1;
+            bool left = r == 0 || this.Grid[r - 1, c] != 1;
+            bool right = r == this.Grid.GetLength(0) - 1 || this.Grid[r + 1, c] != 1;
+            int sprite = 0;
+            if (up)
+                sprite |= 0x8;
+            if (down)
+                sprite |= 0x4;
+            if (left)
+                sprite |= 0x2;
+            if (right)
+                sprite |= 0x1;
+
+            floor.GetComponent<SpriteRenderer>().sprite = RoomPool.Instance.floorSprites[sprite];
         }
 
         private void SetHoleImage(GameObject hole, int r, int c)

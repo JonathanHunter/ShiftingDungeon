@@ -690,7 +690,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trapPools:
   - {fileID: 114415233566366564, guid: bde87224391efd341a59f2e698f2eaa3, type: 2}
-  trapPoolSizes: 02000000
+  - {fileID: 114171361122280652, guid: 4061e699a603b2b41ac40f977fe22ca7, type: 2}
+  trapPoolSizes: 0200000032000000
 --- !u!1001 &1016406864
 Prefab:
   m_ObjectHideFlags: 0
