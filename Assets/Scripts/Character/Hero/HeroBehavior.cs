@@ -113,7 +113,9 @@
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.collider.gameObject.tag == Enums.Tags.Trap.ToString())
+            if (collision.collider.gameObject.tag == Enums.Tags.Enemy.ToString() ||
+                collision.collider.gameObject.tag == Enums.Tags.EnemyWeapon.ToString() || 
+                collision.collider.gameObject.tag == Enums.Tags.Trap.ToString())
             {
                 if (this.CurrentState != Enums.HeroState.Hurt &&
                     collision.collider.gameObject.GetComponent<IDamageDealer>() != null)
