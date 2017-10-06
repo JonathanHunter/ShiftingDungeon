@@ -54,8 +54,8 @@
                 room.transform.position = Vector3.zero;
                 room.transform.rotation = Quaternion.identity;
                 room.transform.localScale = Vector3.one;
-                room.Row = pattern[i].Row;
-                room.Col = pattern[i].Col;
+                room.Col = pattern[i].Row;
+                room.Row = pattern[i].Col;
                 room.IsGenerated = true;
                 rooms[i] = room;
             }

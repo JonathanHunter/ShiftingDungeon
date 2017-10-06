@@ -760,7 +760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39713dfb3e043df4e972398a44531a84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scene: Tutorial
+  Scene: Cavern
 --- !u!114 &1184143616
 MonoBehaviour:
   m_ObjectHideFlags: 0
