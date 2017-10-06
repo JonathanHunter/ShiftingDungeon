@@ -2,7 +2,6 @@
 {
     using UnityEngine;
     using MapGen;
-    using Util;
 
     public class DungeonGenerator : MonoBehaviour
     {
@@ -10,8 +9,6 @@
         private DungeonMap mapTemplet = null;
         [SerializeField]
         private Room roomTemplet = null;
-        [SerializeField]
-        private Enums.EnemyTypes[] procEnemies;
 
         /// <summary> Generates dungeon map. </summary>
         /// <param name="mapSize"> The size of map to make. </param>
@@ -22,7 +19,7 @@
             for (int i = 0; i < 10; i++)
                 dbm.AddCell();
 
-            Room[] rooms = dbm.GetPatternAsRooms(this.roomTemplet, procEnemies);
+            Room[] rooms = dbm.GetPatternAsRooms(this.roomTemplet);
             DungeonMap map = Instantiate<DungeonMap>(this.mapTemplet);
             map.transform.position = Vector3.zero;
             map.transform.rotation = Quaternion.identity;

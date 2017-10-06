@@ -39,9 +39,6 @@
         [SerializeField]
         private Spawners.Spawner[] entitiesToSpawn;
 
-        /// <summary> Array of enemy types that can be spawned in generated room </summary>
-        public Enums.EnemyTypes[] proceduralEnemies;
-
         /// <summary> The index of this room in the map. </summary>
         public int Index { get; private set; }
         /// <summary> The map row this room is on. </summary>
@@ -190,8 +187,7 @@
             AllocateDoors();
             AllocateWalls();
             AllocateFloorsAndHoles();
-            if (proceduralEnemies.Length > 0)
-                AllocateEnemies();
+            AllocateEnemies();
             AllocateTraps();
         }
 
@@ -283,7 +279,7 @@
                     Vector2 position = new Vector2(-7 + r, 4 - c);
                     if (this.Grid[r, c] == 1 && !positions.Contains(position))
                     {
-                        GameObject enemy = EnemyPool.Instance.GetEnemy(proceduralEnemies[Random.Range(0, proceduralEnemies.Length)]);
+                        GameObject enemy = EnemyPool.Instance.GetEnemy(Enums.EnemyTypes.Basic);
                         enemy.transform.position = position;
                         enemy.transform.rotation = Quaternion.identity;
                         this.enemies.Add(enemy.GetComponent<Enemy>());

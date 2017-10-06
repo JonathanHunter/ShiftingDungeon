@@ -22553,7 +22553,6 @@ MonoBehaviour:
   leftDoor: {fileID: 0}
   rightDoor: {fileID: 0}
   entitiesToSpawn: []
-  proceduralEnemies: 0000000001000000
 --- !u!114 &114114318738085510
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -25390,7 +25389,6 @@ MonoBehaviour:
   leftDoor: {fileID: 114523732468775380}
   rightDoor: {fileID: 114580372583834840}
   entitiesToSpawn: []
-  proceduralEnemies: 
 --- !u!114 &114639287000303348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -26432,7 +26430,6 @@ MonoBehaviour:
   - {fileID: 114282601552793230}
   - {fileID: 114370033412228116}
   - {fileID: 114103100702124122}
-  proceduralEnemies: 
 --- !u!114 &114831345097415586
 MonoBehaviour:
   m_ObjectHideFlags: 1
