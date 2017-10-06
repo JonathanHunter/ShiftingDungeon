@@ -7,13 +7,13 @@
     public class BasicEnemy : Enemy
     {
         [SerializeField]
-        protected float walkTime = 1;
+        private float walkTime = 1;
         [SerializeField]
-        protected int walkCount = 3;
+        private int walkCount = 3;
         [SerializeField]
-        protected float walkSpeed = 2;
+        private float walkSpeed = 2;
         [SerializeField]
-        protected float agroRange = 3;
+        private float agroRange = 3;
         [SerializeField]
         private float stunLength = 0.15f;
         [SerializeField]
@@ -21,16 +21,16 @@
         [SerializeField]
         private SoundPlayer sfx;
 
-        protected Transform hero;
-        protected Rigidbody2D rgbdy;
+        private Transform hero;
+        private Rigidbody2D rgbdy;
         private Animator anim;
-        protected float walkCounter;
-        protected int timesWalked;
+        private float walkCounter;
+        private int timesWalked;
         private int hitHash;
 
-        protected int numHits;
-        protected float hitCounter;
-        protected float stunCounter;
+        private int numHits;
+        private float hitCounter;
+        private float stunCounter;
         
 
         protected override void LocalInitialize()

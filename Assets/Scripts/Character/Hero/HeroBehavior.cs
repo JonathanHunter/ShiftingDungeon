@@ -110,13 +110,33 @@
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            OnTriggerEnter2D(collision.collider);
+            if (collision.collider.gameObject.tag == Enums.Tags.Trap.ToString())
+            {
+                if (this.CurrentState != Enums.HeroState.Hurt &&
+                    collision.collider.gameObject.GetComponent<IDamageDealer>() != null)
+                {
+                    this.Health -= collision.collider.gameObject.GetComponent<IDamageDealer>().GetDamage();
+                    Vector2 position = this.transform.position;
+                    this.rgbdy.AddForce((position - collision.contacts[0].point).normalized * 5f, ForceMode2D.Impulse);
+                    sfx.PlaySong(0);
+                }
+
+                anim.SetTrigger(this.hitHash);
+            }
+            else if (collision.collider.gameObject.tag == Enums.Tags.Pickup.ToString())
+            {
+                if (collision.collider.gameObject.GetComponent<Pickups.Money>() != null)
+                {
+                    Pickups.Money gold = collision.collider.gameObject.GetComponent<Pickups.Money>();
+                    HeroData.Instance.money += gold.Value;
+                    ObjectPooling.PickupPool.Instance.ReturnGold(gold.gameObject);
+                }
+            }
         }
         private void OnTriggerEnter2D(Collider2D collider)
         {
             if (collider.gameObject.tag == Enums.Tags.Enemy.ToString() ||
-                collider.gameObject.tag == Enums.Tags.EnemyWeapon.ToString() ||
-                collider.gameObject.tag == Enums.Tags.Trap.ToString())
+                collider.gameObject.tag == Enums.Tags.EnemyWeapon.ToString())
             {
                 if (this.CurrentState != Enums.HeroState.Hurt &&
                     collider.gameObject.GetComponent<IDamageDealer>() != null)
@@ -128,15 +148,6 @@
                 }
 
                 anim.SetTrigger(this.hitHash);
-            }
-            else if (collider.gameObject.tag == Enums.Tags.Pickup.ToString())
-            {
-                if (collider.gameObject.GetComponent<Pickups.Money>() != null)
-                {
-                    Pickups.Money gold = collider.gameObject.GetComponent<Pickups.Money>();
-                    HeroData.Instance.money += gold.Value;
-                    ObjectPooling.PickupPool.Instance.ReturnGold(gold.gameObject);
-                }
             }
         }
 

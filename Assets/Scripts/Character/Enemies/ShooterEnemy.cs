@@ -4,8 +4,34 @@
     using Util;
     using Weapons;
 
-    public class ShooterEnemy : BasicEnemy
+    public class ShooterEnemy : Enemy
     {
+        [SerializeField]
+        private float walkTime = 1;
+        [SerializeField]
+        private int walkCount = 3;
+        [SerializeField]
+        private float walkSpeed = 2;
+        [SerializeField]
+        private float agroRange = 3;
+        [SerializeField]
+        private float stunLength = 0.15f;
+        [SerializeField]
+        private float maxTimeBetweenHits = .8f;
+        [SerializeField]
+        private SoundPlayer sfx;
+
+        private Transform hero;
+        private Rigidbody2D rgbdy;
+        private Animator anim;
+        private float walkCounter;
+        private int timesWalked;
+        private int hitHash;
+
+        private int numHits;
+        private float hitCounter;
+        private float stunCounter;
+
         [SerializeField]
         private Gun gun;
 
@@ -13,15 +39,12 @@
 
         protected override void LocalInitialize()
         {
-            base.LocalInitialize();
             gun.Init();
             gun.CleanUp();
-            type = Enums.EnemyTypes.Shooter;
         }
 
         protected override void LocalReInitialize()
         {
-            base.LocalReInitialize();
             isShooting = false;
         }
 
@@ -72,7 +95,33 @@
 
         protected override void LocalCollision(Collider2D collider)
         {
-            base.LocalCollision(collider);
+            if (this.stunCounter > 0)
+                return;
+            if (collider.tag == Enums.Tags.HeroWeapon.ToString())
+            {
+                numHits++;
+                if (numHits > 2)
+                {
+                    //Melee weapons
+                    if (collider.transform.parent)
+                        this.rgbdy.AddForce(collider.transform.parent.transform.parent.transform.right * 9f, ForceMode2D.Impulse);
+                    //Everything else
+                    else
+                        this.rgbdy.AddForce(collider.transform.right * 9f, ForceMode2D.Impulse);
+                    numHits = 0;
+                }
+                this.anim.SetTrigger(hitHash);
+                this.stunCounter = stunLength;
+                this.hitCounter = maxTimeBetweenHits;
+                sfx.PlaySongModPitch(0, .1f);
+            }
+        }
+
+        protected override void TakeDamage(int damage)
+        {
+            if (this.stunCounter > 0)
+                return;
+            this.Health -= damage;
         }
 
         private bool CanSeePlayer()
@@ -86,6 +135,12 @@
                     return true;
             }
             return false;
+        }
+
+        protected void RotateToPlayer()
+        {
+            Vector2 towards = this.hero.transform.position - this.transform.position;
+            this.transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, towards));
         }
     }
 }
