@@ -616,6 +616,23 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5dd79a5242df0c64fb397a00082348dd, type: 3}
   - {fileID: 21300000, guid: 5a542221e65ca0746971afe5a61096a7, type: 3}
   - {fileID: 21300000, guid: b44a10d8f187b96488163b3ddfd798d0, type: 3}
+  floorSprites:
+  - {fileID: 21300000, guid: b89a1a0b372914247b705cc61a14296e, type: 3}
+  - {fileID: 21300000, guid: b89a1a0b372914247b705cc61a14296e, type: 3}
+  - {fileID: 21300000, guid: b89a1a0b372914247b705cc61a14296e, type: 3}
+  - {fileID: 21300000, guid: b89a1a0b372914247b705cc61a14296e, type: 3}
+  - {fileID: 21300000, guid: b89a1a0b372914247b705cc61a14296e, type: 3}
+  - {fileID: 21300000, guid: b89a1a0b372914247b705cc61a14296e, type: 3}
+  - {fileID: 21300000, guid: b89a1a0b372914247b705cc61a14296e, type: 3}
+  - {fileID: 21300000, guid: b89a1a0b372914247b705cc61a14296e, type: 3}
+  - {fileID: 21300000, guid: b89a1a0b372914247b705cc61a14296e, type: 3}
+  - {fileID: 21300000, guid: b89a1a0b372914247b705cc61a14296e, type: 3}
+  - {fileID: 21300000, guid: b89a1a0b372914247b705cc61a14296e, type: 3}
+  - {fileID: 21300000, guid: b89a1a0b372914247b705cc61a14296e, type: 3}
+  - {fileID: 21300000, guid: b89a1a0b372914247b705cc61a14296e, type: 3}
+  - {fileID: 21300000, guid: b89a1a0b372914247b705cc61a14296e, type: 3}
+  - {fileID: 21300000, guid: b89a1a0b372914247b705cc61a14296e, type: 3}
+  - {fileID: 21300000, guid: b89a1a0b372914247b705cc61a14296e, type: 3}
 --- !u!114 &832579322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -692,7 +709,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trapPools:
   - {fileID: 114415233566366564, guid: bde87224391efd341a59f2e698f2eaa3, type: 2}
-  trapPoolSizes: 03000000
+  - {fileID: 114171361122280652, guid: 4061e699a603b2b41ac40f977fe22ca7, type: 2}
+  trapPoolSizes: 0300000003000000
 --- !u!1 &1184143613
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,7 +760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39713dfb3e043df4e972398a44531a84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scene: Tutorial
+  Scene: Cavern
 --- !u!114 &1184143616
 MonoBehaviour:
   m_ObjectHideFlags: 0
