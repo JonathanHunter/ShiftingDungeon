@@ -24,8 +24,7 @@
             if (this.hero.Health >= 0)
             {
                 float percent = ((float)this.hero.Health / (float)this.hero.MaxHealth);
-                int difference = this.hero.MaxHealth - this.hero.Health;
-                bar.anchoredPosition = new Vector3(originalPosition.x - (5f * difference), originalPosition.y, originalPosition.z);
+                bar.anchoredPosition = new Vector3(originalPosition.x - 50f * (1 - percent), originalPosition.y, originalPosition.z);
                 bar.localScale = new Vector3(originalScale.x * percent, originalScale.y, originalScale.z);
             }
         }
