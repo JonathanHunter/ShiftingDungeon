@@ -22,6 +22,8 @@
         [SerializeField]
         private UI.MiniMap miniMap = null;
         [SerializeField]
+        private UI.GameOverScreen gameOverScreen = null;
+        [SerializeField]
         private Character.Hero.HeroBehavior heroTemplet = null;
         [SerializeField]
         private int currentFloor = 0;
@@ -90,6 +92,12 @@
         public static void TransitionRooms(Door current)
         {
             Instance.StartCoroutine(Instance.SwitchRooms(current));
+        }
+
+        /// <summary> Displays the game over screen when the player dies. </summary>
+        public static void ShowGameOver()
+        {
+            Instance.gameOverScreen.gameObject.SetActive(true);
         }
 
         private IEnumerator SwitchMaps()

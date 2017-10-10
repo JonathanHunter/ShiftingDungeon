@@ -1,6 +1,7 @@
 ﻿namespace ShiftingDungeon.Character.Pickups
 {
     using UnityEngine;
+    using Hero;
     using ObjectPooling;
 
     public class Money : MonoBehaviour, IPoolable
@@ -21,7 +22,7 @@
 
         private void Update()
         {
-            if (this.hero != null)
+            if (this.hero != null && !this.hero.GetComponent<HeroBehavior>().IsDead)
             {
                 Vector3 dir = this.hero.position - this.transform.position;
                 this.transform.Translate(dir.normalized * Time.deltaTime * (1f / dir.magnitude) * 2f);
