@@ -18,6 +18,9 @@
         /// <summary> The range of the player's enemy-targeting ability. </summary>
         [SerializeField]
         private float targetRange = 7.5f;
+        /// <summary> The fraction of money that the player will retain after dying. </summary>
+        [SerializeField]
+        private float moneyKeptOnDeath;
         /// <summary> A crosshair sprite for indicating the enemy target. </summary>
         [SerializeField]
         private Crosshair crosshair;
@@ -347,7 +350,8 @@
         /// <summary> Causes the player to die and receive a game over. </summary>
         private IEnumerator Die()
         {
-            GetComponent<HeroInput>().enabled = false;
+            input.enabled = false;
+            input.ResetInput();
             weaponHolder.gameObject.SetActive(false);
 
             yield return new WaitForSeconds(0.25f);
@@ -357,8 +361,23 @@
             GetComponent<Renderer>().enabled = false;
             deathParticles.Emit(100);
             sfx.PlaySong(3);
+            this.rgbdy.velocity = Vector2.zero;
+            this.weapons[this.CurrentWeapon].CleanUp();
 
             yield return null;
+        }
+
+        /// <summary> Reactivates hero components when respawning after death. </summary>
+        public void Respawn()
+        {
+            GetComponent<HeroInput>().enabled = true;
+            weaponHolder.gameObject.SetActive(true);
+            GetComponent<Collider2D>().enabled = true;
+            GetComponent<Renderer>().enabled = true;
+            Health = maxHealth;
+            HeroData.Instance.money = (int)(moneyKeptOnDeath * HeroData.Instance.money);
+            deathTriggered = false;
+            transform.position = Vector2.zero;
         }
     }
 }

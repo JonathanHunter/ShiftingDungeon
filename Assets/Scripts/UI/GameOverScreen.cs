@@ -2,8 +2,8 @@
 {
 
     using UnityEngine;
-    using UnityEngine.SceneManagement;
     using UnityEngine.UI;
+    using Managers;
 
     /// <summary>
     /// 
@@ -11,9 +11,11 @@
     class GameOverScreen : MonoBehaviour
     {
 
-        /// <summary> The amount of time (seconds) to wait before the level restarts. </summary>
+        /// <summary> The current amount of time (seconds) to wait before the level restarts. </summary>
         [SerializeField]
         private float restartTime;
+        /// <summary> The total amount of time to wait before the level restarts. </summary>
+        private float initRestartTime;
         /// <summary> The amount of time (seconds) for the game over text to fade in. </summary>
         [SerializeField]
         private float textAppearTime;
@@ -30,21 +32,19 @@
         /// <summary>
         /// Initializes the object.
         /// </summary>
-        private void Start() {
+        private void Start()
+        {
             text = GetComponentInChildren<Text>();
             background = transform.Find("Background").GetComponent<Image>();
-            Color textColor = text.color;
-            textColor.a = 0;
-            text.color = textColor;
-            Color backgroundColor = background.color;
-            backgroundColor.a = 0;
-            background.color = backgroundColor;
+            initRestartTime = restartTime;
+            Reset();
         }
 
         /// <summary>
         /// Updates the object.
         /// </summary>
-        private void Update() {
+        private void Update()
+        {
             restartTime -= Time.deltaTime;
             screenDuration += Time.deltaTime;
             if (text.color.a < 1 && screenDuration > textStartAppearTime)
@@ -60,8 +60,24 @@
             }
             if (restartTime <= 0)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                DungeonManager.RestartFloor();
+
+                Reset();
             }
+        }
+
+        /// <summary> Resets the game over screen to its initial state before being shown. </summary>
+        private void Reset()
+        {
+            Color textColor = text.color;
+            textColor.a = 0;
+            text.color = textColor;
+            Color backgroundColor = background.color;
+            backgroundColor.a = 0;
+            background.color = backgroundColor;
+            screenDuration = 0;
+            restartTime = initRestartTime;
+            gameObject.SetActive(false);
         }
     }
 }

@@ -6,6 +6,7 @@
     using Dungeon;
     using Dungeon.ProcGen;
     using Dungeon.RoomParts;
+    using Character.Hero;
 
     public class DungeonManager : MonoBehaviour
     {
@@ -84,7 +85,21 @@
             if (Instance.currentFloor >= Instance.floors.Length)
                 SceneManager.LoadScene(Instance.nextScene);
             else
-                Instance.StartCoroutine(Instance.SwitchMaps());
+                LoadSelectedFloor();
+        }
+
+        /// <summary> Reloads the floor after the hero dies. </summary>
+        public static void RestartFloor()
+        {
+            GetHero().GetComponent<HeroBehavior>().Respawn();
+            LoadSelectedFloor();
+            Instance.cameraTracker.ResetPosition();
+        }
+
+        /// <summary> Begins loading the currently selected floor. </summary>
+        private static void LoadSelectedFloor()
+        {
+            Instance.StartCoroutine(Instance.SwitchMaps());
         }
 
         /// <summary> Transitions from the current room to the next. </summary>

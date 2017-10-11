@@ -663,6 +663,7 @@ MonoBehaviour:
   acceleration: 2
   maxSpeed: 5
   targetRange: 5
+  moneyKeptOnDeath: 0.5
   crosshair: {fileID: 114178707961165478, guid: 58f8753f63cdc4889ac72bd4dbf40ff1,
     type: 2}
   weapons:
