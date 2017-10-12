@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 212081217546178592}
   - component: {fileID: 61516056505928650}
   - component: {fileID: 114230977575690038}
+  - component: {fileID: 50958626998577358}
   m_Layer: 10
   m_Name: SwordSprite
   m_TagString: HeroWeapon
@@ -224,6 +225,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!50 &50958626998577358
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1178809486348466}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &61163962672561114
 BoxCollider2D:
   m_ObjectHideFlags: 1

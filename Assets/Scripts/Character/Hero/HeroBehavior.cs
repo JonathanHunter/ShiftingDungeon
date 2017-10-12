@@ -129,7 +129,7 @@
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.tag == Enums.Tags.Enemy.ToString() ||
-                collision.gameObject.tag == Enums.Tags.EnemyWeapon.ToString() ||
+                collision.gameObject.tag == Enums.Tags.EnemyWeapon.ToString() || 
                 collision.gameObject.tag == Enums.Tags.Trap.ToString())
             {
                 if (this.CurrentState != Enums.HeroState.Hurt &&
@@ -149,14 +149,31 @@
 
                 anim.SetTrigger(this.hitHash);
             }
-            else if(collision.gameObject.tag == Enums.Tags.Pickup.ToString())
+            else if (collision.gameObject.tag == Enums.Tags.Pickup.ToString())
             {
-                if(collision.gameObject.GetComponent<Pickups.Money>() != null)
+                if (collision.gameObject.GetComponent<Pickups.Money>() != null)
                 {
                     Pickups.Money gold = collision.gameObject.GetComponent<Pickups.Money>();
                     HeroData.Instance.money += gold.Value;
                     ObjectPooling.PickupPool.Instance.ReturnGold(gold.gameObject);
                 }
+            }
+        }
+        private void OnTriggerEnter2D(Collider2D collider)
+        {
+            if (collider.gameObject.tag == Enums.Tags.Enemy.ToString() ||
+                collider.gameObject.tag == Enums.Tags.EnemyWeapon.ToString())
+            {
+                if (this.CurrentState != Enums.HeroState.Hurt &&
+                    collider.gameObject.GetComponent<IDamageDealer>() != null)
+                {
+                    this.Health -= collider.gameObject.GetComponent<IDamageDealer>().GetDamage();
+                    Vector2 position = this.transform.position;
+                    this.rgbdy.AddForce(collider.transform.right * 5f, ForceMode2D.Impulse);
+                    sfx.PlaySong(0);
+                }
+
+                anim.SetTrigger(this.hitHash);
             }
         }
 
