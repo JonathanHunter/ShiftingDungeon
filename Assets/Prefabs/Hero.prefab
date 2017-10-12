@@ -533,7 +533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   song:
-  - {fileID: 8300000, guid: 12901a4a414ae0e42ad9332a4af5a560, type: 3}
+  - {fileID: 8300000, guid: 4200f45c9f9737f499e359a45066d646, type: 3}
   - {fileID: 8300000, guid: 4d70d91b1b5f345b1958f02483516580, type: 3}
   - {fileID: 8300000, guid: dbd725574754845ab9443bfd396fd47b, type: 3}
   audio: {fileID: 82718110245652546}
@@ -629,7 +629,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   song:
-  - {fileID: 8300000, guid: 9bdb459ccf17cfc4cb49bf630ca4fd73, type: 3}
+  - {fileID: 8300000, guid: f48be636b5ed10640b0baaa764f36cd7, type: 3}
+  - {fileID: 8300000, guid: b4b0b4159eb44334aba2d04f4b549e63, type: 3}
   audio: {fileID: 82868914728401534}
   SFX: 1
   playOnLoad: 0
