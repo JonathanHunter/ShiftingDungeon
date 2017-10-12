@@ -49,5 +49,13 @@
             if (CustomInput.BoolFreshPress(CustomInput.UserInput.Target))
                 this.behavior.TargetEnemy();
         }
+
+        /// <summary> Resets the directional button press states. </summary>
+        public void ResetInput()
+        {
+            Up = Down = Left = Right = false;
+            this.anim.SetBool(this.moveHash, false);
+            this.anim.SetBool(this.attackHash, false);
+        }
     }
 }
