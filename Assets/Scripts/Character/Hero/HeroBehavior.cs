@@ -226,8 +226,8 @@
                 {
                     // TODO Account for walls that cannot be shot through once they are added.
                     Vector3 targetPos = targets[targetIndex++].transform.position;
-                    float angle = Vector2.SignedAngle(this.weaponHolder.right, (targetPos - transform.position).normalized);
-                    this.weaponHolder.Rotate(Vector3.forward, angle);
+                    float angle = Vector2.SignedAngle(Vector2.right, (targetPos - transform.position).normalized);
+                    this.weaponHolder.rotation = Quaternion.Euler(0, 0, angle);
                     CalculateSpriteSet(angle);
                     crosshair.Target(targetPos);
                     sfx.PlaySong(1);
