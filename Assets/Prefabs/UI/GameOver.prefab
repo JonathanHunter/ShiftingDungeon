@@ -135,6 +135,8 @@ MonoBehaviour:
   restartTime: 5
   textAppearTime: 0.5
   textStartAppearTime: 0.5
+  text: {fileID: 114349004693817306}
+  background: {fileID: 114236516215818502}
 --- !u!222 &222186158615297160
 CanvasRenderer:
   m_ObjectHideFlags: 1
