@@ -83,7 +83,10 @@
         {
             Instance.currentFloor++;
             if (Instance.currentFloor >= Instance.floors.Length)
+            {
+                GameState.Instance.State = Util.Enums.GameState.Playing;
                 SceneManager.LoadScene(Instance.nextScene);
+            }
             else
                 LoadSelectedFloor();
         }

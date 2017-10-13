@@ -80,7 +80,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 6fcf0e2120b37ad479030735cb1bd4eb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 668b61ec204f3df43b352efb293ea359, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.89705884, g: 0.04617214, b: 0.04617214, a: 1}
+  m_Color: {r: 0.751, g: 0.25882354, b: 0.33333334, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -108,7 +108,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 6bee96a041688af4cae19b39fa248acf, type: 3}
     m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7b257fbe0fd459c8a6e902003affc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  restartTime: 3
+  restartTime: 5
   textAppearTime: 0.5
   textStartAppearTime: 0.5
 --- !u!222 &222186158615297160
