@@ -1394,9 +1394,7 @@ GameObject:
   - component: {fileID: 832579323}
   - component: {fileID: 832579322}
   - component: {fileID: 832579321}
-  - component: {fileID: 832579320}
   - component: {fileID: 832579319}
-  - component: {fileID: 832579325}
   - component: {fileID: 832579326}
   m_Layer: 0
   m_Name: DungeonManager
@@ -1418,21 +1416,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPools:
   - {fileID: 114612294171028128, guid: 2b12646ab889a7744bfc7bb714a9d7af, type: 2}
-  enemyPoolSizes: 04000000
---- !u!114 &832579320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 832579318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821f8bc2373ee294bbed083cfef46b37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerBulletPools:
-  - {fileID: 114465480071990346, guid: a1b6433ff53690b4287561932ad4bd2b, type: 2}
-  playerBulletPoolSizes: 03000000
+  - {fileID: 114226745421153134, guid: 7e935a26fae7b9a43b8ad1104687756a, type: 2}
+  enemyPoolSizes: 0400000004000000
 --- !u!114 &832579321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1543,20 +1528,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &832579325
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 832579318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0165d54279ca54f4b8ff55bd76a12f00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  goldTemplet: {fileID: 114548095390915292, guid: 6d2e3ebd86735144cb18bb06fa993d36,
-    type: 2}
-  goldPoolSize: 10
 --- !u!114 &832579326
 MonoBehaviour:
   m_ObjectHideFlags: 0
