@@ -24,6 +24,14 @@
         /// <summary> The game's current state. </summary>
         public Enums.GameState State { get; set; }
 
+        /// <summary> The current sfx volume. </summary>
+        [Range(0f, 1f)]
+        public float SFXVol = .5f;
+
+        /// <summary> The current music volume. </summary>
+        [Range(0f, 1f)]
+        public float MusicVol = .5f;
+
         private void Start()
         {
             if (instance != null && instance != this)
@@ -34,6 +42,7 @@
             }
 
             instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
     }
 }

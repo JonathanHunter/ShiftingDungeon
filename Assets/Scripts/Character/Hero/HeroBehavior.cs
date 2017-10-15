@@ -1,6 +1,7 @@
 ﻿namespace ShiftingDungeon.Character.Hero
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
     using Util;
@@ -17,6 +18,9 @@
         /// <summary> The range of the player's enemy-targeting ability. </summary>
         [SerializeField]
         private float targetRange = 7.5f;
+        /// <summary> The fraction of money that the player will retain after dying. </summary>
+        [SerializeField]
+        private float moneyKeptOnDeath;
         /// <summary> A crosshair sprite for indicating the enemy target. </summary>
         [SerializeField]
         private Crosshair crosshair;
@@ -28,6 +32,10 @@
         private Transform weaponHolder;
         [SerializeField]
         private AnimationClip[] MovementClips;
+        [SerializeField]
+        private AnimationClip[] AttackClips;
+        [SerializeField]
+        private AnimationClip[] HurtClips;
 
         private Animator anim = null;
         private Rigidbody2D rgbdy = null;
@@ -44,11 +52,17 @@
         private int targetIndex = 0;
         private AnimationOverrideHandler animOverride;
         private int currentClipSet;
+        /// <summary> The particle system to trigger when the player dies. </summary>
+        private ParticleSystem deathParticles = null;
+        /// <summary> Whether the player's death animation has started. </summary>
+        private bool deathTriggered = false;
 
         /// <summary> The player's max health. </summary>
         public int MaxHealth { get { return this.maxHealth; } }
         /// <summary> The player's current health. </summary>
         public int Health { get; private set; }
+        /// <summary> Whether the player is dead. </summary>
+        public bool IsDead { get { return this.Health <= 0; } }
         /// <summary> The player's current weapon. </summary>
         public int CurrentWeapon { get; private set; }
         /// <summary> The player's current state. </summary>
@@ -72,6 +86,7 @@
             this.CurrentState = Enums.HeroState.Idle;
             this.crosshair = Instantiate(crosshair);
             this.currentClipSet = 0;
+            this.deathParticles = GetComponentInChildren<ParticleSystem>();
 
             if(HeroData.Instance.weaponLevels == null || HeroData.Instance.weaponLevels.Length == 0)
             {
@@ -114,7 +129,7 @@
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.tag == Enums.Tags.Enemy.ToString() ||
-                collision.gameObject.tag == Enums.Tags.EnemyWeapon.ToString() ||
+                collision.gameObject.tag == Enums.Tags.EnemyWeapon.ToString() || 
                 collision.gameObject.tag == Enums.Tags.Trap.ToString())
             {
                 if (this.CurrentState != Enums.HeroState.Hurt &&
@@ -124,18 +139,41 @@
                     Vector2 position = this.transform.position;
                     this.rgbdy.AddForce((position - collision.contacts[0].point).normalized * 5f, ForceMode2D.Impulse);
                     sfx.PlaySong(0);
+
+                    if (IsDead && !deathTriggered)
+                    {
+                        deathTriggered = true;
+                        StartCoroutine(Die());
+                    }
                 }
 
                 anim.SetTrigger(this.hitHash);
             }
-            else if(collision.gameObject.tag == Enums.Tags.Pickup.ToString())
+            else if (collision.gameObject.tag == Enums.Tags.Pickup.ToString())
             {
-                if(collision.gameObject.GetComponent<Pickups.Money>() != null)
+                if (collision.gameObject.GetComponent<Pickups.Money>() != null)
                 {
                     Pickups.Money gold = collision.gameObject.GetComponent<Pickups.Money>();
                     HeroData.Instance.money += gold.Value;
                     ObjectPooling.PickupPool.Instance.ReturnGold(gold.gameObject);
                 }
+            }
+        }
+        private void OnTriggerEnter2D(Collider2D collider)
+        {
+            if (collider.gameObject.tag == Enums.Tags.Enemy.ToString() ||
+                collider.gameObject.tag == Enums.Tags.EnemyWeapon.ToString())
+            {
+                if (this.CurrentState != Enums.HeroState.Hurt &&
+                    collider.gameObject.GetComponent<IDamageDealer>() != null)
+                {
+                    this.Health -= collider.gameObject.GetComponent<IDamageDealer>().GetDamage();
+                    Vector2 position = this.transform.position;
+                    this.rgbdy.AddForce(collider.transform.right * 5f, ForceMode2D.Impulse);
+                    sfx.PlaySong(0);
+                }
+
+                anim.SetTrigger(this.hitHash);
             }
         }
 
@@ -188,8 +226,8 @@
                 {
                     // TODO Account for walls that cannot be shot through once they are added.
                     Vector3 targetPos = targets[targetIndex++].transform.position;
-                    float angle = Vector2.SignedAngle(this.weaponHolder.right, (targetPos - transform.position).normalized);
-                    this.weaponHolder.Rotate(Vector3.forward, angle);
+                    float angle = Vector2.SignedAngle(Vector2.right, (targetPos - transform.position).normalized);
+                    this.weaponHolder.rotation = Quaternion.Euler(0, 0, angle);
                     CalculateSpriteSet(angle);
                     crosshair.Target(targetPos);
                     sfx.PlaySong(1);
@@ -251,7 +289,7 @@
             }
 
             Vector2 speed = this.rgbdy.velocity + right * currentAcceleration;
-            if (speed.magnitude < currentMaxSpeed)
+            if (speed.magnitude < currentMaxSpeed && !IsDead)
                 this.rgbdy.velocity = speed;
 
             // Hero moved, so go back to targeting the closest enemy.
@@ -319,9 +357,44 @@
             if (sprite != this.currentClipSet)
             {
                 this.animOverride.OverrideClip(this.MovementClips[0], this.MovementClips[sprite]);
+                this.animOverride.OverrideClip(this.AttackClips[0], this.AttackClips[sprite]);
+                this.animOverride.OverrideClip(this.HurtClips[0], this.HurtClips[sprite]);
                 this.animOverride.ApplyOverrides();
                 this.currentClipSet = sprite;
             }
+        }
+
+        /// <summary> Causes the player to die and receive a game over. </summary>
+        private IEnumerator Die()
+        {
+            input.enabled = false;
+            input.ResetInput();
+            weaponHolder.gameObject.SetActive(false);
+
+            yield return new WaitForSeconds(0.25f);
+
+            Managers.DungeonManager.ShowGameOver();
+            GetComponent<Collider2D>().enabled = false;
+            GetComponent<Renderer>().enabled = false;
+            deathParticles.Emit(100);
+            sfx.PlaySong(3);
+            this.rgbdy.velocity = Vector2.zero;
+            this.weapons[this.CurrentWeapon].CleanUp();
+
+            yield return null;
+        }
+
+        /// <summary> Reactivates hero components when respawning after death. </summary>
+        public void Respawn()
+        {
+            GetComponent<HeroInput>().enabled = true;
+            weaponHolder.gameObject.SetActive(true);
+            GetComponent<Collider2D>().enabled = true;
+            GetComponent<Renderer>().enabled = true;
+            Health = maxHealth;
+            HeroData.Instance.money = (int)(moneyKeptOnDeath * HeroData.Instance.money);
+            deathTriggered = false;
+            transform.position = Vector2.zero;
         }
     }
 }

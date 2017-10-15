@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   song:
-  - {fileID: 8300000, guid: 12901a4a414ae0e42ad9332a4af5a560, type: 3}
+  - {fileID: 8300000, guid: 5ae21d7e130285948833e70811e929e1, type: 3}
   audio: {fileID: 82235117966059364}
   SFX: 1
   playOnLoad: 0
@@ -211,12 +211,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   referenceIndex: 0
-  maxHealth: 10
+  maxHealth: 5
   type: 0
   walkTime: 0.5
   walkCount: 2
   walkSpeed: 3
   agroRange: 5
+  stunLength: 0.15
+  maxTimeBetweenHits: 0.8
   sfx: {fileID: 114220864050240580}
 --- !u!212 &212321907164008788
 SpriteRenderer:

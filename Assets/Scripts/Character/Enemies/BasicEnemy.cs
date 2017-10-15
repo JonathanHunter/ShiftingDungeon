@@ -35,17 +35,16 @@
 
         protected override void LocalInitialize()
         {
-            
+            this.hero = Managers.DungeonManager.GetHero().transform;
+            this.rgbdy = this.gameObject.GetComponent<Rigidbody2D>();
+            this.anim = this.gameObject.GetComponent<Animator>();
+            this.hitHash = Animator.StringToHash("Hit");
         }
 
         protected override void LocalReInitialize()
         {
-            this.hero = Managers.DungeonManager.GetHero().transform;
-            this.rgbdy = this.gameObject.GetComponent<Rigidbody2D>();
-            this.anim = this.gameObject.GetComponent<Animator>();
             this.walkCounter = Random.Range(0, this.walkTime + 1);
             this.timesWalked = 0;
-            this.hitHash = Animator.StringToHash("Hit");
         }
 
         protected override void LocalUpdate()
