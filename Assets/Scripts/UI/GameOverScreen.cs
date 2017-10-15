@@ -1,14 +1,10 @@
 ﻿namespace ShiftingDungeon.UI
 {
-
     using UnityEngine;
     using UnityEngine.UI;
     using Managers;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    class GameOverScreen : MonoBehaviour
+    public class GameOverScreen : MonoBehaviour
     {
 
         /// <summary> The current amount of time (seconds) to wait before the level restarts. </summary>
@@ -25,8 +21,10 @@
         /// <summary> The amount of time (seconds) that the screen has been visible. </summary>
         private float screenDuration = 0;
         /// <summary> The text displaying "Game Over". </summary>
+        [SerializeField]
         private Text text;
-        /// <summary> The background for the text. </summary>
+        /// <summary> The background for the text. </summary>\
+        [SerializeField]
         private Image background;
 
         /// <summary>
@@ -34,8 +32,6 @@
         /// </summary>
         private void Start()
         {
-            text = GetComponentInChildren<Text>();
-            background = transform.Find("Background").GetComponent<Image>();
             initRestartTime = restartTime;
             Reset();
         }
@@ -53,15 +49,14 @@
                 float newAlpha = (screenDuration - textStartAppearTime) / textAppearTime;
                 textColor.a = newAlpha;
                 text.color = textColor;
-
                 Color backgroundColor = background.color;
                 backgroundColor.a = newAlpha * 0.7f;
                 background.color = backgroundColor;
             }
+
             if (restartTime <= 0)
             {
                 DungeonManager.RestartFloor();
-
                 Reset();
             }
         }

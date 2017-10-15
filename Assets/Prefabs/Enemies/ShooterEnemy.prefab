@@ -303,7 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   song:
-  - {fileID: 8300000, guid: 12901a4a414ae0e42ad9332a4af5a560, type: 3}
+  - {fileID: 8300000, guid: 5ae21d7e130285948833e70811e929e1, type: 3}
   audio: {fileID: 82106712522169346}
   SFX: 1
   playOnLoad: 0

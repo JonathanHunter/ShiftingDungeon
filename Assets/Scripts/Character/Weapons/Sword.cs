@@ -67,7 +67,7 @@
         {
             if(!this.doOnce)
             {
-                this.sfx.PlaySong(0);
+                this.sfx.PlaySong(comboCounter % sfx.song.Length);
                 this.doOnce = true;
             }
             
