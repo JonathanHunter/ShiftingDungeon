@@ -77,15 +77,17 @@ LightmapSettings:
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
-    m_PVRFiltering: 0
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
     m_PVRFilteringMode: 1
     m_PVRCulling: 1
     m_PVRFilteringGaussRadiusDirect: 1
     m_PVRFilteringGaussRadiusIndirect: 5
     m_PVRFilteringGaussRadiusAO: 2
-    m_PVRFilteringAtrousColorSigma: 1
-    m_PVRFilteringAtrousNormalSigma: 1
-    m_PVRFilteringAtrousPositionSigma: 1
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -107,6 +109,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    debug:
+      m_Flags: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1 &64724091
 GameObject:
@@ -304,12 +308,12 @@ Prefab:
     - target: {fileID: 224346106676607002, guid: 688736fcea5cc95438e7fdf1bd19a94d,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -305
       objectReference: {fileID: 0}
     - target: {fileID: 224346106676607002, guid: 688736fcea5cc95438e7fdf1bd19a94d,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 381
       objectReference: {fileID: 0}
     - target: {fileID: 224346106676607002, guid: 688736fcea5cc95438e7fdf1bd19a94d,
         type: 2}
@@ -590,12 +594,12 @@ Prefab:
     - target: {fileID: 224199092799518620, guid: e9f6133660eb33e4689952558195c47b,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 658
       objectReference: {fileID: 0}
     - target: {fileID: 224199092799518620, guid: e9f6133660eb33e4689952558195c47b,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 354
       objectReference: {fileID: 0}
     - target: {fileID: 224199092799518620, guid: e9f6133660eb33e4689952558195c47b,
         type: 2}
@@ -790,7 +794,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
 --- !u!4 &966782441
 Transform:
   m_ObjectHideFlags: 0
@@ -903,8 +906,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 972339651}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 546.5, y: 307.5, z: 0}
+  m_LocalScale: {x: 0.683125, y: 0.683125, z: 0.683125}
   m_Children:
   - {fileID: 754963713}
   - {fileID: 1763189449}
@@ -1156,12 +1159,12 @@ Prefab:
     - target: {fileID: 224416692753846750, guid: f63a33fbd081ede4d8e80a4b15d6182c,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -263
       objectReference: {fileID: 0}
     - target: {fileID: 224416692753846750, guid: f63a33fbd081ede4d8e80a4b15d6182c,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 144
       objectReference: {fileID: 0}
     - target: {fileID: 224416692753846750, guid: f63a33fbd081ede4d8e80a4b15d6182c,
         type: 2}
@@ -1625,12 +1628,12 @@ Prefab:
     - target: {fileID: 224671366696028342, guid: b1e843bf361c3124885133141e54cb7a,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 39
       objectReference: {fileID: 0}
     - target: {fileID: 224671366696028342, guid: b1e843bf361c3124885133141e54cb7a,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -242
       objectReference: {fileID: 0}
     - target: {fileID: 224671366696028342, guid: b1e843bf361c3124885133141e54cb7a,
         type: 2}
@@ -1797,6 +1800,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1812,6 +1816,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
