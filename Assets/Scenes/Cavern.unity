@@ -971,7 +971,7 @@ MonoBehaviour:
   isTitleScreen: 0
   floors:
   - {fileID: 114336762918798104, guid: 1c3c755b8b305a0439c996d6b631e95f, type: 2}
-  - {fileID: 0}
+  - {fileID: 114446231822332768, guid: 150dfe279e56a1342915d105ed16dd62, type: 2}
   - {fileID: 114473106924155078, guid: 0176590af668627428f8dfadcfb58508, type: 2}
   - {fileID: 0}
   - {fileID: 0}
@@ -982,7 +982,7 @@ MonoBehaviour:
   miniMap: {fileID: 866127063}
   heroTemplet: {fileID: 114618599996926252, guid: 43fab8e420984474c9adb8399d12662d,
     type: 2}
-  currentFloor: 0
+  currentFloor: 1
 --- !u!114 &1001776142
 MonoBehaviour:
   m_ObjectHideFlags: 0
