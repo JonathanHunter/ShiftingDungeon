@@ -25,7 +25,7 @@
         public Enums.GameState State { get; set; }
 
         /// <summary> The current sfx volume. </summary>
-        [Range(0f,1f)]
+        [Range(0f, 1f)]
         public float SFXVol = .5f;
 
         /// <summary> The current music volume. </summary>
@@ -42,6 +42,7 @@
             }
 
             instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
     }
 }

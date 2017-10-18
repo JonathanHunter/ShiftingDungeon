@@ -246,6 +246,12 @@
                     }
                     else if(this.Grid[r, c] == 2)
                     {
+                        GameObject floor = RoomPool.Instance.GetFloor();
+                        floor.transform.position = new Vector3(-7 + r, 4 - c, Constants.ROOM_PART_Z_DEPTH);
+                        floor.transform.rotation = Quaternion.identity;
+                        floor.transform.localScale = Vector3.one;
+                        SetFloorImage(floor, r, c);
+                        this.floors.Add(floor);
                         GameObject stair = RoomPool.Instance.GetStair();
                         stair.transform.position = new Vector3(-7 + r, 4 - c, Constants.ROOM_PART_Z_DEPTH);
                         stair.transform.rotation = Quaternion.identity;
@@ -268,6 +274,7 @@
         private void AllocateEnemies()
         {
             List<Vector2> positions = new List<Vector2>();
+            int length = System.Enum.GetNames(typeof(Enums.Traps)).Length;
             for (int i = 0; i < 4; i++)
             {
                 bool placed = false;
@@ -279,7 +286,7 @@
                     Vector2 position = new Vector2(-7 + r, 4 - c);
                     if (this.Grid[r, c] == 1 && !positions.Contains(position))
                     {
-                        GameObject enemy = EnemyPool.Instance.GetEnemy(Enums.EnemyTypes.Basic);
+                        GameObject enemy = EnemyPool.Instance.GetEnemy((Enums.EnemyTypes)Random.Range(0, length));
                         enemy.transform.position = position;
                         enemy.transform.rotation = Quaternion.identity;
                         this.enemies.Add(enemy.GetComponent<Enemy>());

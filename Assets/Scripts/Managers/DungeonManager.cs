@@ -6,6 +6,7 @@
     using Dungeon;
     using Dungeon.ProcGen;
     using Dungeon.RoomParts;
+    using Character.Hero;
 
     public class DungeonManager : MonoBehaviour
     {
@@ -21,6 +22,8 @@
         private UI.TransitionOverlay overlay = null;
         [SerializeField]
         private UI.MiniMap miniMap = null;
+        [SerializeField]
+        private UI.GameOverScreen gameOverScreen = null;
         [SerializeField]
         private Character.Hero.HeroBehavior heroTemplet = null;
         [SerializeField]
@@ -80,9 +83,26 @@
         {
             Instance.currentFloor++;
             if (Instance.currentFloor >= Instance.floors.Length)
+            {
+                GameState.Instance.State = Util.Enums.GameState.Playing;
                 SceneManager.LoadScene(Instance.nextScene);
+            }
             else
-                Instance.StartCoroutine(Instance.SwitchMaps());
+                LoadSelectedFloor();
+        }
+
+        /// <summary> Reloads the floor after the hero dies. </summary>
+        public static void RestartFloor()
+        {
+            GetHero().GetComponent<HeroBehavior>().Respawn();
+            LoadSelectedFloor();
+            Instance.cameraTracker.ResetPosition();
+        }
+
+        /// <summary> Begins loading the currently selected floor. </summary>
+        private static void LoadSelectedFloor()
+        {
+            Instance.StartCoroutine(Instance.SwitchMaps());
         }
 
         /// <summary> Transitions from the current room to the next. </summary>
@@ -90,6 +110,12 @@
         public static void TransitionRooms(Door current)
         {
             Instance.StartCoroutine(Instance.SwitchRooms(current));
+        }
+
+        /// <summary> Displays the game over screen when the player dies. </summary>
+        public static void ShowGameOver()
+        {
+            Instance.gameOverScreen.gameObject.SetActive(true);
         }
 
         private IEnumerator SwitchMaps()

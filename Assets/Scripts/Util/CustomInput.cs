@@ -926,7 +926,6 @@
                         return Input.GetAxisRaw(RIGHT_PS4_STICK_Y + joyStickNumber);
                     switch (Application.platform)
                     {
-                        case RuntimePlatform.OSXDashboardPlayer:
                         case RuntimePlatform.OSXEditor:
                         case RuntimePlatform.OSXPlayer: return Input.GetAxisRaw(RIGHT_OSX_STICK_Y + joyStickNumber);
                         default: return Input.GetAxisRaw(RIGHT_WIN_STICK_Y + joyStickNumber);
@@ -941,7 +940,6 @@
                         return Input.GetAxisRaw(RIGHT_PS4_STICK_X + joyStickNumber);
                     switch (Application.platform)
                     {
-                        case RuntimePlatform.OSXDashboardPlayer:
                         case RuntimePlatform.OSXEditor:
                         case RuntimePlatform.OSXPlayer: return Input.GetAxisRaw(RIGHT_OSX_STICK_X + joyStickNumber);
                         default: return Input.GetAxisRaw(RIGHT_WIN_STICK_X + joyStickNumber);
@@ -964,7 +962,6 @@
                         return Input.GetAxisRaw(DPAD_PS4_STICK_Y + joyStickNumber);
                     switch (Application.platform)
                     {
-                        case RuntimePlatform.OSXDashboardPlayer:
                         case RuntimePlatform.OSXEditor:
                         case RuntimePlatform.OSXPlayer:
                             switch (joyStickNumber)
@@ -990,7 +987,6 @@
                         return Input.GetAxisRaw(DPAD_PS4_STICK_X + joyStickNumber);
                     switch (Application.platform)
                     {
-                        case RuntimePlatform.OSXDashboardPlayer:
                         case RuntimePlatform.OSXEditor:
                         case RuntimePlatform.OSXPlayer:
                             switch (joyStickNumber)
@@ -1039,7 +1035,6 @@
                     }
                     switch (Application.platform)
                     {
-                        case RuntimePlatform.OSXDashboardPlayer:
                         case RuntimePlatform.OSXEditor:
                         case RuntimePlatform.OSXPlayer: return Input.GetAxisRaw(LEFT_OSX_TRIGGER + joyStickNumber);
                         case RuntimePlatform.LinuxPlayer: return Input.GetAxisRaw(LEFT_LINUX_TRIGGER + joyStickNumber);
@@ -1061,7 +1056,6 @@
                     }
                     switch (Application.platform)
                     {
-                        case RuntimePlatform.OSXDashboardPlayer:
                         case RuntimePlatform.OSXEditor:
                         case RuntimePlatform.OSXPlayer:return Input.GetAxisRaw(RIGHT_OSX_TRIGGER + joyStickNumber);
                         case RuntimePlatform.LinuxPlayer: return Input.GetAxisRaw(RIGHT_LINUX_TRIGGER + joyStickNumber);
@@ -1100,7 +1094,6 @@
                     }
                     switch (Application.platform)
                     {
-                        case RuntimePlatform.OSXDashboardPlayer:
                         case RuntimePlatform.OSXEditor:
                         case RuntimePlatform.OSXPlayer:
                             switch (joyStickNumber)
@@ -1145,7 +1138,6 @@
                     }
                     switch (Application.platform)
                     {
-                        case RuntimePlatform.OSXDashboardPlayer:
                         case RuntimePlatform.OSXEditor:
                         case RuntimePlatform.OSXPlayer:
                             switch (joyStickNumber)
@@ -1189,7 +1181,6 @@
                     }
                     switch (Application.platform)
                     {
-                        case RuntimePlatform.OSXDashboardPlayer:
                         case RuntimePlatform.OSXEditor:
                         case RuntimePlatform.OSXPlayer:
                             switch (joyStickNumber)
@@ -1234,7 +1225,6 @@
                     }
                     switch (Application.platform)
                     {
-                        case RuntimePlatform.OSXDashboardPlayer:
                         case RuntimePlatform.OSXEditor:
                         case RuntimePlatform.OSXPlayer:
                             switch (joyStickNumber)
@@ -1277,7 +1267,6 @@
                     }
                     switch (Application.platform)
                     {
-                        case RuntimePlatform.OSXDashboardPlayer:
                         case RuntimePlatform.OSXEditor:
                         case RuntimePlatform.OSXPlayer:
                             switch (joyStickNumber)
@@ -1333,7 +1322,6 @@
                     }
                     switch (Application.platform)
                     {
-                        case RuntimePlatform.OSXDashboardPlayer:
                         case RuntimePlatform.OSXEditor:
                         case RuntimePlatform.OSXPlayer:
                             switch (joyStickNumber)
@@ -1376,7 +1364,6 @@
                     }
                     switch (Application.platform)
                     {
-                        case RuntimePlatform.OSXDashboardPlayer:
                         case RuntimePlatform.OSXEditor:
                         case RuntimePlatform.OSXPlayer:
                             switch (joyStickNumber)
@@ -1419,7 +1406,6 @@
                     }
                     switch (Application.platform)
                     {
-                        case RuntimePlatform.OSXDashboardPlayer:
                         case RuntimePlatform.OSXEditor:
                         case RuntimePlatform.OSXPlayer:
                             switch (joyStickNumber)
@@ -1475,7 +1461,6 @@
                     }
                     switch (Application.platform)
                     {
-                        case RuntimePlatform.OSXDashboardPlayer:
                         case RuntimePlatform.OSXEditor:
                         case RuntimePlatform.OSXPlayer:
                             switch (joyStickNumber)
@@ -1542,7 +1527,6 @@
                     }
                     switch (Application.platform)
                     {
-                        case RuntimePlatform.OSXDashboardPlayer:
                         case RuntimePlatform.OSXEditor:
                         case RuntimePlatform.OSXPlayer:
                             switch (joyStickNumber)
