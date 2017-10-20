@@ -4,28 +4,11 @@
     {
         public enum GameState { Playing, Paused, Tranisioning, Cutscene }
 
-        public enum HeroState
-        {
-            [Attributes.StateMap(Layer = "Base Layer",
-                StateMachines = new string[] {})]
-            Idle,
-            [Attributes.StateMap(Layer = "Base Layer",
-                StateMachines = new string[] {})]
-            Move,
-            [Attributes.StateMap(Layer = "Base Layer",
-                StateMachines = new string[] {})]
-            Attack,
-            [Attributes.StateMap(Layer = "Base Layer",
-                StateMachines = new string[] {})]
-            Hurt,
-            [Attributes.StateMap(Layer = "Base Layer",
-                StateMachines = new string[] {})]
-            length
-        }
+        public enum HeroState { Idle, Move, Attack, Hurt, length }
 
         public enum BulletTypes { HeroBasic, EnemyBasic }
 
-        public enum EnemyTypes { Basic, Shooter }
+        public enum EnemyTypes { Basic, Shooter, Melee, Boss }
 
         public enum Direction { None, Up, Down, Left, Right }
 

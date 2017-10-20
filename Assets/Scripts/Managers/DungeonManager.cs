@@ -30,7 +30,7 @@
         private int currentFloor = 0;
         
         private static DungeonManager instance;
-        private static DungeonManager Instance
+        public static DungeonManager Instance
         {
             get
             {
@@ -42,7 +42,7 @@
         }
 
         private DungeonMap map;
-        private Character.Hero.HeroBehavior hero;
+        private HeroBehavior hero;
         private Util.CameraTracker cameraTracker;
 
         private void Start()
