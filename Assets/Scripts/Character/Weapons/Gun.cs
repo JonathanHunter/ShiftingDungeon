@@ -15,6 +15,13 @@
         [SerializeField]
         private SoundPlayer sfx;
 
+        public float BulletSpeed {
+            get
+            {
+                return bulletSpeed;
+            }
+        }
+
         private bool doOnce = false;
         private float lag = 0;
 
