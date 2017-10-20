@@ -23,6 +23,8 @@ GameObject:
   - component: {fileID: 50949709039845578}
   - component: {fileID: 61330568565576920}
   - component: {fileID: 114552137873342742}
+  - component: {fileID: 82972241227609854}
+  - component: {fileID: 114287546630277036}
   m_Layer: 16
   m_Name: Exectioner
   m_TagString: Enemy
@@ -256,6 +258,86 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.7, y: 0.3}
   m_EdgeRadius: 0
+--- !u!82 &82972241227609854
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1253125893814944}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.8
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95214147165561496
 Animator:
   serializedVersion: 3
@@ -273,6 +355,27 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114287546630277036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1253125893814944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bdd957db7a0e8447ae577cc9297808c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  song:
+  - {fileID: 8300000, guid: 2cf3700221011e44ba68471da44d3ff2, type: 3}
+  - {fileID: 8300000, guid: 5ae21d7e130285948833e70811e929e1, type: 3}
+  audio: {fileID: 82972241227609854}
+  SFX: 0
+  playOnLoad: 0
+  loop: 0
+  intro: 0
+  loopSong: 0
+  dontDestroy: 0
 --- !u!114 &114530337556044102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -314,6 +417,7 @@ MonoBehaviour:
   idleTime: 0.75
   meleeRange: 1.5
   moveSpeed: 2.5
+  sfx: {fileID: 114287546630277036}
 --- !u!212 &212123839519227260
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -25,6 +25,8 @@
         private float meleeRange = .5f;
         [SerializeField]
         private float moveSpeed = 2.5f;
+        [SerializeField]
+        private Util.SoundPlayer sfx;
 
         private enum ExectionerState { Idle, Move, Attack, Shield, Stun }
 
@@ -151,6 +153,7 @@
                 this.isInvulnerable = true;
                 this.Health -= damage;
                 this.invunTimer = this.invulnerabilityTime;
+                this.sfx.PlaySong(1);
             }
         }
 
@@ -215,6 +218,7 @@
         {
             if(!this.doOnce)
             {
+                this.sfx.PlaySong(0);
                 LookAt(this.hero.position);
                 foreach (SummoningField s in this.summoningPoints)
                 {

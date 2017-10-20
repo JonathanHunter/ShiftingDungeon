@@ -12,6 +12,8 @@
         private GameObject[] traps = null;
         [SerializeField]
         private GameObject[] victoryObjs = null;
+        [SerializeField]
+        private Util.SoundPlayer sfx;
 
         private List<GameObject> spawnedEnemies;
         private bool tripped;
@@ -52,6 +54,7 @@
         {
             if(collision.tag == Util.Enums.Tags.Hero.ToString())
             {
+                this.sfx.PlaySong(0);
                 foreach (SummoningField s in this.spawners)
                 {
                     GameObject e = s.Spawn();

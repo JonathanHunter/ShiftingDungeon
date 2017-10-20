@@ -81,6 +81,8 @@
         {
             if(this.smoke.isPlaying)
                 this.smoke.Stop();
+
+            this.weapon.CleanUp();
         }
 
         protected override void LocalDelete()
