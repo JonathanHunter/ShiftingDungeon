@@ -14,6 +14,8 @@
         private float walkSpeed = 2;
         [SerializeField]
         private float agroRange = 3;
+        [SerializeField, Range(0f, 1)]
+        private float shotLeadError = 1f;
         [SerializeField]
         private float stunLength = 0.15f;
         [SerializeField]
@@ -76,6 +78,7 @@
                 {
                     if (CanSeePlayer())
                     {
+                        RotateToLeadShot();
                         this.rgbdy.velocity = -this.transform.right * this.walkSpeed;
                         gun.ReInit();
                         isShooting = true;
@@ -143,7 +146,18 @@
 
         private void RotateToPlayer()
         {
-            Vector2 towards = this.hero.transform.position - this.transform.position;
+            Vector2 towards = this.hero.position - this.transform.position;
+            this.transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, towards));
+        }
+
+        private void RotateToLeadShot()
+        {
+            Vector2 heroVelocity = this.hero.GetComponent<Rigidbody2D>().velocity;
+            float deltaT = (this.transform.position - this.hero.position).magnitude
+                / (heroVelocity - this.gun.BulletSpeed * (Vector2)this.transform.right).magnitude;
+            Vector2 futurePlayerPos = (Vector2)hero.position + heroVelocity * deltaT * (1 - shotLeadError);
+
+            Vector2 towards = futurePlayerPos - (Vector2)this.transform.position;
             this.transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, towards));
         }
     }
