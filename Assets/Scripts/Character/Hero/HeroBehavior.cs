@@ -40,7 +40,7 @@
         private Animator anim = null;
         private Rigidbody2D rgbdy = null;
         private HeroInput input = null;
-        private StateMap stateMap = null;
+        private StateMap<Enums.HeroState> stateMap = null;
         private bool doOnce = false;
         private bool isSpeedAltered = false;
         private int attackHash = 0;
@@ -76,7 +76,7 @@
             this.animOverride = new AnimationOverrideHandler(this.anim);
             this.rgbdy = GetComponent<Rigidbody2D>();
             this.input = GetComponent<HeroInput>();
-            this.stateMap = new StateMap();
+            this.stateMap = new StateMap<Enums.HeroState>();
             this.doOnce = false;
             this.attackHash = Animator.StringToHash("Attack");
             this.attackFinishedHash = Animator.StringToHash("AttackFinished");

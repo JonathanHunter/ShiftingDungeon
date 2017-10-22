@@ -36,11 +36,14 @@
                     for (int i = 0; i < count; i++)
                     {
                         GameObject gold = PickupPool.Instance.GetGold();
-                        int value = Random.Range(1, 4);
-                        gold.transform.position = this.transform.position;
-                        gold.transform.localScale = new Vector3(value, value, 1);
-                        Vector2 randForce = new Vector2(Random.Range(-5f, 5f), Random.Range(-5f, 5f));
-                        gold.GetComponent<Rigidbody2D>().AddForce(randForce, ForceMode2D.Impulse);
+                        if (gold != null)
+                        {
+                            int value = Random.Range(1, 4);
+                            gold.transform.position = this.transform.position;
+                            gold.transform.localScale = new Vector3(value, value, 1);
+                            Vector2 randForce = new Vector2(Random.Range(-5f, 5f), Random.Range(-5f, 5f));
+                            gold.GetComponent<Rigidbody2D>().AddForce(randForce, ForceMode2D.Impulse);
+                        }
                     }
                 }
 

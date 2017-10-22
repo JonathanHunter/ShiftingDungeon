@@ -24,11 +24,11 @@ TagManager:
   - Enemy
   - HeroWeapon
   - EnemyWeapon
-  - DungeonHazard
+  - SummoningField
   - Dungeon
   - Pickup
   - Trap
-  - 
+  - Boss
   - 
   - 
   - 
