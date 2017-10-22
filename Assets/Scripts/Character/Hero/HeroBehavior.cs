@@ -132,22 +132,9 @@
                 collision.gameObject.tag == Enums.Tags.EnemyWeapon.ToString() || 
                 collision.gameObject.tag == Enums.Tags.Trap.ToString())
             {
-                if (this.CurrentState != Enums.HeroState.Hurt &&
-                    collision.gameObject.GetComponent<IDamageDealer>() != null)
-                {
-                    this.Health -= collision.gameObject.GetComponent<IDamageDealer>().GetDamage();
-                    Vector2 position = this.transform.position;
-                    this.rgbdy.AddForce((position - collision.contacts[0].point).normalized * 5f, ForceMode2D.Impulse);
-                    sfx.PlaySong(0);
-
-                    if (IsDead && !deathTriggered)
-                    {
-                        deathTriggered = true;
-                        StartCoroutine(Die());
-                    }
-                }
-
-                anim.SetTrigger(this.hitHash);
+                Vector2 position = this.transform.position;
+                Vector2 forceDirection = (position - collision.contacts[0].point).normalized;
+                DamageHero(collision.gameObject, forceDirection);
             }
             else if (collision.gameObject.tag == Enums.Tags.Pickup.ToString())
             {
@@ -164,17 +151,33 @@
             if (collider.gameObject.tag == Enums.Tags.Enemy.ToString() ||
                 collider.gameObject.tag == Enums.Tags.EnemyWeapon.ToString())
             {
-                if (this.CurrentState != Enums.HeroState.Hurt &&
-                    collider.gameObject.GetComponent<IDamageDealer>() != null)
-                {
-                    this.Health -= collider.gameObject.GetComponent<IDamageDealer>().GetDamage();
-                    Vector2 position = this.transform.position;
-                    this.rgbdy.AddForce(collider.transform.right * 5f, ForceMode2D.Impulse);
-                    sfx.PlaySong(0);
-                }
-
-                anim.SetTrigger(this.hitHash);
+                DamageHero(collider.gameObject, collider.transform.right);
             }
+        }
+
+        /// <summary>
+        /// Damages and knocks back the hero, killing the hero if health drops below 0.
+        /// </summary>
+        /// <param name="collideObject">The object dealing damage to the hero.</param>
+        /// <param name="forceDirection">The direction of knockback.</param>
+        private void DamageHero(GameObject collideObject, Vector2 forceDirection)
+        {
+            if (this.CurrentState != Enums.HeroState.Hurt &&
+                collideObject.GetComponent<IDamageDealer>() != null)
+            {
+                this.Health -= collideObject.GetComponent<IDamageDealer>().GetDamage();
+                Vector2 position = this.transform.position;
+                this.rgbdy.AddForce(forceDirection * 5f, ForceMode2D.Impulse);
+                sfx.PlaySong(0);
+
+                if (IsDead && !deathTriggered)
+                {
+                    deathTriggered = true;
+                    StartCoroutine(Die());
+                }
+            }
+
+            anim.SetTrigger(this.hitHash);
         }
 
         /// <summary> Cycles to the next weapon in the players list. </summary>
