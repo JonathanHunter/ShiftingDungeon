@@ -87,8 +87,8 @@
             this.crosshair = Instantiate(crosshair);
             this.currentClipSet = 0;
             this.deathParticles = GetComponentInChildren<ParticleSystem>();
-            // HACK: Addresses Unity bug where ParticleSystem.Emit() initially spawns particles
-            // at the origin regardless of the particle system's position, until a particle is emitted.
+            // HACK: Addresses Unity bug where ParticleSystem.Emit() spawns particles
+            // at the origin regardless of the particle system's position until a particle is emitted.
             this.deathParticles.Emit(1);
 
             if(HeroData.Instance.weaponLevels == null || HeroData.Instance.weaponLevels.Length == 0)
@@ -400,6 +400,7 @@
             Health = maxHealth;
             HeroData.Instance.money = (int)(moneyKeptOnDeath * HeroData.Instance.money);
             deathTriggered = false;
+            isSpeedAltered = false;
             transform.position = Vector2.zero;
         }
     }
