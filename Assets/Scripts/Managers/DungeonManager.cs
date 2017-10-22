@@ -3,6 +3,7 @@
     using System.Collections;
     using UnityEngine;
     using UnityEngine.SceneManagement;
+    using UnityEngine.Tilemaps;
     using Dungeon;
     using Dungeon.ProcGen;
     using Dungeon.RoomParts;
@@ -28,6 +29,8 @@
         private Character.Hero.HeroBehavior heroTemplet = null;
         [SerializeField]
         private int currentFloor = 0;
+        [SerializeField]
+        private Tilemap floorMap;
         
         private static DungeonManager instance;
         public static DungeonManager Instance
@@ -170,7 +173,8 @@
                 yield return 0;
             }
 
-            this.map.Rooms[0].Activate();
+            floorMap.transform.parent.gameObject.SetActive(false);
+            this.map.Rooms[0].Activate(this.floorMap);
             this.overlay.FadeOut();
             if(this.isTitleScreen)
                 GameState.Instance.State = Util.Enums.GameState.Paused;
@@ -184,6 +188,7 @@
         {
             this.overlay.FadeIn();
             GameState.Instance.State = Util.Enums.GameState.Tranisioning;
+            floorMap.transform.parent.gameObject.SetActive(false);
             Room next;
             Vector2 postion;
             Util.Enums.Direction directionMoved = Util.Enums.Direction.None;
@@ -224,7 +229,7 @@
             current.Parent.Deactivate();
             yield return 0;
 
-            next.Activate();
+            next.Activate(this.floorMap);
             this.overlay.FadeOut();
             GameState.Instance.State = Util.Enums.GameState.Playing;
             yield break;
