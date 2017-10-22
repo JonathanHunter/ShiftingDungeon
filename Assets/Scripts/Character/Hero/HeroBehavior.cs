@@ -87,6 +87,9 @@
             this.crosshair = Instantiate(crosshair);
             this.currentClipSet = 0;
             this.deathParticles = GetComponentInChildren<ParticleSystem>();
+            // HACK: Addresses Unity bug where ParticleSystem.Emit() initially spawns particles
+            // at the origin regardless of the particle system's position, until a particle is emitted.
+            this.deathParticles.Emit(1);
 
             if(HeroData.Instance.weaponLevels == null || HeroData.Instance.weaponLevels.Length == 0)
             {
