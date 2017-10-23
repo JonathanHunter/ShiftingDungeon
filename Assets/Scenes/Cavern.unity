@@ -285,6 +285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SFXVol: 0.5
   MusicVol: 0.5
+  bgm: {fileID: 1564812972}
 --- !u!4 &197097519
 Transform:
   m_ObjectHideFlags: 0
@@ -906,8 +907,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 972339651}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 565.5, y: 318, z: 0}
-  m_LocalScale: {x: 0.706875, y: 0.706875, z: 0.706875}
+  m_LocalPosition: {x: 579, y: 325.5, z: 0}
+  m_LocalScale: {x: 0.72375, y: 0.72375, z: 0.72375}
   m_Children:
   - {fileID: 754963713}
   - {fileID: 1763189449}
@@ -1570,13 +1571,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   song:
   - {fileID: 8300000, guid: 210ef48e096e68e4aa99a90db9da1c9f, type: 3}
+  - {fileID: 8300000, guid: cb643bf4dc5270245ae55a4a7bd7f868, type: 3}
   audio: {fileID: 1564812970}
   SFX: 0
   playOnLoad: 1
   loop: 1
   intro: 0
   loopSong: 0
-  dontDestroy: 0
+  dontDestroy: 1
 --- !u!224 &1686666235 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224199092799518620, guid: e9f6133660eb33e4689952558195c47b,

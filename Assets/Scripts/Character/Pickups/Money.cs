@@ -13,7 +13,7 @@
                 else if (this.transform.localScale.x == 2)
                     return 10;
                 else
-                    return 100;
+                    return 50;
             }
         }
 
