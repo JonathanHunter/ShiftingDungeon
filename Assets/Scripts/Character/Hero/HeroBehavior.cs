@@ -36,8 +36,11 @@
         private AnimationClip[] AttackClips;
         [SerializeField]
         private AnimationClip[] HurtClips;
-
+        [SerializeField]
+        private Effects.Squish squishing;
+        [SerializeField]
         private Animator anim = null;
+
         private Rigidbody2D rgbdy = null;
         private HeroInput input = null;
         private StateMap<Enums.HeroState> stateMap = null;
@@ -72,7 +75,9 @@
 
         private void Start()
         {
-            this.anim = GetComponent<Animator>();
+            if(this.anim == null)
+                this.anim = GetComponent<Animator>();
+
             this.animOverride = new AnimationOverrideHandler(this.anim);
             this.rgbdy = GetComponent<Rigidbody2D>();
             this.input = GetComponent<HeroInput>();
@@ -105,6 +110,7 @@
             }
 
             this.weapons[this.CurrentWeapon].Level = HeroData.Instance.weaponLevels[this.CurrentWeapon];
+            this.squishing.StartSquishing();
         }
 
         private void Update()
@@ -117,7 +123,9 @@
             if (temp != CurrentState)
             {
                 this.doOnce = false;
-                this.anim.SetBool(this.attackFinishedHash, false);                
+                this.anim.SetBool(this.attackFinishedHash, false);
+                this.squishing.DoubleSpeed = false;
+                this.squishing.StartSquishing();
             }
 
             switch(this.CurrentState)
@@ -260,6 +268,12 @@
 
         private void Move()
         {
+            if(!this.doOnce)
+            {
+                this.squishing.DoubleSpeed = true;
+                this.doOnce = true;
+            }
+
             int x;
             int y;
             if (this.input.Up)
@@ -308,6 +322,7 @@
             {
                 this.weapons[this.CurrentWeapon].ReInit();
                 this.doOnce = true;
+                this.squishing.StopSquishing();
             }
             
             if(this.weapons[this.CurrentWeapon].WeaponUpdate())
@@ -332,6 +347,7 @@
             {
                 this.weapons[this.CurrentWeapon].CleanUp();
                 this.doOnce = true;
+                this.squishing.StopSquishing();
             }
 
             targetIndex = 0;

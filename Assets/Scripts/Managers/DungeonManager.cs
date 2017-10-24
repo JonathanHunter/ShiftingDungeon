@@ -155,6 +155,7 @@
             else
                 this.map = Instantiate(this.floors[this.currentFloor]);
 
+            this.map.transform.position = new Vector3(0f, 3f, -1f);
             yield return 0;
 
             // Initialize the Map
