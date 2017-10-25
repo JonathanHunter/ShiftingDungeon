@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 212601113440117454}
   - component: {fileID: 95704763704346536}
   - component: {fileID: 114099696843707476}
+  - component: {fileID: 114138123892849752}
   m_Layer: 9
   m_Name: Sprite
   m_TagString: Untagged
@@ -278,6 +279,21 @@ MonoBehaviour:
   shakeOnStart: 0
   startShakes: 10
   activeInCutscenes: 0
+--- !u!114 &114138123892849752
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1510691759663822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd10ec1a50a55af48a22a25665764c5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 500
+  spinOnStart: 0
+  startSpins: 10
+  activeInCutscenes: 0
 --- !u!114 &114220864050240580
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -426,6 +442,7 @@ MonoBehaviour:
   maxTimeBetweenHits: 0.8
   sfx: {fileID: 114220864050240580}
   anim: {fileID: 95704763704346536}
+  spriteSpin: {fileID: 114138123892849752}
 --- !u!212 &212601113440117454
 SpriteRenderer:
   m_ObjectHideFlags: 1

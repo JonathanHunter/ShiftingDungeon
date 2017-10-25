@@ -22,6 +22,8 @@
         private SoundPlayer sfx;
         [SerializeField]
         private Animator anim;
+        [SerializeField]
+        private Effects.Spin spriteSpin;
 
         private Transform hero;
         private Rigidbody2D rgbdy;
@@ -65,6 +67,7 @@
                 if((this.timesWalked++) >= this.walkCount)
                 {
                     this.rgbdy.velocity = this.transform.right * this.walkSpeed * 4f;
+                    this.spriteSpin.StartSpin(1);
                     this.timesWalked = 0;
                 }
                 else
