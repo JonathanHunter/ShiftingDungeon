@@ -41,6 +41,8 @@
             
             if(allDead)
             {
+                Managers.GameState.Instance.bgm.PlaySong(0);
+                Managers.GameState.Instance.bgm.loopSong = 0;
                 this.spawnedEnemies.Clear();
                 foreach (GameObject t in this.traps)
                     t.SetActive(false);
@@ -70,6 +72,8 @@
 
                 GetComponent<Collider2D>().enabled = false;
                 this.tripped = true;
+                Managers.GameState.Instance.bgm.PlaySong(1);
+                Managers.GameState.Instance.bgm.loopSong = 1;
             }
         }
     }
