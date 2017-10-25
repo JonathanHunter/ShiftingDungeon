@@ -19,12 +19,12 @@
         private TriShotGun gun;
 		[SerializeField]
 		private Transform roots;
+        [SerializeField]
+        private Animator anim;
 
         private Transform hero;
-        private Animator anim;
         private int hitHash;
-
-        private float hitCounter;
+        
         private float stunCounter;
         private float shootCounter;
 		private Quaternion rootRot;
@@ -33,8 +33,10 @@
 
         protected override void LocalInitialize()
         {
+            if (this.anim == null)
+                this.anim = this.gameObject.GetComponent<Animator>();
+
             this.hero = Managers.DungeonManager.GetHero().transform;
-            this.anim = this.gameObject.GetComponent<Animator>();
             this.hitHash = Animator.StringToHash("Hit");
 			this.shootCounter = 0f;
 			this.rootRot = this.roots.rotation;
@@ -51,6 +53,9 @@
 
         protected override void LocalUpdate()
         {
+            if ((this.stunCounter -= Time.deltaTime) > 0)
+                return;
+
             if (isShooting)
             {
                 if (!(isShooting = !gun.WeaponUpdate()))

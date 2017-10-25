@@ -982,7 +982,7 @@ GameObject:
   - component: {fileID: 4115017245471220}
   - component: {fileID: 114111665689012942}
   m_Layer: 0
-  m_Name: EnemyTest
+  m_Name: CavernBossTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

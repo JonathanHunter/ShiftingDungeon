@@ -190,19 +190,19 @@
             this.leftDoor = RoomPool.Instance.GetDoor().GetComponent<Door>();
             this.rightDoor = RoomPool.Instance.GetDoor().GetComponent<Door>();
 
-            this.upperDoor.transform.position = new Vector3(0, 5, Constants.ROOM_PART_Z_DEPTH);
+            this.upperDoor.transform.position = new Vector3(0, 8, Constants.ROOM_PART_Z_DEPTH);
             this.upperDoor.transform.rotation = Quaternion.identity;
             this.upperDoor.transform.localScale = Vector3.one;
 
-            this.lowerDoor.transform.position = new Vector3(0, -11, Constants.ROOM_PART_Z_DEPTH);
+            this.lowerDoor.transform.position = new Vector3(0, -8, Constants.ROOM_PART_Z_DEPTH);
             this.lowerDoor.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
             this.lowerDoor.transform.localScale = Vector3.one;
 
-            this.leftDoor.transform.position = new Vector3(-8, -3, Constants.ROOM_PART_Z_DEPTH);
+            this.leftDoor.transform.position = new Vector3(-8, 0, Constants.ROOM_PART_Z_DEPTH);
             this.leftDoor.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
             this.leftDoor.transform.localScale = Vector3.one;
 
-            this.rightDoor.transform.position = new Vector3(8, -3, Constants.ROOM_PART_Z_DEPTH);
+            this.rightDoor.transform.position = new Vector3(8, 0, Constants.ROOM_PART_Z_DEPTH);
             this.rightDoor.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
             this.rightDoor.transform.localScale = Vector3.one;
 
@@ -215,7 +215,7 @@
         private void AllocateWalls()
         {
             GameObject wall = RoomPool.Instance.GetWall();
-            wall.transform.position = new Vector3(0, 0, Constants.ROOM_PART_Z_DEPTH);
+            wall.transform.position = new Vector3(0, 3, Constants.ROOM_PART_Z_DEPTH);
             wall.transform.rotation = Quaternion.identity;
             wall.transform.localScale = Vector3.one;
             this.walls.Add(wall);
@@ -235,7 +235,7 @@
                     {
                         floorMap.SetTile(new Vector3Int(r, -c, 0), GetFloorTile(r, c));
                         GameObject stair = RoomPool.Instance.GetStair();
-                        stair.transform.position = new Vector3(-7 + r, 4 - c, Constants.ROOM_PART_Z_DEPTH);
+                        stair.transform.position = new Vector3(-7 + r, 7 - c, Constants.ROOM_PART_Z_DEPTH);
                         stair.transform.rotation = Quaternion.identity;
                         stair.transform.localScale = Vector3.one;
                         this.stairs.Add(stair);
@@ -260,15 +260,18 @@
                 {
                     int r = Random.Range(1, 15);
                     int c = Random.Range(1, 15);
-                    Vector2 position = new Vector2(-7 + r, 4 - c);
+                    Vector2 position = new Vector2(-7 + r, 7 - c);
                     if (this.Grid[r, c] == 1 && !positions.Contains(position))
                     {
                         GameObject enemy = EnemyPool.Instance.GetEnemy((Enums.EnemyTypes)Random.Range(0, length));
-                        enemy.transform.position = position;
-                        enemy.transform.rotation = Quaternion.identity;
-                        this.enemies.Add(enemy.GetComponent<Enemy>());
-                        positions.Add(position);
-                        placed = true;
+                        if (enemy != null)
+                        {
+                            enemy.transform.position = position;
+                            enemy.transform.rotation = Quaternion.identity;
+                            this.enemies.Add(enemy.GetComponent<Enemy>());
+                            positions.Add(position);
+                            placed = true;
+                        }
                     }
 
                     tries++;
@@ -293,7 +296,7 @@
                             {
                                 int r = Random.Range(1, 15);
                                 int c = Random.Range(1, 15);
-                                Vector3 position = new Vector3(-7 + r, 4 - c, Constants.ROOM_PART_Z_DEPTH - 1);
+                                Vector3 position = new Vector3(-7 + r, 7 - c, Constants.ROOM_PART_Z_DEPTH - 1);
                                 if (this.Grid[r, c] == 1 && !positions.Contains(position))
                                 {
                                     GameObject trap = TrapPool.Instance.GetTrap((Enums.Traps)i);
