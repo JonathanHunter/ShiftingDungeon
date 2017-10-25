@@ -575,7 +575,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4343973672719034, guid: bafa36e8ff7909b499c9ab943fca8508, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bafa36e8ff7909b499c9ab943fca8508, type: 2}
@@ -907,8 +907,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 972339651}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 579, y: 325.5, z: 0}
-  m_LocalScale: {x: 0.72375, y: 0.72375, z: 0.72375}
+  m_LocalPosition: {x: 529, y: 297.5, z: 0}
+  m_LocalScale: {x: 0.66125, y: 0.66125, z: 0.66125}
   m_Children:
   - {fileID: 754963713}
   - {fileID: 1763189449}
@@ -1002,7 +1002,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTitleScreen: 0
   floors:
-  - {fileID: 114111665689012942, guid: a2893ebbd4423964099c3d365a66c2ff, type: 2}
+  - {fileID: 114111665689012942, guid: 0ff7c9c5b73e50348bb16f141bd96968, type: 2}
   - {fileID: 0}
   - {fileID: 114111665689012942, guid: a2893ebbd4423964099c3d365a66c2ff, type: 2}
   - {fileID: 0}
@@ -1100,7 +1100,7 @@ MonoBehaviour:
   playerBulletPools:
   - {fileID: 114465480071990346, guid: a1b6433ff53690b4287561932ad4bd2b, type: 2}
   - {fileID: 114934474935518600, guid: f0349ae32d38d274a9e58082970a3091, type: 2}
-  playerBulletPoolSizes: 0300000003000000
+  playerBulletPoolSizes: 030000000a000000
 --- !u!114 &1001776145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1117,7 +1117,8 @@ MonoBehaviour:
   - {fileID: 114226745421153134, guid: 7e935a26fae7b9a43b8ad1104687756a, type: 2}
   - {fileID: 114022190580515682, guid: 5c1523f385e28644bb5adf60295951ae, type: 2}
   - {fileID: 114552137873342742, guid: 7cdb09bc4e24f9a42998e662d952feff, type: 2}
-  enemyPoolSizes: 07000000070000000700000001000000
+  - {fileID: 114994173406844716, guid: 5742e0305efdc1148924baed77ac2707, type: 2}
+  enemyPoolSizes: 0700000007000000070000000100000003000000
 --- !u!114 &1001776146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1556,7 +1557,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1564812972
 MonoBehaviour:

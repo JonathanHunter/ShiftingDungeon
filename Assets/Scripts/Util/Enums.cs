@@ -8,7 +8,7 @@
 
         public enum BulletTypes { HeroBasic, EnemyBasic }
 
-        public enum EnemyTypes { Basic, Shooter, Melee, Boss }
+        public enum EnemyTypes { Basic, Shooter, Melee, Boss, Grass }
 
         public enum Direction { None, Up, Down, Left, Right }
 
