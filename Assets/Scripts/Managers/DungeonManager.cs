@@ -155,6 +155,7 @@
             else
                 this.map = Instantiate(this.floors[this.currentFloor]);
 
+            this.map.transform.position = new Vector3(0f, 3f, -1f);
             yield return 0;
 
             // Initialize the Map
@@ -217,11 +218,17 @@
                 directionMoved = Util.Enums.Direction.Right;
             }
 
-
             if (this.miniMap != null)
             {
                 this.miniMap.UpdateMiniMap(directionMoved);
                 yield return 0;
+            }
+
+            Character.Pickups.Money[] gold = FindObjectsOfType<Character.Pickups.Money>();
+            foreach(Character.Pickups.Money g in gold)
+            {
+                if(g.gameObject.activeInHierarchy)
+                    ObjectPooling.PickupPool.Instance.ReturnGold(g.gameObject);
             }
 
             this.hero.gameObject.transform.position = postion;

@@ -15,6 +15,8 @@
         private int maxHealth = 3;
         [SerializeField]
         private Enums.EnemyTypes type = Enums.EnemyTypes.Basic;
+        [SerializeField]
+        private UI.EnemyHealth healthBar;
 
         /// <summary> The type of this enemy. </summary>
         public Enums.EnemyTypes Type { get { return this.type; } }
@@ -30,7 +32,7 @@
             if(this.Health <= 0)
             {
                 this.Health = this.maxHealth;
-                if (Random.Range(0f, 1f) < .5f)
+                if (Random.Range(0f, 1f) < .6f)
                 {
                     int count = Random.Range(1, 4);
                     for (int i = 0; i < count; i++)
@@ -38,7 +40,15 @@
                         GameObject gold = PickupPool.Instance.GetGold();
                         if (gold != null)
                         {
-                            int value = Random.Range(1, 4);
+                            float valueChance = Random.Range(0f, 1f);
+                            int value = 0;
+                            if (valueChance < .5f)
+                                value = 3;
+                            else if (valueChance < .30f)
+                                value = 2;
+                            else
+                                value = 1;
+
                             gold.transform.position = this.transform.position;
                             gold.transform.localScale = new Vector3(value, value, 1);
                             Vector2 randForce = new Vector2(Random.Range(-5f, 5f), Random.Range(-5f, 5f));
@@ -58,6 +68,7 @@
                 if(collider.gameObject.GetComponent<IDamageDealer>() != null)
                 {
                     TakeDamage(collider.GetComponent<IDamageDealer>().GetDamage());
+                    this.healthBar.Percent = (this.Health / (float)this.maxHealth);
                 }
             }
 
@@ -91,6 +102,7 @@
             LocalReInitialize();
             this.Health = maxHealth;
             this.gameObject.SetActive(true);
+            this.healthBar.Percent = 1f;
         }
 
         public void Deallocate()

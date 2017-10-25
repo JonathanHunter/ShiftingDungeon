@@ -32,6 +32,9 @@
         [Range(0f, 1f)]
         public float MusicVol = .5f;
 
+        /// <summary> The background music player. </summary>
+        public SoundPlayer bgm;
+
         private void Start()
         {
             if (instance != null && instance != this)
