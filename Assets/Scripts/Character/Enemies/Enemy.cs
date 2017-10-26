@@ -17,6 +17,8 @@
         private Enums.EnemyTypes type = Enums.EnemyTypes.Basic;
         [SerializeField]
         private UI.EnemyHealth healthBar;
+        [SerializeField]
+        private Effects.Shake spriteShake;
 
         /// <summary> The type of this enemy. </summary>
         public Enums.EnemyTypes Type { get { return this.type; } }
@@ -67,8 +69,13 @@
             {
                 if(collider.gameObject.GetComponent<IDamageDealer>() != null)
                 {
+                    int temp = this.Health;
                     TakeDamage(collider.GetComponent<IDamageDealer>().GetDamage());
-                    this.healthBar.Percent = (this.Health / (float)this.maxHealth);
+                    if (temp != this.Health)
+                    {
+                        this.healthBar.Percent = (this.Health / (float)this.maxHealth);
+                        this.spriteShake.StartShake(2);
+                    }
                 }
             }
 

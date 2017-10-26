@@ -196,25 +196,25 @@
             if (current.Parent.upperDoor == current)
             {
                 next = current.Parent.Up;
-                postion = new Vector2(0, -10);
+                postion = new Vector2(0, -7);
                 directionMoved = Util.Enums.Direction.Up;
             }
             else if (current.Parent.lowerDoor == current)
             {
                 next = current.Parent.Down;
-                postion = new Vector2(0, 4);
+                postion = new Vector2(0, 7);
                 directionMoved = Util.Enums.Direction.Down;
             }
             else if (current.Parent.leftDoor == current)
             {
                 next = current.Parent.Left;
-                postion = new Vector2(7, -3);
+                postion = new Vector2(7, 0);
                 directionMoved = Util.Enums.Direction.Left;
             }
             else
             {
                 next = current.Parent.Right;
-                postion = new Vector2(-7, -3);
+                postion = new Vector2(-7, 0);
                 directionMoved = Util.Enums.Direction.Right;
             }
 
@@ -232,6 +232,7 @@
             }
 
             this.hero.gameObject.transform.position = postion;
+            next.transform.localPosition = Vector3.zero;
             this.cameraTracker.ResetPosition();
             current.Parent.Deactivate();
             yield return 0;

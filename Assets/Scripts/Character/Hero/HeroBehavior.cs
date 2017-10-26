@@ -59,6 +59,7 @@
         private ParticleSystem deathParticles = null;
         /// <summary> Whether the player's death animation has started. </summary>
         private bool deathTriggered = false;
+        private Effects.Shake cameraShake;
 
         /// <summary> The player's max health. </summary>
         public int MaxHealth { get { return this.maxHealth; } }
@@ -95,6 +96,7 @@
             // HACK: Addresses Unity bug where ParticleSystem.Emit() spawns particles
             // at the origin regardless of the particle system's position until a particle is emitted.
             this.deathParticles.Emit(1);
+            this.cameraShake = FindObjectOfType<Camera>().GetComponent<Effects.Shake>();
 
             if(HeroData.Instance.weaponLevels == null || HeroData.Instance.weaponLevels.Length == 0)
             {
@@ -177,6 +179,7 @@
                 collideObject.GetComponent<IDamageDealer>() != null)
             {
                 this.Health -= collideObject.GetComponent<IDamageDealer>().GetDamage();
+                this.cameraShake.StartShake(2);
                 Vector2 position = this.transform.position;
                 this.rgbdy.AddForce(forceDirection * 5f, ForceMode2D.Impulse);
                 sfx.PlaySong(0);

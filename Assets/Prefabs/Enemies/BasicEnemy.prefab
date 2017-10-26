@@ -30,6 +30,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1510691759663822
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4872031527239708}
+  - component: {fileID: 212601113440117454}
+  - component: {fileID: 95704763704346536}
+  - component: {fileID: 114099696843707476}
+  - component: {fileID: 114138123892849752}
+  m_Layer: 9
+  m_Name: Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1587200575101500
 GameObject:
   m_ObjectHideFlags: 1
@@ -55,13 +74,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4676297851116192}
-  - component: {fileID: 212321907164008788}
   - component: {fileID: 50559382071691734}
   - component: {fileID: 114612294171028128}
   - component: {fileID: 58851657711161386}
   - component: {fileID: 82235117966059364}
   - component: {fileID: 114220864050240580}
-  - component: {fileID: 95719428908604536}
   m_Layer: 9
   m_Name: BasicEnemy
   m_TagString: Enemy
@@ -97,8 +114,22 @@ Transform:
   m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children:
   - {fileID: 224492841552545786}
+  - {fileID: 4872031527239708}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4872031527239708
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1510691759663822}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4676297851116192}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50559382071691734
 Rigidbody2D:
@@ -215,13 +246,13 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!95 &95719428908604536
+--- !u!95 &95704763704346536
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1810362568638384}
+  m_GameObject: {fileID: 1510691759663822}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 0ed7021408c98414680299fcabb987a3, type: 2}
@@ -232,6 +263,37 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114099696843707476
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1510691759663822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e579ba1fdeaf67d45bb5ce61336c6484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 50
+  distance: {x: 0.25, y: 0.05}
+  shakeOnStart: 0
+  startShakes: 10
+  activeInCutscenes: 0
+--- !u!114 &114138123892849752
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1510691759663822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd10ec1a50a55af48a22a25665764c5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 500
+  spinOnStart: 0
+  startSpins: 10
+  activeInCutscenes: 0
 --- !u!114 &114220864050240580
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -371,6 +433,7 @@ MonoBehaviour:
   maxHealth: 5
   type: 0
   healthBar: {fileID: 114542496460472398}
+  spriteShake: {fileID: 114099696843707476}
   walkTime: 0.5
   walkCount: 2
   walkSpeed: 3
@@ -378,12 +441,14 @@ MonoBehaviour:
   stunLength: 0.15
   maxTimeBetweenHits: 0.8
   sfx: {fileID: 114220864050240580}
---- !u!212 &212321907164008788
+  anim: {fileID: 95704763704346536}
+  spriteSpin: {fileID: 114138123892849752}
+--- !u!212 &212601113440117454
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1810362568638384}
+  m_GameObject: {fileID: 1510691759663822}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0

@@ -27,10 +27,11 @@
         private float moveSpeed = 2.5f;
         [SerializeField]
         private Util.SoundPlayer sfx;
+        [SerializeField]
+        private Animator anim;
 
         private enum ExectionerState { Idle, Move, Attack, Shield, Stun }
 
-        private Animator anim;
         private Rigidbody2D rgbdy;
         private Hero.StateMap<ExectionerState> stateMap;
         private ExectionerState currentState = ExectionerState.Idle;
@@ -52,7 +53,9 @@
 
         protected override void LocalInitialize()
         {
-            this.anim = GetComponent<Animator>();
+            if (this.anim == null)
+                this.anim = this.gameObject.GetComponent<Animator>();
+
             this.rgbdy = GetComponent<Rigidbody2D>();
             this.stateMap = new Hero.StateMap<ExectionerState>();
             this.hero = Managers.DungeonManager.GetHero().transform;
