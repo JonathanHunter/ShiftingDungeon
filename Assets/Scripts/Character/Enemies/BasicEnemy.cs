@@ -20,10 +20,13 @@
         private float maxTimeBetweenHits = .8f;
         [SerializeField]
         private SoundPlayer sfx;
+        [SerializeField]
+        private Animator anim;
+        [SerializeField]
+        private Effects.Spin spriteSpin;
 
         private Transform hero;
         private Rigidbody2D rgbdy;
-        private Animator anim;
         private float walkCounter;
         private int timesWalked;
         private int hitHash;
@@ -35,9 +38,11 @@
 
         protected override void LocalInitialize()
         {
+            if(this.anim == null)
+                this.anim = this.gameObject.GetComponent<Animator>();
+
             this.hero = Managers.DungeonManager.GetHero().transform;
             this.rgbdy = this.gameObject.GetComponent<Rigidbody2D>();
-            this.anim = this.gameObject.GetComponent<Animator>();
             this.hitHash = Animator.StringToHash("Hit");
         }
 
@@ -62,6 +67,7 @@
                 if((this.timesWalked++) >= this.walkCount)
                 {
                     this.rgbdy.velocity = this.transform.right * this.walkSpeed * 4f;
+                    this.spriteSpin.StartSpin(1);
                     this.timesWalked = 0;
                 }
                 else

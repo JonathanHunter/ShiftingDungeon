@@ -16,6 +16,8 @@
         private float speedIncrease = 2f;
         [SerializeField]
         private bool squishOnStart = false;
+        [SerializeField]
+        private bool activeInCutscenes = false;
 
         /// <summary> WHether to run at twice the speed. </summary>
         public bool DoubleSpeed { get; set; }
@@ -35,7 +37,8 @@
 
         private void Update()
         {
-            if (Managers.GameState.Instance.IsPaused)
+            if (Managers.GameState.Instance.IsPaused && 
+                !(this.activeInCutscenes && Managers.GameState.Instance.State == Util.Enums.GameState.Cutscene))
                 return;
 
             if (squish)

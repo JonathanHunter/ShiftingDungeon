@@ -1,66 +1,58 @@
 ﻿namespace ShiftingDungeon.Character.Enemies
 {
-    using UnityEngine;
+	using UnityEngine;
     using Util;
     using Weapons;
 
-    public class ShooterEnemy : Enemy
-    {
-        [SerializeField]
-        private float walkTime = 1;
-        [SerializeField]
-        private int walkCount = 3;
-        [SerializeField]
-        private float walkSpeed = 2;
+	public class GrassShooterEnemy : Enemy {
         [SerializeField]
         private float agroRange = 3;
-        [SerializeField, Range(0f, 1)]
-        private float shotLeadError = 1f;
         [SerializeField]
         private float stunLength = 0.15f;
         [SerializeField]
-        private float maxTimeBetweenHits = .8f;
+        private float timeBetweenShots = .8f;
         [SerializeField]
         private SoundPlayer sfx;
+		[SerializeField]
+		private Vector2 shotLeadError = new Vector2(.8f, 1f);
+        [SerializeField]
+        private TriShotGun gun;
+		[SerializeField]
+		private Transform roots;
         [SerializeField]
         private Animator anim;
 
         private Transform hero;
-        private Rigidbody2D rgbdy;
-        private float walkCounter;
         private int hitHash;
-
-        private int numHits;
-        private float hitCounter;
+        
         private float stunCounter;
-
-        [SerializeField]
-        private Gun gun;
+        private float shootCounter;
+		private Quaternion rootRot;
 
         private bool isShooting;
 
         protected override void LocalInitialize()
         {
-            if(this.anim == null)
+            if (this.anim == null)
                 this.anim = this.gameObject.GetComponent<Animator>();
 
             this.hero = Managers.DungeonManager.GetHero().transform;
-            this.rgbdy = this.gameObject.GetComponent<Rigidbody2D>();
             this.hitHash = Animator.StringToHash("Hit");
+			this.shootCounter = 0f;
+			this.rootRot = this.roots.rotation;
             gun.Init();
             gun.CleanUp();
         }
 
         protected override void LocalReInitialize()
         {
-            this.walkCounter = Random.Range(0, this.walkTime + 1);
+			this.rootRot = this.roots.rotation;
+			hero = Managers.DungeonManager.GetHero().transform;
             isShooting = false;
         }
 
         protected override void LocalUpdate()
         {
-            if ((this.hitCounter -= Time.deltaTime) <= 0)
-                this.numHits = 0;
             if ((this.stunCounter -= Time.deltaTime) > 0)
                 return;
 
@@ -70,29 +62,22 @@
                     gun.CleanUp();
             }
 
-            if (Vector2.Distance(this.hero.transform.position, this.transform.position) > this.agroRange)
+            if (Vector2.Distance(hero.transform.position, transform.position) > agroRange)
                 return;
 
             
             if (!isShooting)
             {
+				this.shootCounter -= Time.deltaTime;
                 RotateToPlayer();
-                if ((this.walkCounter -= Time.deltaTime) <= 0)
-                {
-                    if (CanSeePlayer())
-                    {
-                        RotateToLeadShot();
-                        this.rgbdy.velocity = -this.transform.right * this.walkSpeed;
-                        gun.ReInit();
-                        isShooting = true;
-                    }
-                    else
-                    {
-                        this.rgbdy.velocity = this.transform.right * this.walkSpeed;
-                    }
-                    this.walkCounter = this.walkCount;
-                }
+				if (CanSeePlayer() && this.shootCounter < 0)
+				{
+					this.shootCounter = this.timeBetweenShots;
+					gun.ReInit();
+					isShooting = true;
+				} 
             }
+			this.roots.rotation = rootRot;
         }
 
         protected override void LocalDeallocate()
@@ -105,33 +90,17 @@
 
         protected override void LocalCollision(Collider2D collider)
         {
-            if (this.stunCounter > 0)
-                return;
             if (collider.tag == Enums.Tags.HeroWeapon.ToString())
             {
-                numHits++;
-                if (numHits > 2)
-                {
-                    //Melee weapons
-                    if (collider.transform.parent)
-                        this.rgbdy.AddForce(collider.transform.parent.transform.parent.transform.right * 9f, ForceMode2D.Impulse);
-                    //Everything else
-                    else
-                        this.rgbdy.AddForce(collider.transform.right * 9f, ForceMode2D.Impulse);
-                    numHits = 0;
-                }
                 this.anim.SetTrigger(hitHash);
                 this.stunCounter = stunLength;
-                this.hitCounter = maxTimeBetweenHits;
                 sfx.PlaySongModPitch(0, .1f);
             }
         }
 
         protected override void TakeDamage(int damage)
         {
-            if (this.stunCounter > 0)
-                return;
-            this.Health -= damage;
+            Health -= damage;
         }
 
         private bool CanSeePlayer()
@@ -149,19 +118,20 @@
 
         private void RotateToPlayer()
         {
-            Vector2 towards = this.hero.position - this.transform.position;
-            this.transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, towards));
+            Vector2 towards = hero.transform.position - transform.position;
+            transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, towards));
         }
 
-        private void RotateToLeadShot()
+		private void RotateToLeadShot()
         {
             Vector2 heroVelocity = this.hero.GetComponent<Rigidbody2D>().velocity;
             float deltaT = (this.transform.position - this.hero.position).magnitude
-                / (heroVelocity - this.gun.BulletSpeed * (Vector2)this.transform.right).magnitude;
-            Vector2 futurePlayerPos = (Vector2)hero.position + heroVelocity * deltaT * (1 - shotLeadError);
+                / (heroVelocity - ((TriShotGun) this.gun).GetBulletSpeed() * (Vector2)this.transform.right).magnitude;
+            Vector2 futurePlayerPos = (Vector2)hero.position + heroVelocity * deltaT
+				* (1 - Random.Range(shotLeadError.x, shotLeadError.y));
 
             Vector2 towards = futurePlayerPos - (Vector2)this.transform.position;
             this.transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, towards));
         }
-    }
+	}
 }
