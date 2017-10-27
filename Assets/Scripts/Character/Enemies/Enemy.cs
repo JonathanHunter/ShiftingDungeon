@@ -125,6 +125,10 @@
             this.Health = maxHealth;
             this.gameObject.SetActive(true);
             this.healthBar.Percent = 1f;
+            if (deathParticles)
+            {
+                deathParticles.ReInitialize();
+            }
         }
 
         public void Deallocate()
