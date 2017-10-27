@@ -164,10 +164,10 @@
                 this.summoningCounter = .25f;
                 //anim
             }
-            else
+            else if(this.summoningCounter < 0)
             {
                 foreach (SummoningField f in this.spawners)
-                    f.gameObject.SetActive(true);
+                    f.gameObject.SetActive(false);
 
                 this.curr = State.idle;
             }

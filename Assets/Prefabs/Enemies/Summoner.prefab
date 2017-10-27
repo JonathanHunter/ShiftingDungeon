@@ -584,11 +584,11 @@ MonoBehaviour:
   - {fileID: 114721959756912704}
   - {fileID: 114195427729543496}
   scaredRange: 2
-  summoningRange: 5
+  summoningRange: 4
   summonDelay: 0.3
   stunLength: 0.15
   idleTime: 1
-  moveSpeed: 3
+  moveSpeed: 6
   sfx: {fileID: 114609695298139238}
 --- !u!114 &114464787887502278
 MonoBehaviour:
