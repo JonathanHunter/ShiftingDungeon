@@ -771,6 +771,7 @@ MonoBehaviour:
   - {fileID: 7400000, guid: e83e981729077d04a901c676a534dbbc, type: 2}
   squishing: {fileID: 114323988618682104}
   anim: {fileID: 95077003547629530}
+  sprite: {fileID: 212883858472624748}
 --- !u!198 &198218920587147028
 ParticleSystem:
   m_ObjectHideFlags: 1
