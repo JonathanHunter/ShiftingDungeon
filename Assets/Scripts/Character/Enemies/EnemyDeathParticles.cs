@@ -27,7 +27,7 @@
             origParent = transform.parent;
             particles = GetComponent<ParticleSystem>();
             activeTime = particles.main.startLifetime.constant;
-            particles.Stop();
+            ReInitialize();
         }
 
         /// <summary>
@@ -54,6 +54,15 @@
                     transform.parent = origParent;
                 }
             }
+        }
+
+        /// <summary>
+        /// Stops the particle emission.
+        /// Workaround for Unity confusing the melee enemy's two particle systems for each other.
+        /// </summary>
+        internal void ReInitialize()
+        {
+            particles.Stop();
         }
     }
 }
