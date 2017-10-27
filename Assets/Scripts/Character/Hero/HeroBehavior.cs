@@ -59,6 +59,8 @@
         private ParticleSystem deathParticles = null;
         /// <summary> Whether the player's death animation has started. </summary>
         private bool deathTriggered = false;
+        /// <summary> The renderer for the player sprite. </summary>
+        private Renderer sprite = null;
         private Effects.Shake cameraShake;
 
         /// <summary> The player's max health. </summary>
@@ -93,10 +95,8 @@
             this.crosshair = Instantiate(crosshair);
             this.currentClipSet = 0;
             this.deathParticles = GetComponentInChildren<ParticleSystem>();
-            // HACK: Addresses Unity bug where ParticleSystem.Emit() spawns particles
-            // at the origin regardless of the particle system's position until a particle is emitted.
-            this.deathParticles.Emit(1);
             this.cameraShake = FindObjectOfType<Camera>().GetComponent<Effects.Shake>();
+            this.sprite = transform.Find("Sprite").GetComponent<Renderer>();
 
             if(HeroData.Instance.weaponLevels == null || HeroData.Instance.weaponLevels.Length == 0)
             {
@@ -400,7 +400,7 @@
 
             Managers.DungeonManager.ShowGameOver();
             GetComponent<Collider2D>().enabled = false;
-            GetComponent<Renderer>().enabled = false;
+            sprite.enabled = false;
             deathParticles.Emit(100);
             sfx.PlaySong(3);
             this.rgbdy.velocity = Vector2.zero;
@@ -415,7 +415,7 @@
             GetComponent<HeroInput>().enabled = true;
             weaponHolder.gameObject.SetActive(true);
             GetComponent<Collider2D>().enabled = true;
-            GetComponent<Renderer>().enabled = true;
+            sprite.enabled = true;
             Health = maxHealth;
             HeroData.Instance.money = (int)(moneyKeptOnDeath * HeroData.Instance.money);
             deathTriggered = false;
