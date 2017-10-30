@@ -45,7 +45,7 @@ namespace ShiftingDungeon.Character.Weapons
                     SpawnDirectedBullet(c, 0);
                 if (d != null)
                     SpawnDirectedBullet(d, -1);
-                //sfx.PlaySong(0);
+                sfx.PlaySong(0);
 
                 doOnce = true;
             }
@@ -62,7 +62,7 @@ namespace ShiftingDungeon.Character.Weapons
             b.transform.position = transform.position;
             b.transform.rotation = transform.rotation;
             b.transform.localScale = Vector3.one;
-            b.GetComponent<Rigidbody2D>().velocity = b.transform.right * bulletSpeed
+            b.GetComponent<Rigidbody2D>().velocity = b.transform.right * (bulletSpeed + this.Level)
                 + direction * b.transform.up * bulletSpeed / bulletSpread;
         }
 
