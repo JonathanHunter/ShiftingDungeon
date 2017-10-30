@@ -21,6 +21,8 @@
 		private Transform roots;
         [SerializeField]
         private Animator anim;
+        [SerializeField]
+        private int weaponLevel;
 
         private Transform hero;
         private int hitHash;
@@ -40,7 +42,7 @@
             this.hitHash = Animator.StringToHash("Hit");
 			this.shootCounter = 0f;
 			this.rootRot = this.roots.rotation;
-            gun.Init();
+            gun.Init(this.weaponLevel);
             gun.CleanUp();
         }
 

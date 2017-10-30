@@ -138,6 +138,7 @@
 
                 Destroy(this.map.gameObject);
                 this.map = null;
+                GetHero().transform.position = Vector3.zero;
                 yield return 0;
             }
 
@@ -154,7 +155,7 @@
             }
             else
                 this.map = Instantiate(this.floors[this.currentFloor]);
-
+            
             this.map.transform.position = new Vector3(0f, 3f, -1f);
             yield return 0;
 
