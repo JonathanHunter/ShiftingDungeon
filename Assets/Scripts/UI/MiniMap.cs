@@ -49,13 +49,13 @@
                 return;
             this.grid[(int)this.current.x, (int)this.current.y] = 2;
             if (direction == Util.Enums.Direction.Up)
-                this.current = new Vector2(this.current.x, this.current.y - 1);
-            if (direction == Util.Enums.Direction.Down)
-                this.current = new Vector2(this.current.x, this.current.y + 1);
-            if (direction == Util.Enums.Direction.Left)
                 this.current = new Vector2(this.current.x - 1, this.current.y);
-            if (direction == Util.Enums.Direction.Right)
+            if (direction == Util.Enums.Direction.Down)
                 this.current = new Vector2(this.current.x + 1, this.current.y);
+            if (direction == Util.Enums.Direction.Left)
+                this.current = new Vector2(this.current.x, this.current.y - 1);
+            if (direction == Util.Enums.Direction.Right)
+                this.current = new Vector2(this.current.x, this.current.y + 1);
             this.grid[(int)this.current.x, (int)this.current.y] = 3;
             UpdateMapState();
         }
@@ -74,11 +74,11 @@
                         y < 0 ||
                         y >= this.grid.GetLength(1) ||
                         this.grid[x, y] <= 1)
-                        GetImageAt(r, c).sprite = this.off;
+                        GetImageAt(c, r).sprite = this.off;
                     else if (this.grid[x, y] == 2)
-                        GetImageAt(r, c).sprite = this.visited;
+                        GetImageAt(c, r).sprite = this.visited;
                     else if (this.grid[x, y] == 3)
-                        GetImageAt(r, c).sprite = this.on;
+                        GetImageAt(c, r).sprite = this.on;
                 }
             }
         }

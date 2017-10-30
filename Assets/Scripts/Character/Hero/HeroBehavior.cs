@@ -40,6 +40,8 @@
         private Effects.Squish squishing;
         [SerializeField]
         private Animator anim = null;
+        [SerializeField]
+        private SpriteRenderer sprite = null;
 
         private Rigidbody2D rgbdy = null;
         private HeroInput input = null;
@@ -400,7 +402,7 @@
 
             Managers.DungeonManager.ShowGameOver();
             GetComponent<Collider2D>().enabled = false;
-            GetComponent<Renderer>().enabled = false;
+            this.sprite.enabled = false;
             deathParticles.Emit(100);
             sfx.PlaySong(3);
             this.rgbdy.velocity = Vector2.zero;
@@ -415,7 +417,7 @@
             GetComponent<HeroInput>().enabled = true;
             weaponHolder.gameObject.SetActive(true);
             GetComponent<Collider2D>().enabled = true;
-            GetComponent<Renderer>().enabled = true;
+            this.sprite.enabled = true;
             Health = maxHealth;
             HeroData.Instance.money = (int)(moneyKeptOnDeath * HeroData.Instance.money);
             deathTriggered = false;

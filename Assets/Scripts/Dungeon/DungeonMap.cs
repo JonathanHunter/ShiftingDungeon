@@ -62,53 +62,53 @@
 
         private bool AddRoomToMap(Room room, int index)
         {
-            if (room.Col < 0 || room.Col >= this.MapRows)
-            {
-                Debug.Log("Room " + room.name + " has an out of bounds row number");
-                return false;
-            }
-            if (room.Row < 0 || room.Row >= this.MapCols)
+            if (room.Col < 0 || room.Col >= this.MapCols)
             {
                 Debug.Log("Room " + room.name + " has an out of bounds column number");
                 return false;
             }
-            if(this.Map[room.Col, room.Row] != -1)
+            if (room.Row < 0 || room.Row >= this.MapRows)
+            {
+                Debug.Log("Room " + room.name + " has an out of bounds row number");
+                return false;
+            }
+            if(this.Map[room.Row, room.Col] != -1)
             {
                 Debug.Log("Room " + room.name + " is trying to be placed on top of another room");
                 return false;
             }
 
-            this.Map[room.Col, room.Row] = index;
+            this.Map[room.Row, room.Col] = index;
             ConnectNeighbors(room);
             return true;
         }
 
         private void ConnectNeighbors(Room room)
         {
-            if (room.Row - 1 > 0 && this.Map[room.Col, room.Row - 1] != -1)
+            if (room.Row - 1 >= 0 && this.Map[room.Row - 1, room.Col] != -1)
             {
-                Room up = this.Rooms[this.Map[room.Col, room.Row - 1]];
+                Room up = this.Rooms[this.Map[room.Row - 1, room.Col]];
                 room.Up = up;
                 up.Down = room;
             }
 
-            if (room.Row + 1 < this.MapCols && this.Map[room.Col, room.Row + 1] != -1)
+            if (room.Row + 1 < this.MapRows && this.Map[room.Row + 1, room.Col] != -1)
             {
-                Room down = this.Rooms[this.Map[room.Col, room.Row + 1]];
+                Room down = this.Rooms[this.Map[room.Row + 1, room.Col]];
                 room.Down = down;
                 down.Up = room;
             }
 
-            if (room.Col - 1 > 0 && this.Map[room.Col - 1, room.Row] != -1)
+            if (room.Col - 1 >= 0 && this.Map[room.Row, room.Col - 1] != -1)
             {
-                Room left = this.Rooms[this.Map[room.Col - 1, room.Row]];
+                Room left = this.Rooms[this.Map[room.Row, room.Col - 1]];
                 room.Left = left;
                 left.Right = room;
             }
 
-            if (room.Col + 1 < this.MapRows && this.Map[room.Col + 1, room.Row] != -1)
+            if (room.Col + 1 < this.MapCols && this.Map[room.Row, room.Col + 1] != -1)
             {
-                Room right = this.Rooms[this.Map[room.Col + 1, room.Row]];
+                Room right = this.Rooms[this.Map[room.Row, room.Col + 1]];
                 room.Right = right;
                 right.Left = room;
             }

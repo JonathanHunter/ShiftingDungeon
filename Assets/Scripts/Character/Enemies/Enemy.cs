@@ -19,11 +19,22 @@
         private UI.EnemyHealth healthBar;
         [SerializeField]
         private Effects.Shake spriteShake;
+        /// <summary> The number of particles emitted by the enemy upon death. </summary>
+        [SerializeField]
+        private int numDeathParticles = 100;
+
+        /// <summary> The particle system to trigger when the enemy dies. </summary>
+        private EnemyDeathParticles deathParticles = null;
 
         /// <summary> The type of this enemy. </summary>
         public Enums.EnemyTypes Type { get { return this.type; } }
         /// <summary> The health of this enemy. </summary>
         public int Health { get; protected set; }
+
+        private void Start()
+        {
+            this.deathParticles = GetComponentInChildren<EnemyDeathParticles>();
+        }
 
         private void Update()
         {
@@ -57,6 +68,10 @@
                             gold.GetComponent<Rigidbody2D>().AddForce(randForce, ForceMode2D.Impulse);
                         }
                     }
+                }
+                if (deathParticles)
+                {
+                    deathParticles.Emit(numDeathParticles);
                 }
 
                 EnemyPool.Instance.ReturnEnemy(this.type, this.gameObject);
@@ -110,6 +125,10 @@
             this.Health = maxHealth;
             this.gameObject.SetActive(true);
             this.healthBar.Percent = 1f;
+            if (deathParticles)
+            {
+                deathParticles.ReInitialize();
+            }
         }
 
         public void Deallocate()

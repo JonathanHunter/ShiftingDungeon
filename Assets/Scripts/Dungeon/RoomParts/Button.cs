@@ -5,9 +5,9 @@
 
     public class Button : MonoBehaviour
     {
-        /// <summary> The object affected by this button. </summary>
-        [Tooltip("The object affected by this button.")]
-        public GameObject objectIAffect;
+        /// <summary> The objects affected by this button. </summary>
+        [Tooltip("The objects affected by this button.")]
+        public GameObject[] objectsIAffect;
         /// <summary> Whether or not this button can be activated more than once. </summary>
         [Tooltip("Whether or not this button can be activated more than once.")]
         public bool onlyHappenOnce;
@@ -29,7 +29,9 @@
             {
                 if (!this.wasActivated || !this.onlyHappenOnce)
                 {
-                    this.objectIAffect.SetActive(!this.objectIAffect.activeSelf);
+                    foreach(GameObject g in this.objectsIAffect)
+                        g.SetActive(!g.activeSelf);
+
                     this.wasActivated = true;
                     this.isOn = !isOn;
                     this.anim.SetBool("on", this.isOn);

@@ -138,6 +138,10 @@
 
         protected override void LocalDeallocate()
         {
+            foreach (GameObject g in this.spawnedEnemies)
+                ObjectPooling.EnemyPool.Instance.ReturnEnemy(g.GetComponent<Enemy>().Type, g);
+
+            this.spawnedEnemies.Clear();
             if (this.summoningPoints != null)
             {
                 Destroy(this.summoningPoints[0].transform.parent.gameObject);
