@@ -21,10 +21,13 @@
         private SoundPlayer sfx = null;
         [SerializeField]
         private ParticleSystem smoke = null;
+        [SerializeField]
+        private Animator anim;
+        [SerializeField]
+        private int weaponLevel;
 
         private Transform hero;
         private Rigidbody2D rgbdy;
-        private Animator anim;
         private float swingTimer;
         private float stunCounter;
         private bool doOnce;
@@ -33,11 +36,13 @@
 
         protected override void LocalInitialize()
         {
+            if (this.anim == null)
+                this.anim = this.gameObject.GetComponent<Animator>();
+
             this.hero = Managers.DungeonManager.GetHero().transform;
             this.rgbdy = this.gameObject.GetComponent<Rigidbody2D>();
-            this.anim = this.gameObject.GetComponent<Animator>();
             this.hitHash = Animator.StringToHash("Hit");
-            this.weapon.Init();
+            this.weapon.Init(this.weaponLevel);
             this.weapon.CleanUp();
         }
 

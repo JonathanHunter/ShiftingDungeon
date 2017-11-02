@@ -3,6 +3,7 @@
     using System.Collections;
     using UnityEngine;
     using UnityEngine.SceneManagement;
+    using UnityEngine.Tilemaps;
     using Dungeon;
     using Dungeon.ProcGen;
     using Dungeon.RoomParts;
@@ -28,6 +29,8 @@
         private Character.Hero.HeroBehavior heroTemplet = null;
         [SerializeField]
         private int currentFloor = 0;
+        [SerializeField]
+        private Tilemap floorMap;
         
         private static DungeonManager instance;
         public static DungeonManager Instance
@@ -135,6 +138,7 @@
 
                 Destroy(this.map.gameObject);
                 this.map = null;
+                GetHero().transform.position = Vector3.zero;
                 yield return 0;
             }
 
@@ -151,7 +155,8 @@
             }
             else
                 this.map = Instantiate(this.floors[this.currentFloor]);
-
+            
+            this.map.transform.position = new Vector3(0f, 3f, -1f);
             yield return 0;
 
             // Initialize the Map
@@ -159,7 +164,7 @@
 
             // Initialize Mini Map
             if (this.miniMap != null)
-                this.miniMap.Init(this.map.Map, new Vector2(this.map.Rooms[0].Col, this.map.Rooms[0].Row));
+                this.miniMap.Init(this.map.Map, new Vector2(this.map.Rooms[0].Row, this.map.Rooms[0].Col));
             
             yield return 0;
 
@@ -170,7 +175,8 @@
                 yield return 0;
             }
 
-            this.map.Rooms[0].Activate();
+            floorMap.transform.parent.gameObject.SetActive(false);
+            this.map.Rooms[0].Activate(this.floorMap);
             this.overlay.FadeOut();
             if(this.isTitleScreen)
                 GameState.Instance.State = Util.Enums.GameState.Paused;
@@ -184,34 +190,34 @@
         {
             this.overlay.FadeIn();
             GameState.Instance.State = Util.Enums.GameState.Tranisioning;
+            floorMap.transform.parent.gameObject.SetActive(false);
             Room next;
             Vector2 postion;
             Util.Enums.Direction directionMoved = Util.Enums.Direction.None;
             if (current.Parent.upperDoor == current)
             {
                 next = current.Parent.Up;
-                postion = new Vector2(0, -10);
+                postion = new Vector2(0, -7);
                 directionMoved = Util.Enums.Direction.Up;
             }
             else if (current.Parent.lowerDoor == current)
             {
                 next = current.Parent.Down;
-                postion = new Vector2(0, 4);
+                postion = new Vector2(0, 7);
                 directionMoved = Util.Enums.Direction.Down;
             }
             else if (current.Parent.leftDoor == current)
             {
                 next = current.Parent.Left;
-                postion = new Vector2(7, -3);
+                postion = new Vector2(7, 0);
                 directionMoved = Util.Enums.Direction.Left;
             }
             else
             {
                 next = current.Parent.Right;
-                postion = new Vector2(-7, -3);
+                postion = new Vector2(-7, 0);
                 directionMoved = Util.Enums.Direction.Right;
             }
-
 
             if (this.miniMap != null)
             {
@@ -219,12 +225,20 @@
                 yield return 0;
             }
 
+            Character.Pickups.Money[] gold = FindObjectsOfType<Character.Pickups.Money>();
+            foreach(Character.Pickups.Money g in gold)
+            {
+                if(g.gameObject.activeInHierarchy)
+                    ObjectPooling.PickupPool.Instance.ReturnGold(g.gameObject);
+            }
+
             this.hero.gameObject.transform.position = postion;
+            next.transform.localPosition = Vector3.zero;
             this.cameraTracker.ResetPosition();
             current.Parent.Deactivate();
             yield return 0;
 
-            next.Activate();
+            next.Activate(this.floorMap);
             this.overlay.FadeOut();
             GameState.Instance.State = Util.Enums.GameState.Playing;
             yield break;

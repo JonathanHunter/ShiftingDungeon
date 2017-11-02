@@ -8,13 +8,13 @@
 
         public enum BulletTypes { HeroBasic, EnemyBasic }
 
-        public enum EnemyTypes { Basic, Shooter, Melee, Boss }
+        public enum EnemyTypes { Basic, Shooter, Melee, Grass, Summoner, Boss }
 
         public enum Direction { None, Up, Down, Left, Right }
 
         public enum Tags { Hero, Enemy, HeroWeapon, EnemyWeapon, DungeonHazard, Pickup, Trap }
 
-        public enum Layers { Hero = 8, Enemy = 9, HeroWeapon = 10, EnemyWeapon = 11, DungeonHazard = 12, Dungeon = 13, Pickup = 14 }
+        public enum Layers { Hero = 8, HeroSuspended = 17, Enemy = 9, HeroWeapon = 10, EnemyWeapon = 11, Trap = 15, Dungeon = 13, Pickup = 14 }
 
         public enum Traps { Spike, SlowGoo }
     }

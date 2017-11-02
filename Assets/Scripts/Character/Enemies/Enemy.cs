@@ -15,11 +15,26 @@
         private int maxHealth = 3;
         [SerializeField]
         private Enums.EnemyTypes type = Enums.EnemyTypes.Basic;
+        [SerializeField]
+        private UI.EnemyHealth healthBar;
+        [SerializeField]
+        private Effects.Shake spriteShake;
+        /// <summary> The number of particles emitted by the enemy upon death. </summary>
+        [SerializeField]
+        private int numDeathParticles = 100;
+
+        /// <summary> The particle system to trigger when the enemy dies. </summary>
+        private EnemyDeathParticles deathParticles = null;
 
         /// <summary> The type of this enemy. </summary>
         public Enums.EnemyTypes Type { get { return this.type; } }
         /// <summary> The health of this enemy. </summary>
         public int Health { get; protected set; }
+
+        private void Start()
+        {
+            this.deathParticles = GetComponentInChildren<EnemyDeathParticles>();
+        }
 
         private void Update()
         {
@@ -30,7 +45,7 @@
             if(this.Health <= 0)
             {
                 this.Health = this.maxHealth;
-                if (Random.Range(0f, 1f) < .5f)
+                if (Random.Range(0f, 1f) < .6f)
                 {
                     int count = Random.Range(1, 4);
                     for (int i = 0; i < count; i++)
@@ -38,13 +53,25 @@
                         GameObject gold = PickupPool.Instance.GetGold();
                         if (gold != null)
                         {
-                            int value = Random.Range(1, 4);
+                            float valueChance = Random.Range(0f, 1f);
+                            int value = 0;
+                            if (valueChance < .5f)
+                                value = 3;
+                            else if (valueChance < .30f)
+                                value = 2;
+                            else
+                                value = 1;
+
                             gold.transform.position = this.transform.position;
                             gold.transform.localScale = new Vector3(value, value, 1);
                             Vector2 randForce = new Vector2(Random.Range(-5f, 5f), Random.Range(-5f, 5f));
                             gold.GetComponent<Rigidbody2D>().AddForce(randForce, ForceMode2D.Impulse);
                         }
                     }
+                }
+                if (deathParticles)
+                {
+                    deathParticles.Emit(numDeathParticles);
                 }
 
                 EnemyPool.Instance.ReturnEnemy(this.type, this.gameObject);
@@ -57,7 +84,13 @@
             {
                 if(collider.gameObject.GetComponent<IDamageDealer>() != null)
                 {
+                    int temp = this.Health;
                     TakeDamage(collider.GetComponent<IDamageDealer>().GetDamage());
+                    if (temp != this.Health)
+                    {
+                        this.healthBar.Percent = (this.Health / (float)this.maxHealth);
+                        this.spriteShake.StartShake(2);
+                    }
                 }
             }
 
@@ -91,6 +124,11 @@
             LocalReInitialize();
             this.Health = maxHealth;
             this.gameObject.SetActive(true);
+            this.healthBar.Percent = 1f;
+            if (deathParticles)
+            {
+                deathParticles.ReInitialize();
+            }
         }
 
         public void Deallocate()

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.Tilemaps;
     using Character.Enemies;
     using Character.Traps;
     using ProcGen.RoomGen;
@@ -60,8 +61,6 @@
 
         private List<GameObject> doors;
         private List<GameObject> walls;
-        private List<GameObject> floors;
-        private List<GameObject> holes;
         private List<GameObject> stairs;
         private List<Enemy> enemies;
         private List<Trap> traps;
@@ -93,19 +92,20 @@
 
             this.doors = new List<GameObject>();
             this.walls = new List<GameObject>();
-            this.floors = new List<GameObject>();
-            this.holes = new List<GameObject>();
             this.stairs = new List<GameObject>();
             this.enemies = new List<Enemy>();
             this.traps = new List<Trap>();
             Deactivate();
         }
 
-        public void Activate()
+        public void Activate(Tilemap floorMap)
         {
             if (this.IsGenerated)
             {
-                AllocateObjects();
+                floorMap.GetComponent<TilemapCollider2D>().enabled = false;
+                AllocateObjects(floorMap);
+                floorMap.GetComponent<TilemapCollider2D>().enabled = true;
+                floorMap.transform.parent.gameObject.SetActive(true);
             }
             else
             {
@@ -129,14 +129,6 @@
             foreach (GameObject wall in this.walls)
                 RoomPool.Instance.ReturnWall(wall);
             this.walls.Clear();
-
-            foreach (GameObject floor in this.floors)
-                RoomPool.Instance.ReturnFloor(floor);
-            this.floors.Clear();
-
-            foreach (GameObject hole in this.holes)
-                RoomPool.Instance.ReturnHole(hole);
-            this.holes.Clear();
 
             foreach (GameObject stair in this.stairs)
                 RoomPool.Instance.ReturnStair(stair);
@@ -182,11 +174,11 @@
             return true;
         }
 
-        private void AllocateObjects()
+        private void AllocateObjects(Tilemap floorMap)
         {
             AllocateDoors();
             AllocateWalls();
-            AllocateFloorsAndHoles();
+            AllocateFloorsAndHoles(floorMap);
             AllocateEnemies();
             AllocateTraps();
         }
@@ -198,19 +190,19 @@
             this.leftDoor = RoomPool.Instance.GetDoor().GetComponent<Door>();
             this.rightDoor = RoomPool.Instance.GetDoor().GetComponent<Door>();
 
-            this.upperDoor.transform.position = new Vector3(0, 5, Constants.ROOM_PART_Z_DEPTH);
+            this.upperDoor.transform.position = new Vector3(0, 8, Constants.ROOM_PART_Z_DEPTH);
             this.upperDoor.transform.rotation = Quaternion.identity;
             this.upperDoor.transform.localScale = Vector3.one;
 
-            this.lowerDoor.transform.position = new Vector3(0, -11, Constants.ROOM_PART_Z_DEPTH);
+            this.lowerDoor.transform.position = new Vector3(0, -8, Constants.ROOM_PART_Z_DEPTH);
             this.lowerDoor.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
             this.lowerDoor.transform.localScale = Vector3.one;
 
-            this.leftDoor.transform.position = new Vector3(-8, -3, Constants.ROOM_PART_Z_DEPTH);
+            this.leftDoor.transform.position = new Vector3(-8, 0, Constants.ROOM_PART_Z_DEPTH);
             this.leftDoor.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
             this.leftDoor.transform.localScale = Vector3.one;
 
-            this.rightDoor.transform.position = new Vector3(8, -3, Constants.ROOM_PART_Z_DEPTH);
+            this.rightDoor.transform.position = new Vector3(8, 0, Constants.ROOM_PART_Z_DEPTH);
             this.rightDoor.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
             this.rightDoor.transform.localScale = Vector3.one;
 
@@ -223,13 +215,13 @@
         private void AllocateWalls()
         {
             GameObject wall = RoomPool.Instance.GetWall();
-            wall.transform.position = new Vector3(0, 0, Constants.ROOM_PART_Z_DEPTH);
+            wall.transform.position = new Vector3(0, 3, Constants.ROOM_PART_Z_DEPTH);
             wall.transform.rotation = Quaternion.identity;
             wall.transform.localScale = Vector3.one;
             this.walls.Add(wall);
         }
 
-        private void AllocateFloorsAndHoles()
+        private void AllocateFloorsAndHoles(Tilemap floorMap)
         {
             for(int r = 0; r < this.Grid.GetLength(0); r++)
             {
@@ -237,35 +229,20 @@
                 {
                     if (this.Grid[r, c] == 1)
                     {
-                        GameObject floor = RoomPool.Instance.GetFloor();
-                        floor.transform.position = new Vector3(-7 + r, 4 - c, Constants.ROOM_PART_Z_DEPTH);
-                        floor.transform.rotation = Quaternion.identity;
-                        floor.transform.localScale = Vector3.one;
-                        SetFloorImage(floor, r, c);
-                        this.floors.Add(floor);
+                        floorMap.SetTile(new Vector3Int(r, -c, 0), GetFloorTile(r,c));
                     }
                     else if(this.Grid[r, c] == 2)
                     {
-                        GameObject floor = RoomPool.Instance.GetFloor();
-                        floor.transform.position = new Vector3(-7 + r, 4 - c, Constants.ROOM_PART_Z_DEPTH);
-                        floor.transform.rotation = Quaternion.identity;
-                        floor.transform.localScale = Vector3.one;
-                        SetFloorImage(floor, r, c);
-                        this.floors.Add(floor);
+                        floorMap.SetTile(new Vector3Int(r, -c, 0), GetFloorTile(r, c));
                         GameObject stair = RoomPool.Instance.GetStair();
-                        stair.transform.position = new Vector3(-7 + r, 4 - c, Constants.ROOM_PART_Z_DEPTH);
+                        stair.transform.position = new Vector3(-7 + r, 7 - c, Constants.ROOM_PART_Z_DEPTH);
                         stair.transform.rotation = Quaternion.identity;
                         stair.transform.localScale = Vector3.one;
                         this.stairs.Add(stair);
                     }
                     else
                     {
-                        GameObject hole = RoomPool.Instance.GetHole();
-                        hole.transform.position = new Vector3(-7 + r, 4 - c, Constants.ROOM_PART_Z_DEPTH);
-                        hole.transform.rotation = Quaternion.identity;
-                        hole.transform.localScale = Vector3.one;
-                        SetHoleImage(hole, r, c);
-                        this.holes.Add(hole);
+                        floorMap.SetTile(new Vector3Int(r, -c, 0), GetHoleTile(r, c));
                     }
                 }
             }
@@ -274,7 +251,7 @@
         private void AllocateEnemies()
         {
             List<Vector2> positions = new List<Vector2>();
-            int length = System.Enum.GetNames(typeof(Enums.Traps)).Length;
+            int length = System.Enum.GetNames(typeof(Enums.EnemyTypes)).Length - 1;
             for (int i = 0; i < 4; i++)
             {
                 bool placed = false;
@@ -283,15 +260,18 @@
                 {
                     int r = Random.Range(1, 15);
                     int c = Random.Range(1, 15);
-                    Vector2 position = new Vector2(-7 + r, 4 - c);
+                    Vector2 position = new Vector2(-7 + r, 7 - c);
                     if (this.Grid[r, c] == 1 && !positions.Contains(position))
                     {
                         GameObject enemy = EnemyPool.Instance.GetEnemy((Enums.EnemyTypes)Random.Range(0, length));
-                        enemy.transform.position = position;
-                        enemy.transform.rotation = Quaternion.identity;
-                        this.enemies.Add(enemy.GetComponent<Enemy>());
-                        positions.Add(position);
-                        placed = true;
+                        if (enemy != null)
+                        {
+                            enemy.transform.position = position;
+                            enemy.transform.rotation = Quaternion.identity;
+                            this.enemies.Add(enemy.GetComponent<Enemy>());
+                            positions.Add(position);
+                            placed = true;
+                        }
                     }
 
                     tries++;
@@ -302,34 +282,40 @@
         private void AllocateTraps()
         {
             List<Vector2> positions = new List<Vector2>();
-                for (int i = 0; i < System.Enum.GetNames(typeof(Enums.Traps)).Length; i++) {
-                    if (Random.Range(0f, 1f) < .4f) {
-                        for (int j = 0; j < 3; j++) {
-                            if (Random.Range(0f, 1f) < .6f) {
-                                bool placed = false;
-                                int tries = 0;
-                                while (!placed && tries < 100) {
-                                    int r = Random.Range(1, 15);
-                                    int c = Random.Range(1, 15);
-                                    Vector3 position = new Vector3(-7 + r, 4 - c, Constants.ROOM_PART_Z_DEPTH - 1);
-                                    if (this.Grid[r, c] == 1 && !positions.Contains(position)) {
-                                        GameObject trap = TrapPool.Instance.GetTrap((Enums.Traps) i);
-                                        trap.transform.position = position;
-                                        trap.transform.rotation = Quaternion.identity;
-                                        this.traps.Add(trap.GetComponent<Trap>());
-                                        positions.Add(position);
-                                        placed = true;
-                                    }
-
-                                    tries++;
+            for (int i = 0; i < System.Enum.GetNames(typeof(Enums.Traps)).Length; i++)
+            {
+                if (Random.Range(0f, 1f) < .4f)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        if (Random.Range(0f, 1f) < .6f)
+                        {
+                            bool placed = false;
+                            int tries = 0;
+                            while (!placed && tries < 100)
+                            {
+                                int r = Random.Range(1, 15);
+                                int c = Random.Range(1, 15);
+                                Vector3 position = new Vector3(-7 + r, 7 - c, Constants.ROOM_PART_Z_DEPTH - 1);
+                                if (this.Grid[r, c] == 1 && !positions.Contains(position))
+                                {
+                                    GameObject trap = TrapPool.Instance.GetTrap((Enums.Traps)i);
+                                    trap.transform.position = position;
+                                    trap.transform.rotation = Quaternion.identity;
+                                    this.traps.Add(trap.GetComponent<Trap>());
+                                    positions.Add(position);
+                                    placed = true;
                                 }
+
+                                tries++;
                             }
                         }
                     }
                 }
+            }
         }
 
-        private void SetFloorImage(GameObject floor, int r, int c)
+        private Tile GetFloorTile(int r, int c)
         {
             bool up = c == 0 || this.Grid[r, c - 1] != 1;
             bool down = c == this.Grid.GetLength(1) - 1 || this.Grid[r, c + 1] != 1;
@@ -345,10 +331,10 @@
             if (right)
                 sprite |= 0x1;
 
-            floor.GetComponent<SpriteRenderer>().sprite = RoomPool.Instance.floorSprites[sprite];
+            return RoomPool.Instance.floorTiles[sprite];
         }
 
-        private void SetHoleImage(GameObject hole, int r, int c)
+        private Tile GetHoleTile(int r, int c)
         {
             bool up = c == 0 || this.Grid[r, c - 1] != 0;
             bool down = c == this.Grid.GetLength(1) - 1 || this.Grid[r, c + 1] != 0;
@@ -364,7 +350,7 @@
             if (right)
                 sprite |= 0x1;
 
-            hole.GetComponent<SpriteRenderer>().sprite = RoomPool.Instance.holeSprites[sprite];
+            return RoomPool.Instance.holeTiles[sprite];
         }
     }
 }

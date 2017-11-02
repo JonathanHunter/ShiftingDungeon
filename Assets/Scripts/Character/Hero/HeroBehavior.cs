@@ -36,8 +36,13 @@
         private AnimationClip[] AttackClips;
         [SerializeField]
         private AnimationClip[] HurtClips;
-
+        [SerializeField]
+        private Effects.Squish squishing;
+        [SerializeField]
         private Animator anim = null;
+        [SerializeField]
+        private SpriteRenderer sprite = null;
+
         private Rigidbody2D rgbdy = null;
         private HeroInput input = null;
         private StateMap<Enums.HeroState> stateMap = null;
@@ -56,6 +61,7 @@
         private ParticleSystem deathParticles = null;
         /// <summary> Whether the player's death animation has started. </summary>
         private bool deathTriggered = false;
+        private Effects.Shake cameraShake;
 
         /// <summary> The player's max health. </summary>
         public int MaxHealth { get { return this.maxHealth; } }
@@ -72,7 +78,9 @@
 
         private void Start()
         {
-            this.anim = GetComponent<Animator>();
+            if(this.anim == null)
+                this.anim = GetComponent<Animator>();
+
             this.animOverride = new AnimationOverrideHandler(this.anim);
             this.rgbdy = GetComponent<Rigidbody2D>();
             this.input = GetComponent<HeroInput>();
@@ -87,6 +95,10 @@
             this.crosshair = Instantiate(crosshair);
             this.currentClipSet = 0;
             this.deathParticles = GetComponentInChildren<ParticleSystem>();
+            // HACK: Addresses Unity bug where ParticleSystem.Emit() spawns particles
+            // at the origin regardless of the particle system's position until a particle is emitted.
+            this.deathParticles.Emit(1);
+            this.cameraShake = FindObjectOfType<Camera>().GetComponent<Effects.Shake>();
 
             if(HeroData.Instance.weaponLevels == null || HeroData.Instance.weaponLevels.Length == 0)
             {
@@ -95,13 +107,13 @@
                     HeroData.Instance.weaponLevels[i] = 0;
             }
 
-            foreach (Weapon w in this.weapons)
+            for(int i = 0; i < this.weapons.Length; i++)
             {
-                w.Init();
-                w.CleanUp();
+                this.weapons[i].Init(HeroData.Instance.weaponLevels[i]);
+                this.weapons[i].CleanUp();
             }
-
-            this.weapons[this.CurrentWeapon].Level = HeroData.Instance.weaponLevels[this.CurrentWeapon];
+            
+            this.squishing.StartSquishing();
         }
 
         private void Update()
@@ -114,7 +126,9 @@
             if (temp != CurrentState)
             {
                 this.doOnce = false;
-                this.anim.SetBool(this.attackFinishedHash, false);                
+                this.anim.SetBool(this.attackFinishedHash, false);
+                this.squishing.DoubleSpeed = false;
+                this.squishing.StartSquishing();
             }
 
             switch(this.CurrentState)
@@ -132,22 +146,9 @@
                 collision.gameObject.tag == Enums.Tags.EnemyWeapon.ToString() || 
                 collision.gameObject.tag == Enums.Tags.Trap.ToString())
             {
-                if (this.CurrentState != Enums.HeroState.Hurt &&
-                    collision.gameObject.GetComponent<IDamageDealer>() != null)
-                {
-                    this.Health -= collision.gameObject.GetComponent<IDamageDealer>().GetDamage();
-                    Vector2 position = this.transform.position;
-                    this.rgbdy.AddForce((position - collision.contacts[0].point).normalized * 5f, ForceMode2D.Impulse);
-                    sfx.PlaySong(0);
-
-                    if (IsDead && !deathTriggered)
-                    {
-                        deathTriggered = true;
-                        StartCoroutine(Die());
-                    }
-                }
-
-                anim.SetTrigger(this.hitHash);
+                Vector2 position = this.transform.position;
+                Vector2 forceDirection = (position - collision.contacts[0].point).normalized;
+                DamageHero(collision.gameObject, forceDirection);
             }
             else if (collision.gameObject.tag == Enums.Tags.Pickup.ToString())
             {
@@ -164,17 +165,34 @@
             if (collider.gameObject.tag == Enums.Tags.Enemy.ToString() ||
                 collider.gameObject.tag == Enums.Tags.EnemyWeapon.ToString())
             {
-                if (this.CurrentState != Enums.HeroState.Hurt &&
-                    collider.gameObject.GetComponent<IDamageDealer>() != null)
-                {
-                    this.Health -= collider.gameObject.GetComponent<IDamageDealer>().GetDamage();
-                    Vector2 position = this.transform.position;
-                    this.rgbdy.AddForce(collider.transform.right * 5f, ForceMode2D.Impulse);
-                    sfx.PlaySong(0);
-                }
-
-                anim.SetTrigger(this.hitHash);
+                DamageHero(collider.gameObject, collider.transform.right);
             }
+        }
+
+        /// <summary>
+        /// Damages and knocks back the hero, killing the hero if health drops below 0.
+        /// </summary>
+        /// <param name="collideObject">The object dealing damage to the hero.</param>
+        /// <param name="forceDirection">The direction of knockback.</param>
+        private void DamageHero(GameObject collideObject, Vector2 forceDirection)
+        {
+            if (this.CurrentState != Enums.HeroState.Hurt &&
+                collideObject.GetComponent<IDamageDealer>() != null)
+            {
+                this.Health -= collideObject.GetComponent<IDamageDealer>().GetDamage();
+                this.cameraShake.StartShake(2);
+                Vector2 position = this.transform.position;
+                this.rgbdy.AddForce(forceDirection * 5f, ForceMode2D.Impulse);
+                sfx.PlaySong(0);
+
+                if (IsDead && !deathTriggered)
+                {
+                    deathTriggered = true;
+                    StartCoroutine(Die());
+                }
+            }
+
+            anim.SetTrigger(this.hitHash);
         }
 
         /// <summary> Cycles to the next weapon in the players list. </summary>
@@ -186,8 +204,6 @@
                 if (this.CurrentWeapon >= this.weapons.Length)
                     this.CurrentWeapon = 0;
             }
-
-            this.weapons[this.CurrentWeapon].Level = HeroData.Instance.weaponLevels[this.CurrentWeapon];
         }
 
         /// <summary> Cycles to the previous weapon in the players list. </summary>
@@ -199,8 +215,11 @@
                 if (this.CurrentWeapon < 0)
                     this.CurrentWeapon = this.weapons.Length - 1;
             }
+        }
 
-            this.weapons[this.CurrentWeapon].Level = HeroData.Instance.weaponLevels[this.CurrentWeapon];
+        public void AddHealth(int amount)
+        {
+            this.Health += amount;
         }
 
         /// <summary>
@@ -248,12 +267,23 @@
             isSpeedAltered = true;
         }
 
+        public void UpdateWeaponLevel(int weaponIndex, int level)
+        {
+            this.weapons[weaponIndex].UpdateLevel(level);
+        }
+
         private void Idle()
         {
         }
 
         private void Move()
         {
+            if(!this.doOnce)
+            {
+                this.squishing.DoubleSpeed = true;
+                this.doOnce = true;
+            }
+
             int x;
             int y;
             if (this.input.Up)
@@ -302,6 +332,7 @@
             {
                 this.weapons[this.CurrentWeapon].ReInit();
                 this.doOnce = true;
+                this.squishing.StopSquishing();
             }
             
             if(this.weapons[this.CurrentWeapon].WeaponUpdate())
@@ -326,6 +357,7 @@
             {
                 this.weapons[this.CurrentWeapon].CleanUp();
                 this.doOnce = true;
+                this.squishing.StopSquishing();
             }
 
             targetIndex = 0;
@@ -375,7 +407,7 @@
 
             Managers.DungeonManager.ShowGameOver();
             GetComponent<Collider2D>().enabled = false;
-            GetComponent<Renderer>().enabled = false;
+            this.sprite.enabled = false;
             deathParticles.Emit(100);
             sfx.PlaySong(3);
             this.rgbdy.velocity = Vector2.zero;
@@ -390,10 +422,11 @@
             GetComponent<HeroInput>().enabled = true;
             weaponHolder.gameObject.SetActive(true);
             GetComponent<Collider2D>().enabled = true;
-            GetComponent<Renderer>().enabled = true;
+            this.sprite.enabled = true;
             Health = maxHealth;
             HeroData.Instance.money = (int)(moneyKeptOnDeath * HeroData.Instance.money);
             deathTriggered = false;
+            isSpeedAltered = false;
             transform.position = Vector2.zero;
         }
     }

@@ -5,7 +5,9 @@
 
     public class HeroInput : MonoBehaviour
     {
+        [SerializeField]
         private Animator anim = null;
+
         private HeroBehavior behavior = null;
         private int moveHash = 0;
         private int attackHash = 0;
@@ -21,7 +23,9 @@
 
         private void Start()
         {
-            this.anim = GetComponent<Animator>();
+            if (this.anim == null)
+                this.anim = GetComponent<Animator>();
+
             this.behavior = GetComponent<HeroBehavior>();
             this.moveHash = Animator.StringToHash("Move");
             this.attackHash = Animator.StringToHash("Attack");
