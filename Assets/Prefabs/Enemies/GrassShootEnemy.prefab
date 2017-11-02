@@ -522,11 +522,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55a30863ebdf0b74893f1e327b348b09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+  noSprite: 1
+  weaponLevelArt: []
   type: 1
   bulletSpeed: 4
   lagTime: 0.5
   bulletSpread: 2
-  sfx: {fileID: 0}
+  sfx: {fileID: 114186225305602846}
 --- !u!114 &114383757117156210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -649,6 +652,7 @@ MonoBehaviour:
   gun: {fileID: 114317191606443258}
   roots: {fileID: 4746621819334384}
   anim: {fileID: 95148433371013936}
+  weaponLevel: 0
 --- !u!198 &198085563689779156
 ParticleSystem:
   m_ObjectHideFlags: 1

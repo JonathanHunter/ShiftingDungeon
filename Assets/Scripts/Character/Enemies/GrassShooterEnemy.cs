@@ -21,6 +21,8 @@
 		private Transform roots;
         [SerializeField]
         private Animator anim;
+        [SerializeField]
+        private int weaponLevel;
 
         private Transform hero;
         private int hitHash;
@@ -40,7 +42,7 @@
             this.hitHash = Animator.StringToHash("Hit");
 			this.shootCounter = 0f;
 			this.rootRot = this.roots.rotation;
-            gun.Init();
+            gun.Init(this.weaponLevel);
             gun.CleanUp();
         }
 
@@ -68,9 +70,9 @@
             
             if (!isShooting)
             {
-				this.shootCounter -= Time.deltaTime;
+                this.shootCounter -= Time.deltaTime;
                 RotateToPlayer();
-				if (CanSeePlayer() && this.shootCounter < 0)
+				if (this.shootCounter < 0)
 				{
 					this.shootCounter = this.timeBetweenShots;
 					gun.ReInit();
@@ -101,19 +103,6 @@
         protected override void TakeDamage(int damage)
         {
             Health -= damage;
-        }
-
-        private bool CanSeePlayer()
-        {
-            Vector2 toPlayer = hero.transform.position - transform.position;
-            int layerMask = ~(1 << (int)Enums.Layers.Enemy | 1 << (int)Enums.Layers.HeroWeapon | 1 << (int)Enums.Layers.Dungeon);
-            RaycastHit2D result = Physics2D.Raycast(transform.position, toPlayer.normalized, toPlayer.magnitude, layerMask);
-            if (result.collider != null)
-            {
-                if (result.collider.tag == Enums.Tags.Hero.ToString())
-                    return true;
-            }
-            return false;
         }
 
         private void RotateToPlayer()

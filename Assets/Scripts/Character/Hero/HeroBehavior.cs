@@ -107,13 +107,12 @@
                     HeroData.Instance.weaponLevels[i] = 0;
             }
 
-            foreach (Weapon w in this.weapons)
+            for(int i = 0; i < this.weapons.Length; i++)
             {
-                w.Init();
-                w.CleanUp();
+                this.weapons[i].Init(HeroData.Instance.weaponLevels[i]);
+                this.weapons[i].CleanUp();
             }
-
-            this.weapons[this.CurrentWeapon].Level = HeroData.Instance.weaponLevels[this.CurrentWeapon];
+            
             this.squishing.StartSquishing();
         }
 
@@ -205,8 +204,6 @@
                 if (this.CurrentWeapon >= this.weapons.Length)
                     this.CurrentWeapon = 0;
             }
-
-            this.weapons[this.CurrentWeapon].Level = HeroData.Instance.weaponLevels[this.CurrentWeapon];
         }
 
         /// <summary> Cycles to the previous weapon in the players list. </summary>
@@ -218,8 +215,11 @@
                 if (this.CurrentWeapon < 0)
                     this.CurrentWeapon = this.weapons.Length - 1;
             }
+        }
 
-            this.weapons[this.CurrentWeapon].Level = HeroData.Instance.weaponLevels[this.CurrentWeapon];
+        public void AddHealth(int amount)
+        {
+            this.Health += amount;
         }
 
         /// <summary>
@@ -265,6 +265,11 @@
             alteredSpeedDuration = duration;
 
             isSpeedAltered = true;
+        }
+
+        public void UpdateWeaponLevel(int weaponIndex, int level)
+        {
+            this.weapons[weaponIndex].UpdateLevel(level);
         }
 
         private void Idle()

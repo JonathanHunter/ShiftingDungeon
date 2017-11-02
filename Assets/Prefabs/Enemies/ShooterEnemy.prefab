@@ -115,9 +115,9 @@ GameObject:
   - component: {fileID: 114798074733454726}
   - component: {fileID: 82944293908141400}
   - component: {fileID: 114861417852610142}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Gun
-  m_TagString: HeroWeapon
+  m_TagString: EnemyWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -481,6 +481,7 @@ MonoBehaviour:
   maxTimeBetweenHits: 0.8
   sfx: {fileID: 114201188480946796}
   anim: {fileID: 95258954433648892}
+  weaponLevel: 0
   gun: {fileID: 114798074733454726}
 --- !u!114 &114769634698047190
 MonoBehaviour:
@@ -516,6 +517,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 692cfc619520f0b4c9d0364d3f0e3d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 212949972109397268}
+  noSprite: 0
+  weaponLevelArt:
+  - {fileID: 21300000, guid: 1a8aa5f9751165f4c9a9aa8d0103556f, type: 3}
+  - {fileID: 21300000, guid: 1a8aa5f9751165f4c9a9aa8d0103556f, type: 3}
+  - {fileID: 21300000, guid: 1a8aa5f9751165f4c9a9aa8d0103556f, type: 3}
   type: 1
   bulletSpeed: 5
   lagTime: 0.5

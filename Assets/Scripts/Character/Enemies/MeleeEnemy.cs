@@ -23,6 +23,8 @@
         private ParticleSystem smoke = null;
         [SerializeField]
         private Animator anim;
+        [SerializeField]
+        private int weaponLevel;
 
         private Transform hero;
         private Rigidbody2D rgbdy;
@@ -40,7 +42,7 @@
             this.hero = Managers.DungeonManager.GetHero().transform;
             this.rgbdy = this.gameObject.GetComponent<Rigidbody2D>();
             this.hitHash = Animator.StringToHash("Hit");
-            this.weapon.Init();
+            this.weapon.Init(this.weaponLevel);
             this.weapon.CleanUp();
         }
 

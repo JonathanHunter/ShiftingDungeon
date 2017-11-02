@@ -11,8 +11,6 @@
         private float arcLength = 120f;
         [SerializeField]
         private SoundPlayer sfx;
-        [SerializeField]
-        private ContactDamage damageDealer;
 
         /// <summary> The numerical progression this weapon's combo </summary>
         private int comboCounter;
@@ -41,21 +39,20 @@
             this.transform.localRotation = Quaternion.identity;
             this.arc = 0;
             this.doOnce = false;
-            this.damageDealer.level = this.Level;
 
             Vector3 spritePosition;
             switch (comboCounter)
             {
                 //Swing left
                 case 1:
-                    this.child.localRotation = Quaternion.Euler(0, 0, 180);
+                    this.child.localRotation = Quaternion.Euler(0, 0, 0);
                     spritePosition = this.transform.GetChild(0).transform.localPosition;
                     spritePosition.y = -Mathf.Abs(spritePosition.y);
                     this.transform.GetChild(0).transform.localPosition = spritePosition;
                     break;
                 //Swing right
                 default:
-                    this.child.localRotation = Quaternion.Euler(0, 0, 0);
+                    this.child.localRotation = Quaternion.Euler(0, 0, 180);
                     spritePosition = this.transform.GetChild(0).transform.localPosition;
                     spritePosition.y = Mathf.Abs(spritePosition.y);
                     this.transform.GetChild(0).transform.localPosition = spritePosition;

@@ -125,7 +125,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4665493639096986, guid: 51ab574ec755c0143b22cef51aa24883, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3.5
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 4665493639096986, guid: 51ab574ec755c0143b22cef51aa24883, type: 2}
       propertyPath: m_LocalPosition.z
@@ -188,6 +188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SFXVol: 0.5
   MusicVol: 0.5
+  bgm: {fileID: 0}
 --- !u!4 &188388663
 Transform:
   m_ObjectHideFlags: 0
@@ -1470,8 +1471,10 @@ MonoBehaviour:
   - {fileID: 114612294171028128, guid: 2b12646ab889a7744bfc7bb714a9d7af, type: 2}
   - {fileID: 114226745421153134, guid: 7e935a26fae7b9a43b8ad1104687756a, type: 2}
   - {fileID: 114022190580515682, guid: 5c1523f385e28644bb5adf60295951ae, type: 2}
+  - {fileID: 114994173406844716, guid: 5742e0305efdc1148924baed77ac2707, type: 2}
+  - {fileID: 114305515479315874, guid: fa9ae7a5724e42d478437399008f5a87, type: 2}
   - {fileID: 114552137873342742, guid: 7cdb09bc4e24f9a42998e662d952feff, type: 2}
-  enemyPoolSizes: 07000000070000000700000001000000
+  enemyPoolSizes: 070000000700000007000000070000000200000001000000
 --- !u!114 &832579321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2833,7 +2836,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1950575734}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 565.5, y: 318, z: 0}
+  m_LocalPosition: {x: 579, y: 325.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 404877004}

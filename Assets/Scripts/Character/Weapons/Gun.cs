@@ -15,12 +15,7 @@
         [SerializeField]
         private SoundPlayer sfx;
 
-        public float BulletSpeed {
-            get
-            {
-                return bulletSpeed;
-            }
-        }
+        public float BulletSpeed { get { return bulletSpeed; } }
 
         private bool doOnce = false;
         private float lag = 0;
@@ -47,7 +42,7 @@
                     b.transform.position = this.transform.position;
                     b.transform.rotation = this.transform.rotation;
                     b.transform.localScale = Vector3.one;
-                    b.GetComponent<Rigidbody2D>().velocity = b.transform.right * bulletSpeed;
+                    b.GetComponent<Rigidbody2D>().velocity = b.transform.right * (bulletSpeed + this.Level);
                     this.sfx.PlaySong(0);
                 }
 
