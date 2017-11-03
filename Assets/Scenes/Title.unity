@@ -977,6 +977,7 @@ GameObject:
   - component: {fileID: 595074637}
   - component: {fileID: 595074636}
   - component: {fileID: 595074635}
+  - component: {fileID: 595074640}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1053,6 +1054,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &595074640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 595074634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e579ba1fdeaf67d45bb5ce61336c6484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  distance: {x: 0.25, y: 0.05}
+  shakeOnStart: 0
+  startShakes: 10
+  activeInCutscenes: 0
 --- !u!1 &596348378
 GameObject:
   m_ObjectHideFlags: 0
@@ -1449,6 +1466,9 @@ GameObject:
   - component: {fileID: 832579321}
   - component: {fileID: 832579319}
   - component: {fileID: 832579326}
+  - component: {fileID: 832579320}
+  - component: {fileID: 832579327}
+  - component: {fileID: 832579325}
   m_Layer: 0
   m_Name: DungeonManager
   m_TagString: Untagged
@@ -1475,6 +1495,21 @@ MonoBehaviour:
   - {fileID: 114305515479315874, guid: fa9ae7a5724e42d478437399008f5a87, type: 2}
   - {fileID: 114552137873342742, guid: 7cdb09bc4e24f9a42998e662d952feff, type: 2}
   enemyPoolSizes: 070000000700000007000000070000000200000001000000
+--- !u!114 &832579320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 832579318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 821f8bc2373ee294bbed083cfef46b37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerBulletPools:
+  - {fileID: 114465480071990346, guid: a1b6433ff53690b4287561932ad4bd2b, type: 2}
+  - {fileID: 114934474935518600, guid: f0349ae32d38d274a9e58082970a3091, type: 2}
+  playerBulletPoolSizes: 030000000a000000
 --- !u!114 &832579321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1555,7 +1590,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d22a2d00f1ada342a3653e5e9633d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTitleScreen: 1
   floors:
   - {fileID: 0}
   nextScene: Title
@@ -1563,7 +1597,7 @@ MonoBehaviour:
   overlay: {fileID: 404877000}
   miniMap: {fileID: 0}
   gameOverScreen: {fileID: 0}
-  heroTemplet: {fileID: 114618599996926252, guid: 43fab8e420984474c9adb8399d12662d,
+  heroTemplet: {fileID: 114618599996926252, guid: 3ce7b19fbb1974018ae50bcdce067004,
     type: 2}
   currentFloor: 0
   floorMap: {fileID: 62023826}
@@ -1580,6 +1614,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &832579325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 832579318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a9e6fe30c9984c828eeb62615f73753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomSwitchTime: 30
 --- !u!114 &832579326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1595,6 +1641,20 @@ MonoBehaviour:
   - {fileID: 114415233566366564, guid: bde87224391efd341a59f2e698f2eaa3, type: 2}
   - {fileID: 114171361122280652, guid: 4061e699a603b2b41ac40f977fe22ca7, type: 2}
   trapPoolSizes: 0300000003000000
+--- !u!114 &832579327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 832579318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0165d54279ca54f4b8ff55bd76a12f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goldTemplet: {fileID: 114548095390915292, guid: 6d2e3ebd86735144cb18bb06fa993d36,
+    type: 2}
+  goldPoolSize: 10
 --- !u!1 &877353631
 GameObject:
   m_ObjectHideFlags: 0
@@ -1843,7 +1903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.403}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2836,7 +2896,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1950575734}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 579, y: 325.5, z: 0}
+  m_LocalPosition: {x: 432.5, y: 243.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 404877004}
