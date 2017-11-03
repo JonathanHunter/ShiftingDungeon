@@ -18,6 +18,7 @@
         /// <summary> The range of the player's enemy-targeting ability. </summary>
         [SerializeField]
         private float targetRange = 7.5f;
+        public float TargetRange { get { return targetRange; } }
         /// <summary> The fraction of money that the player will retain after dying. </summary>
         [SerializeField]
         private float moneyKeptOnDeath;
@@ -230,11 +231,7 @@
         {
             if (this.CurrentState != Enums.HeroState.Attack)
             {
-                Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, this.targetRange, 1 << (int) Enums.Layers.Enemy);
-                // Sort targets by ascending order of distance from the player.
-                Array.Sort(targets, (t1, t2) => 
-                           Comparer<float>.Default.Compare(Vector2.Distance(t1.transform.position, transform.position),
-                                                           Vector2.Distance(t2.transform.position, transform.position)));
+                Collider2D[] targets = getEnemiesInRange(this.targetRange);
                 if (targetIndex >= targets.Length)
                     targetIndex = 0;
                 if (targets.Length == 0)
@@ -243,7 +240,6 @@
                 }
                 else
                 {
-                    // TODO Account for walls that cannot be shot through once they are added.
                     Vector3 targetPos = targets[targetIndex++].transform.position;
                     float angle = Vector2.SignedAngle(Vector2.right, (targetPos - transform.position).normalized);
                     this.weaponHolder.rotation = Quaternion.Euler(0, 0, angle);
@@ -252,6 +248,19 @@
                     sfx.PlaySong(1);
                 }
             }
+        }
+
+        /// <summary> Gets all enemies within a certain distance from the player. </summary>
+        /// <returns>The enemies in range of the player..</returns>
+        /// <param name="range">The search distance to find enemies with.</param>
+        public Collider2D[] getEnemiesInRange(float range)
+        {
+            Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, range, 1 << (int) Enums.Layers.Enemy);
+            // Sort targets by ascending order of distance from the player.
+            Array.Sort(targets, (t1, t2) => 
+                       Comparer<float>.Default.Compare(Vector2.Distance(t1.transform.position, transform.position),
+                                                       Vector2.Distance(t2.transform.position, transform.position)));
+            return targets;
         }
 
         /// <summary>

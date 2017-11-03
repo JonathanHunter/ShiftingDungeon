@@ -8,11 +8,10 @@
     using Dungeon.ProcGen;
     using Dungeon.RoomParts;
     using Character.Hero;
+    using UI;
 
     public class DungeonManager : MonoBehaviour
     {
-        [SerializeField]
-        private bool isTitleScreen;
         [SerializeField]
         private DungeonMap[] floors = null;
         [SerializeField]
@@ -26,7 +25,7 @@
         [SerializeField]
         private UI.GameOverScreen gameOverScreen = null;
         [SerializeField]
-        private Character.Hero.HeroBehavior heroTemplet = null;
+        private HeroBehavior heroTemplet = null;
         [SerializeField]
         private int currentFloor = 0;
         [SerializeField]
@@ -47,6 +46,7 @@
         private DungeonMap map;
         private HeroBehavior hero;
         private Util.CameraTracker cameraTracker;
+        private TitleScreenDemo titleScreenDemo;
 
         private void Start()
         {
@@ -64,10 +64,10 @@
             foreach(ObjectPooling.ObjectPool pool in pools)
                 pool.Init();
 
-            if(this.hero == null)
-                this.hero = Instantiate(this.heroTemplet);
+            this.hero = GetHero().GetComponent<HeroBehavior>();
 
             this.cameraTracker = FindObjectOfType<Util.CameraTracker>();
+            this.titleScreenDemo = GetComponent<TitleScreenDemo>();
             StartCoroutine(SwitchMaps());
         }
 
@@ -76,7 +76,9 @@
         public static GameObject GetHero()
         {
             if(Instance.hero == null)
+            {
                 Instance.hero = Instantiate(instance.heroTemplet);
+            }
 
             return Instance.hero.gameObject;
         }
@@ -118,7 +120,34 @@
         /// <summary> Displays the game over screen when the player dies. </summary>
         public static void ShowGameOver()
         {
-            Instance.gameOverScreen.gameObject.SetActive(true);
+            if(Instance.titleScreenDemo)
+            {
+                StartResetTitleScreen();
+            }
+            else
+            {
+                Instance.gameOverScreen.gameObject.SetActive(true);
+            }
+        }
+
+        /// <summary> Starts the sequence for resetting the map in the title screen. </summary>
+        public static void StartResetTitleScreen()
+        {
+            Instance.StartCoroutine(Instance.ResetTitleScreen());
+        }
+
+        /// <summary> Regenerates the map in the title screen. </summary>
+        private IEnumerator ResetTitleScreen()
+        {
+            if (!titleScreenDemo.IsResetting)
+            {
+                titleScreenDemo.StartReset();
+                yield return new WaitForSeconds(2);
+                yield return SwitchMaps();
+                Instance.hero.Respawn();
+                Instance.hero.GetComponent<HeroInputDemo>().ResetDemoHero();
+                titleScreenDemo.ResetTitleScreen();
+            }
         }
 
         private IEnumerator SwitchMaps()
@@ -165,6 +194,8 @@
             // Initialize Mini Map
             if (this.miniMap != null)
                 this.miniMap.Init(this.map.Map, new Vector2(this.map.Rooms[0].Row, this.map.Rooms[0].Col));
+
+            RemoveMoney();
             
             yield return 0;
 
@@ -178,10 +209,7 @@
             floorMap.transform.parent.gameObject.SetActive(false);
             this.map.Rooms[0].Activate(this.floorMap);
             this.overlay.FadeOut();
-            if(this.isTitleScreen)
-                GameState.Instance.State = Util.Enums.GameState.Paused;
-            else
-                GameState.Instance.State = Util.Enums.GameState.Playing;
+            GameState.Instance.State = Util.Enums.GameState.Playing;
 
             yield break;
         }
@@ -225,12 +253,7 @@
                 yield return 0;
             }
 
-            Character.Pickups.Money[] gold = FindObjectsOfType<Character.Pickups.Money>();
-            foreach(Character.Pickups.Money g in gold)
-            {
-                if(g.gameObject.activeInHierarchy)
-                    ObjectPooling.PickupPool.Instance.ReturnGold(g.gameObject);
-            }
+            RemoveMoney();
 
             this.hero.gameObject.transform.position = postion;
             next.transform.localPosition = Vector3.zero;
@@ -242,6 +265,17 @@
             this.overlay.FadeOut();
             GameState.Instance.State = Util.Enums.GameState.Playing;
             yield break;
+        }
+
+        /// <summary> Removes all money objects from the world. </summary>
+        private void RemoveMoney()
+        {
+            Character.Pickups.Money[] gold = FindObjectsOfType<Character.Pickups.Money>();
+            foreach(Character.Pickups.Money g in gold)
+            {
+                if(g.gameObject.activeInHierarchy)
+                    ObjectPooling.PickupPool.Instance.ReturnGold(g.gameObject);
+            }
         }
     }
 }

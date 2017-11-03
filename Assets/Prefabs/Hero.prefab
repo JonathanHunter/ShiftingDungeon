@@ -679,6 +679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 212081217546178592}
+  noSprite: 0
   weaponLevelArt:
   - {fileID: 21300000, guid: 0cbc39b9e691a75448d76d1a0e32adc7, type: 3}
   - {fileID: 21300000, guid: 7290ba55f57134e4c9e4f5673a1e0297, type: 3}
@@ -698,6 +699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 212056521413125730}
+  noSprite: 0
   weaponLevelArt:
   - {fileID: 21300000, guid: 6e540c8a3bb372f4fa0428957e809aec, type: 3}
   - {fileID: 21300000, guid: 6e540c8a3bb372f4fa0428957e809aec, type: 3}
