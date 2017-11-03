@@ -579,7 +579,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 3
-  level: 0
 --- !u!114 &114552137873342742
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -594,7 +593,7 @@ MonoBehaviour:
   damage: 1
   referenceIndex: 0
   maxHealth: 20
-  type: 4
+  type: 5
   healthBar: {fileID: 114881605955489370}
   spriteShake: {fileID: 114746136272005168}
   numDeathParticles: 100
@@ -610,7 +609,7 @@ MonoBehaviour:
   stunTime: 2.5
   idleTime: 0.75
   meleeRange: 1.5
-  moveSpeed: 2.5
+  moveSpeed: 5
   sfx: {fileID: 114287546630277036}
   anim: {fileID: 95488226429604000}
 --- !u!114 &114746136272005168

@@ -21536,7 +21536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f93e71d3c482a4ca049ac0c3f2c513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeToSummon: 3
+  typeToSummon: 5
   smoke: {fileID: 198512075357820652}
 --- !u!114 &114557696476761810
 MonoBehaviour:

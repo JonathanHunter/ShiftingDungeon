@@ -924,8 +924,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 972339651}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 524.5, y: 394, z: 0}
-  m_LocalScale: {x: 0.655625, y: 0.655625, z: 0.655625}
+  m_LocalPosition: {x: 579, y: 325.5, z: 0}
+  m_LocalScale: {x: 0.72375, y: 0.72375, z: 0.72375}
   m_Children:
   - {fileID: 754963713}
   - {fileID: 1763189449}
@@ -1017,7 +1017,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d22a2d00f1ada342a3653e5e9633d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTitleScreen: 0
   floors:
   - {fileID: 114336762918798104, guid: 1c3c755b8b305a0439c996d6b631e95f, type: 2}
   - {fileID: 114446231822332768, guid: 150dfe279e56a1342915d105ed16dd62, type: 2}
@@ -1912,7 +1911,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1248034009171752, guid: 51ab574ec755c0143b22cef51aa24883, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 51ab574ec755c0143b22cef51aa24883, type: 2}
