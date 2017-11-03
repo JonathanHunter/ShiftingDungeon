@@ -4,13 +4,37 @@
 
     public abstract class Weapon : MonoBehaviour
     {
-        /// <summary> The level of this weapon. </summary>
-        public int Level { get; internal set; }
+        [SerializeField]
+        private SpriteRenderer sprite = null;
+        [SerializeField]
+        private bool noSprite = false;
 
+        /// <summary> The sprites for 3 weapon levels. </summary>
+        [SerializeField]
+        protected Sprite[] weaponLevelArt = null;
+
+        /// <summary> The level of this weapon. </summary>
+        public int Level { get; private set; }
+        
         /// <summary> Initializes this weapon. </summary>
-        public void Init()
+        public void Init(int level)
         {
+            UpdateLevel(level);
             LocalInit();
+        }
+
+        public void UpdateLevel(int level)
+        {
+            this.Level = level;
+            if (!this.noSprite)
+            {
+                if (this.Level < 3)
+                    this.sprite.sprite = this.weaponLevelArt[0];
+                else if (this.Level < 6)
+                    this.sprite.sprite = this.weaponLevelArt[1];
+                else if (this.Level < 9)
+                    this.sprite.sprite = this.weaponLevelArt[2];
+            }
         }
 
         /// <summary> Readys this weapon to attack. </summary>

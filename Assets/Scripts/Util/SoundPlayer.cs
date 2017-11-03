@@ -41,7 +41,7 @@ namespace ShiftingDungeon.Util
             audio.Stop();
             audio.loop = loop && index == loopSong;
             audio.clip = song[index];
-            audio.PlayOneShot(audio.clip);
+            audio.Play(0);
         }
 
         public void PlaySongModPitch(int index, float range)

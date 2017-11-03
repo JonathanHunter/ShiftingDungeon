@@ -1019,7 +1019,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTitleScreen: 0
   floors:
-  - {fileID: 114017614113719440, guid: bf3784b347ef3ee47a876b403dc6bb68, type: 2}
+  - {fileID: 114615734114131174, guid: e3ea69e96ab7df148966e86ffda3e78f, type: 2}
   - {fileID: 0}
   - {fileID: 114111665689012942, guid: a2893ebbd4423964099c3d365a66c2ff, type: 2}
   - {fileID: 0}
