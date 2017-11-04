@@ -125,15 +125,6 @@
                 case ExectionerState.Shield: Shield(); break;
                 case ExectionerState.Stun: Stun(); break;
             }
-
-            if (Vector2.Distance(this.hero.position, this.transform.position) < this.meleeRange)
-            {
-                if (this.currentState == ExectionerState.Idle || this.currentState == ExectionerState.Move)
-                {
-                    this.anim.SetTrigger(this.attackHash);
-                    this.anim.SetBool(this.movingHash, false);
-                }
-            }
         }
 
         protected override void LocalDeallocate()
@@ -176,13 +167,19 @@
                 this.doOnce = true;
             }
 
+            if (Vector2.Distance(this.hero.position, this.transform.position) < this.meleeRange)
+            {
+                this.anim.SetTrigger(this.attackHash);
+                this.anim.SetBool(this.movingHash, false);
+            }
+
             if ((this.idleTimer -= Time.deltaTime) < 0)
             {
                 float val = Random.Range(0f, 1f);
-                if (val < .25f)
-                    this.anim.SetBool(this.movingHash, true);
-                else if (val < .50f)
+                if (val < .15f)
                     this.anim.SetBool(this.shieldingHash, true);
+                else if (val < .75f)
+                    this.anim.SetBool(this.movingHash, true);
                 else
                     this.doOnce = false;
             }
@@ -192,7 +189,7 @@
         {
             if(!this.doOnce)
             {
-                int val = Random.Range(0, this.summoningPoints.Length + 4);
+                int val = Random.Range(0, this.summoningPoints.Length);
                 if (val >= this.summoningPoints.Length)
                     this.movementLocation = this.hero.position;
                 else
@@ -209,7 +206,10 @@
                 this.anim.SetBool(this.movingHash, false);
             }
             else
+            {
+                LookAt(this.movementLocation);
                 this.rgbdy.velocity = -this.transform.up * this.moveSpeed;
+            }
         }
 
         private void Attack()

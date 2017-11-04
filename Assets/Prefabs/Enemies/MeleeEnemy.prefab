@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 50379563036614892}
   m_Layer: 11
   m_Name: SwordSprite
-  m_TagString: HeroWeapon
+  m_TagString: EnemyWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -192,7 +192,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1802315883955658}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.894559, y: 1.5940814, z: -1}
+  m_LocalPosition: {x: 0.27, y: 0, z: -1}
   m_LocalScale: {x: 1.1666667, y: 1.1666667, z: 1}
   m_Children:
   - {fileID: 4229055458509172}
@@ -206,7 +206,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1344946285879170}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.420919, y: -1.195561, z: 0}
+  m_LocalPosition: {x: -2.0874357, y: -3.6748226, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children:
   - {fileID: 4293976202489860}
@@ -777,7 +777,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 838964204
+  randomSeed: 510929112
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4094,7 +4094,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1867359876
+  randomSeed: -1569761043
   InitialModule:
     serializedVersion: 3
     enabled: 1
