@@ -40,6 +40,7 @@
             if (instance != null && instance != this)
             {
                 Debug.LogError("Duplicate GameState detected: removing " + this.gameObject.name);
+                Destroy(this.bgm.gameObject);
                 Destroy(this.gameObject);
                 return;
             }

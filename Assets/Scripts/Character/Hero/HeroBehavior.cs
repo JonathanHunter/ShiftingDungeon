@@ -99,13 +99,18 @@
             // HACK: Addresses Unity bug where ParticleSystem.Emit() spawns particles
             // at the origin regardless of the particle system's position until a particle is emitted.
             this.deathParticles.Emit(1);
-            this.cameraShake = FindObjectOfType<Camera>().GetComponent<Effects.Shake>();
+            Camera[] cameras = FindObjectsOfType<Camera>();
+            foreach (Camera c in cameras)
+            {
+                if(c.GetComponent<Effects.Shake>() != null)
+                    this.cameraShake = c.GetComponent<Effects.Shake>();
+            }
 
             if(HeroData.Instance.weaponLevels == null || HeroData.Instance.weaponLevels.Length == 0)
             {
                 HeroData.Instance.weaponLevels = new int[this.weapons.Length];
                 for (int i = 0; i < this.weapons.Length; i++)
-                    HeroData.Instance.weaponLevels[i] = 0;
+                    HeroData.Instance.weaponLevels[i] = 5;
             }
 
             for(int i = 0; i < this.weapons.Length; i++)
