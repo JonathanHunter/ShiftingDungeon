@@ -121,6 +121,8 @@
             roomPool.holeTiles = holeTiles[currentTileSetIndex];
             roomPool.floorTiles = floorTiles[currentTileSetIndex];
             wallObjects[currentTileSetIndex].SetActive(true);
+
+            SwitchedTo((int) currentTileSet);
         }
 
         /// <summary>
@@ -128,7 +130,6 @@
         /// </summary>
         public void SwitchTileSetType()
         {
-            // TODO: Implement some logic for choosing which tile set to use next.
             currentTileSet = currentTileSet == Enums.TileSets.Cavern ? Enums.TileSets.RoyalCourt : Enums.TileSets.Cavern;
         }
 
@@ -146,6 +147,14 @@
         {
             roomSwitchTimer = 0;
             IsResetting = false;
+        }
+
+        /// <summary>
+        /// Modifies the UI when a tile set switch occurs.
+        /// </summary>
+        /// <param name="set">The index of the new tile set type.</param>
+        public void SwitchedTo(int set) {
+            // TODO: Hook this into UI.
         }
     }
 }
