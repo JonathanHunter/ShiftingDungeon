@@ -352,5 +352,23 @@
 
             return RoomPool.Instance.holeTiles[sprite];
         }
+
+        /// <summary>
+        /// Switches the sprites of doors in the room.
+        /// </summary>
+        /// <param name="newDoor">The reference door object to get new sprites from.</param>
+        public void SwitchDoorSprites(GameObject newDoor)
+        {
+            Sprite newSprite = newDoor.GetComponent<SpriteRenderer>().sprite;
+            RuntimeAnimatorController newAnimator = newDoor.GetComponent<Animator>().runtimeAnimatorController;
+            foreach (GameObject door in this.doors)
+            {
+                door.GetComponent<SpriteRenderer>().sprite = newSprite;
+                bool open = door.GetComponent<Door>().IsOpen;
+                Animator doorAnimator = door.GetComponent<Animator>();
+                doorAnimator.runtimeAnimatorController = newAnimator;
+                doorAnimator.SetBool("open", open);
+            }
+        }
     }
 }
