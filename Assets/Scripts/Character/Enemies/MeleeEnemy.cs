@@ -12,7 +12,7 @@
         [SerializeField]
         private float walkSpeed = 2f;
         [SerializeField]
-        private float timeBetweenSwings = 1f;
+        private float fleeTime = 1f;
         [SerializeField]
         private float stunLength = 0.15f;
         [SerializeField]
@@ -25,14 +25,19 @@
         private Animator anim;
         [SerializeField]
         private int weaponLevel;
+        [SerializeField]
+        [Range(0f, 1f)]
+        private float trackingError;
+
+        private enum State { idle, seek, attack, run }
 
         private Transform hero;
         private Rigidbody2D rgbdy;
-        private float swingTimer;
+        private float fleeCounter;
         private float stunCounter;
         private bool doOnce;
-        private bool doneSwinging;
         private int hitHash;
+        private State curr;
 
         protected override void LocalInitialize()
         {
@@ -48,10 +53,10 @@
 
         protected override void LocalReInitialize()
         {
-            this.swingTimer = 0f;
-            this.doneSwinging = true;
+            this.fleeCounter = 0f;
             this.doOnce = false;
-            if(!this.smoke.isPlaying)
+            this.curr = State.idle;
+            if (!this.smoke.isPlaying)
                 this.smoke.Play();
         }
 
@@ -59,26 +64,19 @@
         {
             if ((this.stunCounter -= Time.deltaTime) > 0)
                 return;
-            float distance = Vector2.Distance(this.hero.transform.position, this.transform.position);
-            if (distance > this.agroRange)
-                return;
 
-            if (distance <= meleeDist)
-                this.swingTimer -= Time.deltaTime;
-            else if (this.doneSwinging)
+            State temp = this.curr;
+            switch(this.curr)
             {
-                RotateToPlayer();
-                this.rgbdy.velocity = this.transform.right * this.walkSpeed;
+                case State.idle: Idle(); break;
+                case State.seek: Seek(); break;
+                case State.attack: Attack(); break;
+                case State.run: Run(); break;
             }
 
-            if (this.swingTimer < 0)
+            if(this.curr != temp)
             {
-                Attack();
-                if (this.doneSwinging)
-                {
-                    this.swingTimer = this.timeBetweenSwings;
-                    this.doOnce = false;
-                }
+                this.doOnce = false;
             }
         }
 
@@ -114,10 +112,30 @@
             }
         }
 
-        private void RotateToPlayer()
+        private void RotateToWherePlayerWas()
         {
-            Vector2 towards = this.hero.transform.position - this.transform.position;
+            Vector2 heroVelocity = this.hero.GetComponent<Rigidbody2D>().velocity;
+            float deltaT = (this.transform.position - this.hero.position).magnitude / (heroVelocity - this.walkSpeed * (Vector2)this.transform.right).magnitude;
+            Vector2 futurePlayerPos = (Vector2)hero.position - heroVelocity * deltaT * (1 - this.trackingError);
+            Vector2 towards = futurePlayerPos - (Vector2)this.transform.position;
             this.transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, towards));
+        }
+
+        private void Idle()
+        {
+            if (Vector2.Distance(this.transform.position, this.hero.position) < this.agroRange)
+                this.curr = State.seek;
+        }
+
+        private void Seek()
+        {
+            if (Vector2.Distance(this.transform.position, this.hero.position) < this.meleeDist)
+                this.curr = State.attack;
+            else
+            {
+                RotateToWherePlayerWas();
+                this.rgbdy.velocity = transform.right * this.walkSpeed;
+            }
         }
 
         private void Attack()
@@ -125,14 +143,31 @@
             if (!this.doOnce)
             {
                 this.weapon.ReInit();
-                this.doneSwinging = false;
                 this.doOnce = true;
             }
 
             if (this.weapon.WeaponUpdate())
             {
                 this.weapon.CleanUp();
-                this.doneSwinging = true;
+                this.curr = State.run;
+            }
+        }
+
+        private void Run()
+        {
+            if(!this.doOnce)
+            {
+                this.fleeCounter = this.fleeTime;
+                this.doOnce = true;
+            }
+
+            if ((this.fleeCounter -= Time.deltaTime) <= 0)
+            {
+                this.curr = State.idle;
+            }
+            else
+            {
+                this.rgbdy.velocity = -this.transform.right * this.walkSpeed *2f;
             }
         }
     }

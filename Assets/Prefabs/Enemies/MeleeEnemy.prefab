@@ -507,13 +507,14 @@ MonoBehaviour:
   agroRange: 6
   meleeDist: 1
   walkSpeed: 1.5
-  timeBetweenSwings: 1
+  fleeTime: 1
   stunLength: 0.15
   weapon: {fileID: 114709769911170072}
   sfx: {fileID: 114245367749870440}
   smoke: {fileID: 198026558168572398}
   anim: {fileID: 95168704709330710}
   weaponLevel: 0
+  trackingError: 0
 --- !u!114 &114140169512123936
 MonoBehaviour:
   m_ObjectHideFlags: 1
