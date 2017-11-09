@@ -57,6 +57,9 @@
         private StaticRoomPiece[] wallPrefabs;
         private GameObject[] wallObjects;
 
+        [SerializeField]
+        private GameObject[] arrows;
+
         /// <summary>
         /// Instantiates all wall types.
         /// </summary>
@@ -154,7 +157,10 @@
         /// </summary>
         /// <param name="set">The index of the new tile set type.</param>
         public void SwitchedTo(int set) {
-            // TODO: Hook this into UI.
+            foreach (GameObject g in this.arrows)
+                g.SetActive(false);
+
+            this.arrows[set].SetActive(true);
         }
     }
 }
