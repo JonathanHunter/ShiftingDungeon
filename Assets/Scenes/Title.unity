@@ -2228,6 +2228,116 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomSwitchTime: 30
+  cavernHoleTiles:
+  - {fileID: 11400000, guid: 3c0b4510f928f5643a20b2396d328d4a, type: 2}
+  - {fileID: 11400000, guid: ea97aec1c9d3fae4e9fd5808ced217e3, type: 2}
+  - {fileID: 11400000, guid: f2a7a92dd495aa84bab0b7eff9c575b8, type: 2}
+  - {fileID: 11400000, guid: 9ed2d9b4bae71f84aba5fa8d7747be75, type: 2}
+  - {fileID: 11400000, guid: a685b637f2f1aae4d9a180974b053e8f, type: 2}
+  - {fileID: 11400000, guid: 239fd668ddd02374a8f82048a31344ea, type: 2}
+  - {fileID: 11400000, guid: 1e69152ea81482b4fb32759585da99ea, type: 2}
+  - {fileID: 11400000, guid: cc795a74f007c464390803d6a82c2de4, type: 2}
+  - {fileID: 11400000, guid: d1c36887f81bbbe41b5c45e031dc2f03, type: 2}
+  - {fileID: 11400000, guid: ae1648897d0a99e4d98236c7349a8c10, type: 2}
+  - {fileID: 11400000, guid: 9abfe86c717d214438c2bf58fdb29a2f, type: 2}
+  - {fileID: 11400000, guid: 3d645e1860526c541a3de7ca1a016ac5, type: 2}
+  - {fileID: 11400000, guid: 98c058e38e6d0e940bb1ff870b396df8, type: 2}
+  - {fileID: 11400000, guid: 8b0780068412f7647984cbefc872705e, type: 2}
+  - {fileID: 11400000, guid: 4a4082a2d3808a64791c5d249dab1573, type: 2}
+  - {fileID: 11400000, guid: 0cb4ed72c54677741b00b5ae913878f5, type: 2}
+  cavernFloorTiles:
+  - {fileID: 11400000, guid: 9bf4ac54f2f33db4bb940b318928a40f, type: 2}
+  - {fileID: 11400000, guid: 9bf4ac54f2f33db4bb940b318928a40f, type: 2}
+  - {fileID: 11400000, guid: 9bf4ac54f2f33db4bb940b318928a40f, type: 2}
+  - {fileID: 11400000, guid: 9bf4ac54f2f33db4bb940b318928a40f, type: 2}
+  - {fileID: 11400000, guid: 9bf4ac54f2f33db4bb940b318928a40f, type: 2}
+  - {fileID: 11400000, guid: 9bf4ac54f2f33db4bb940b318928a40f, type: 2}
+  - {fileID: 11400000, guid: 9bf4ac54f2f33db4bb940b318928a40f, type: 2}
+  - {fileID: 11400000, guid: 9bf4ac54f2f33db4bb940b318928a40f, type: 2}
+  - {fileID: 11400000, guid: 9bf4ac54f2f33db4bb940b318928a40f, type: 2}
+  - {fileID: 11400000, guid: 9bf4ac54f2f33db4bb940b318928a40f, type: 2}
+  - {fileID: 11400000, guid: 9bf4ac54f2f33db4bb940b318928a40f, type: 2}
+  - {fileID: 11400000, guid: 9bf4ac54f2f33db4bb940b318928a40f, type: 2}
+  - {fileID: 11400000, guid: 9bf4ac54f2f33db4bb940b318928a40f, type: 2}
+  - {fileID: 11400000, guid: 9bf4ac54f2f33db4bb940b318928a40f, type: 2}
+  - {fileID: 11400000, guid: 9bf4ac54f2f33db4bb940b318928a40f, type: 2}
+  - {fileID: 11400000, guid: 9bf4ac54f2f33db4bb940b318928a40f, type: 2}
+  dungeonHoleTiles:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  dungeonFloorTiles:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  royalCourtHoleTiles:
+  - {fileID: 11400000, guid: 3c0b4510f928f5643a20b2396d328d4a, type: 2}
+  - {fileID: 11400000, guid: 7aa9ac051343e0149b9293f2f4372a81, type: 2}
+  - {fileID: 11400000, guid: a4995a47a272c024a87fbbc42d7dfeb0, type: 2}
+  - {fileID: 11400000, guid: 44a87157bf105ad4791df8535569693c, type: 2}
+  - {fileID: 11400000, guid: 626e3a2bd00845443aaebdae15443fdd, type: 2}
+  - {fileID: 11400000, guid: 8e43d380fcf554542aaa77cdabc83074, type: 2}
+  - {fileID: 11400000, guid: b3fc93d4d115f794bb31608a0b75cfcf, type: 2}
+  - {fileID: 11400000, guid: 07ff833562becc54c83254aa7f45fb70, type: 2}
+  - {fileID: 11400000, guid: 9cb75ca23cc2aa74dbf5167450abb8d7, type: 2}
+  - {fileID: 11400000, guid: 3d77e18fad0ff0a408c2994e00a3aa2f, type: 2}
+  - {fileID: 11400000, guid: 52d33b832c83fa641bfbc3bf2edd80a9, type: 2}
+  - {fileID: 11400000, guid: 4fd6ba1f3d4f6e24b995b3283bc8c186, type: 2}
+  - {fileID: 11400000, guid: b026dd57cec5bc24abed9cb01bfef338, type: 2}
+  - {fileID: 11400000, guid: f0a13fadbcd015740a3d4fc3722f385f, type: 2}
+  - {fileID: 11400000, guid: d25ab02c989ca4e4ba26f630d806989f, type: 2}
+  - {fileID: 11400000, guid: 216a523b9c61ec74b9edd603f0985fc7, type: 2}
+  royalCourtFloorTiles:
+  - {fileID: 11400000, guid: 7a96fadf3d6d0674ba52f2571732fa52, type: 2}
+  - {fileID: 11400000, guid: dc945ada07ff7974ea6d07f1306afb9c, type: 2}
+  - {fileID: 11400000, guid: 18aa8362f1a337b429d41c2b2f26f05e, type: 2}
+  - {fileID: 11400000, guid: eab442621f494ec45a16414a7117ab0f, type: 2}
+  - {fileID: 11400000, guid: 1ca71fec787e88d43b222bdf86bf777f, type: 2}
+  - {fileID: 11400000, guid: 0fe487a6e3ab48a439afdbfe6d928ab8, type: 2}
+  - {fileID: 11400000, guid: debd69e5bdfc94a49bb346b9c4d0060d, type: 2}
+  - {fileID: 11400000, guid: e06952bccc226f64f8e7cfb706da8a13, type: 2}
+  - {fileID: 11400000, guid: 721e59e946104ca43914ca83a337d641, type: 2}
+  - {fileID: 11400000, guid: 6399f5d820966ed4eb1fba40f0b35c15, type: 2}
+  - {fileID: 11400000, guid: d5fa5eb163cb6034ea8d110c1f1cdae3, type: 2}
+  - {fileID: 11400000, guid: 67632c6b7cb22ba41b4c0efe05790463, type: 2}
+  - {fileID: 11400000, guid: 145304faf74b95a45a025f3b2f63e726, type: 2}
+  - {fileID: 11400000, guid: b5500fea4656b5c44be10cf7e081955e, type: 2}
+  - {fileID: 11400000, guid: 5e23452ae52e93d46ac3a371970d9c47, type: 2}
+  - {fileID: 11400000, guid: ae6429a5f210019408655be4b634d875, type: 2}
+  doors:
+  - {fileID: 114302781356511246, guid: e78ad0dcfe765444ebce2a2d726d573f, type: 2}
+  - {fileID: 0}
+  - {fileID: 114056971575102234, guid: a910ee76873d7064ea0387e7dbba302e, type: 2}
+  wallPrefabs:
+  - {fileID: 114291817595952160, guid: 433fd545d02727e4d91f4265aa40e70d, type: 2}
+  - {fileID: 0}
+  - {fileID: 114022310177305032, guid: b91d3c6a3f2de0c489061be1616b0596, type: 2}
 --- !u!114 &832579326
 MonoBehaviour:
   m_ObjectHideFlags: 0
