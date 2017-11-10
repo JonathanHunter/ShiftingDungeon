@@ -757,7 +757,7 @@ GameObject:
   - component: {fileID: 4655895255672368}
   - component: {fileID: 114485697858903720}
   m_Layer: 0
-  m_Name: CavernMaze
+  m_Name: Cavern2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
