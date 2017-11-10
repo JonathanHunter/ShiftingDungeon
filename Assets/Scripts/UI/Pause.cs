@@ -35,7 +35,7 @@
                 if (Util.CustomInput.BoolFreshPressDeleteOnRead(Util.CustomInput.UserInput.Accept))
                     Navigator.CallSubmit();
                 if (Util.CustomInput.BoolFreshPressDeleteOnRead(Util.CustomInput.UserInput.Cancel) || 
-                    Util.CustomInput.BoolFreshPress(Util.CustomInput.UserInput.Pause))
+                    Util.CustomInput.BoolFreshPressDeleteOnRead(Util.CustomInput.UserInput.Pause))
                 {
                     EventSystem.current.SetSelectedGameObject(resume);
                     Navigator.CallSubmit();
@@ -43,7 +43,7 @@
             }
             else if(!Managers.GameState.Instance.IsPaused)
             {
-                if (Util.CustomInput.BoolFreshPress(Util.CustomInput.UserInput.Pause))
+                if (Util.CustomInput.BoolFreshPressDeleteOnRead(Util.CustomInput.UserInput.Pause))
                 {
                     Managers.GameState.Instance.State = Util.Enums.GameState.Paused;
                     EventSystem.current.SetSelectedGameObject(resume);
