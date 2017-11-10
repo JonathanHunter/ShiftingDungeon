@@ -8,11 +8,9 @@
         [SerializeField]
         private SummoningField[] spawners = null;
         [SerializeField]
-        private int scaredRange = 2;
-        [SerializeField]
         private int summoningRange = 5;
         [SerializeField]
-        private float summonDelay = .3f;
+        private float scaredTime = .5f;
         [SerializeField]
         private float stunLength = 0.15f;
         [SerializeField]
@@ -21,6 +19,8 @@
         private float moveSpeed = 3f;
         [SerializeField]
         private Util.SoundPlayer sfx;
+        [SerializeField]
+        private Animator anim;
 
         private enum State { idle, summon, scared, wander }
 
@@ -29,11 +29,13 @@
         private Transform hero;
         private Rigidbody2D rgbdy;
         private float stunCounter;
-        private float summoningCounter;
+        private float scaredCounter;
         private float idleCounter;
+        private float animationTime;
+        private int summonHash;
         private bool doOnce;
         private bool spawned;
-
+        
         protected override void LocalInitialize()
         {
             foreach (SummoningField f in this.spawners)
@@ -43,6 +45,7 @@
             this.curr = State.idle;
             this.hero = Managers.DungeonManager.GetHero().transform;
             this.rgbdy = this.GetComponent<Rigidbody2D>();
+            this.summonHash = Animator.StringToHash("summon");
         }
 
         protected override void LocalReInitialize()
@@ -50,7 +53,7 @@
             this.spawnedEnemies.Clear();
             this.curr = State.idle;
             this.stunCounter = 0f;
-            this.summoningCounter = 0f;
+            this.scaredCounter = 0f;
             this.idleCounter = this.idleTime;
             this.doOnce = false;
             this.spawned = false;
@@ -60,6 +63,8 @@
         {
             if (this.stunCounter > 0)
                 this.stunCounter -= Time.deltaTime;
+
+            this.animationTime = this.anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
             State temp = this.curr;
             switch (this.curr)
             {
@@ -102,7 +107,6 @@
 
             if (collision.tag == Util.Enums.Tags.HeroWeapon.ToString())
             {
-                //this.anim.SetTrigger(hitHash);
                 this.stunCounter = stunLength;
                 sfx.PlaySongModPitch(0, .1f);
             }
@@ -111,9 +115,7 @@
         private void Idle()
         {
             float dist = Vector2.Distance(this.transform.position, this.hero.position);
-            if (dist < this.scaredRange)
-                this.curr = State.scared;
-            else if(dist < this.summoningRange)
+            if(dist < this.summoningRange)
             {
                 bool allDead = true;
                 foreach (GameObject e in this.spawnedEnemies)
@@ -124,7 +126,7 @@
                 {
                     this.spawnedEnemies.Clear();
                     this.curr = State.summon;
-                    //anim
+                    this.anim.SetTrigger(this.summonHash);
                 }
             }
 
@@ -144,13 +146,12 @@
             {
                 foreach (SummoningField f in this.spawners)
                     f.gameObject.SetActive(true);
-
-                this.summoningCounter = this.summonDelay;
+                
                 this.spawned = false;
                 this.doOnce = true;
             }
 
-            if ((this.summoningCounter -= Time.deltaTime) < 0 && !this.spawned)
+            if (this.animationTime >= .5f && !this.spawned)
             {
                 this.sfx.PlaySong(0);
                 foreach (SummoningField s in this.spawners)
@@ -161,40 +162,40 @@
                 }
 
                 this.spawned = true;
-                this.summoningCounter = .25f;
-                //anim
             }
-            else if(this.summoningCounter < 0)
+
+            if(this.animationTime > .9)
             {
                 foreach (SummoningField f in this.spawners)
                     f.gameObject.SetActive(false);
 
-                this.curr = State.idle;
+                this.spawned = false;
+                this.curr = State.scared;
             }
         }
 
         private void Scared()
         {
-            float dist = Vector2.Distance(this.transform.position, this.hero.position);
-            if (dist > this.scaredRange)
+            if(!this.doOnce)
+            {
+                this.scaredCounter = this.scaredTime;
+                this.doOnce = true;
+            }
+            
+            if ((this.scaredCounter -= Time.deltaTime) <= 0)
                 this.curr = State.idle;
 
             Vector2 towards = this.hero.transform.position - this.transform.position;
             this.transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, -towards));
-            Move(this.moveSpeed * 2f);
+            this.rgbdy.velocity = this.transform.right * this.moveSpeed;
         }
 
         private void Wander()
         {
             float dir = Random.Range(0, 360);
             this.transform.rotation = Quaternion.Euler(0, 0, dir);
-            Move(this.moveSpeed);
+            this.rgbdy.AddForce(this.transform.right * this.moveSpeed * 5f, ForceMode2D.Impulse);
             this.curr = State.idle;
-        }
-
-        private void Move(float speed)
-        {
-            this.rgbdy.velocity = this.transform.right * speed;
         }
     }
 }

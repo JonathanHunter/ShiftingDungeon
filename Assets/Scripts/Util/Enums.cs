@@ -8,7 +8,7 @@
 
         public enum BulletTypes { HeroBasic, EnemyBasic }
 
-        public enum EnemyTypes { Basic, Shooter, Melee, Grass, Summoner, Boss }
+        public enum EnemyTypes { Basic, Shooter, Melee, Grass, Summoner, Flamethrower, Boss }
 
         public enum Direction { None, Up, Down, Left, Right }
 
@@ -17,5 +17,7 @@
         public enum Layers { Hero = 8, HeroSuspended = 17, Enemy = 9, HeroWeapon = 10, EnemyWeapon = 11, Trap = 15, Dungeon = 13, Pickup = 14 }
 
         public enum Traps { Spike, SlowGoo }
+
+        public enum TileSets { Cavern, Dungeon, RoyalCourt }
     }
 }

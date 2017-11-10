@@ -143,9 +143,11 @@
             {
                 titleScreenDemo.StartReset();
                 yield return new WaitForSeconds(2);
+                titleScreenDemo.SwitchTileSet();
                 yield return SwitchMaps();
                 Instance.hero.Respawn();
                 Instance.hero.GetComponent<HeroInputDemo>().ResetDemoHero();
+                titleScreenDemo.SwitchDoors(this.map.Rooms[0]);
                 titleScreenDemo.ResetTitleScreen();
             }
         }
