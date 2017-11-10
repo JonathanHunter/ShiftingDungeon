@@ -505,10 +505,11 @@ MonoBehaviour:
   spriteShake: {fileID: 114332344054376012}
   numDeathParticles: 100
   agroRange: 6
-  meleeDist: 1
+  meleeDist: 1.5
   walkSpeed: 1.5
   fleeTime: 1
   stunLength: 0.15
+  weaponReadyingTime: 0.5
   weapon: {fileID: 114709769911170072}
   sfx: {fileID: 114245367749870440}
   smoke: {fileID: 198026558168572398}

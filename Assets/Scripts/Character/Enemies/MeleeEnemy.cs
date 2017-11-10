@@ -16,6 +16,8 @@
         [SerializeField]
         private float stunLength = 0.15f;
         [SerializeField]
+        private float weaponReadyingTime = 0.15f;
+        [SerializeField]
         private Weapons.Weapon weapon = null;
         [SerializeField]
         private SoundPlayer sfx = null;
@@ -35,6 +37,7 @@
         private Rigidbody2D rgbdy;
         private float fleeCounter;
         private float stunCounter;
+        private float weaponReadyCounter;
         private bool doOnce;
         private int hitHash;
         private State curr;
@@ -54,6 +57,8 @@
         protected override void LocalReInitialize()
         {
             this.fleeCounter = 0f;
+            this.stunCounter = 0f;
+            this.weaponReadyCounter = 0f;
             this.doOnce = false;
             this.curr = State.idle;
             if (!this.smoke.isPlaying)
@@ -143,8 +148,12 @@
             if (!this.doOnce)
             {
                 this.weapon.ReInit();
+                this.weaponReadyCounter = this.weaponReadyingTime;
                 this.doOnce = true;
             }
+
+            if ((this.weaponReadyCounter -= Time.deltaTime) > 0)
+                return;
 
             if (this.weapon.WeaponUpdate())
             {

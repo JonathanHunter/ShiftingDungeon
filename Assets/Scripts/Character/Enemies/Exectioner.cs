@@ -176,7 +176,7 @@
             if ((this.idleTimer -= Time.deltaTime) < 0)
             {
                 float val = Random.Range(0f, 1f);
-                if (val < .15f)
+                if (val < .10f)
                     this.anim.SetBool(this.shieldingHash, true);
                 else if (val < .75f)
                     this.anim.SetBool(this.movingHash, true);
@@ -189,7 +189,7 @@
         {
             if(!this.doOnce)
             {
-                int val = Random.Range(0, this.summoningPoints.Length);
+                int val = Random.Range(0, this.summoningPoints.Length + 1);
                 if (val >= this.summoningPoints.Length)
                     this.movementLocation = this.hero.position;
                 else
