@@ -399,52 +399,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 688736fcea5cc95438e7fdf1bd19a94d, type: 2}
   m_IsPrefabParent: 0
---- !u!1001 &541865281
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4641894786458702, guid: b912a018785692547898949713b1a63b, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 1.5084746
-      objectReference: {fileID: 0}
-    - target: {fileID: 4641894786458702, guid: b912a018785692547898949713b1a63b, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -0.08866198
-      objectReference: {fileID: 0}
-    - target: {fileID: 4641894786458702, guid: b912a018785692547898949713b1a63b, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 10.035364
-      objectReference: {fileID: 0}
-    - target: {fileID: 4641894786458702, guid: b912a018785692547898949713b1a63b, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4641894786458702, guid: b912a018785692547898949713b1a63b, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4641894786458702, guid: b912a018785692547898949713b1a63b, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4641894786458702, guid: b912a018785692547898949713b1a63b, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4641894786458702, guid: b912a018785692547898949713b1a63b, type: 2}
-      propertyPath: m_RootOrder
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 1694524903369944, guid: b912a018785692547898949713b1a63b, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: b912a018785692547898949713b1a63b, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &552153937 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1330342255410334, guid: 89e6d6ea404e1b747a0a5ee099014901,
@@ -1064,7 +1018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floors:
-  - {fileID: 114308745326284234, guid: b912a018785692547898949713b1a63b, type: 2}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -1105,49 +1059,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8024d9e41de7f0d4887c61d03478a344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorTemplet: {fileID: 114056971575102234, guid: a910ee76873d7064ea0387e7dbba302e,
+  doorTemplet: {fileID: 114115791423357320, guid: 05f46ea0316e9d642b51a5d96575f89e,
     type: 2}
   doorPoolSize: 4
-  wallTemplet: {fileID: 114022310177305032, guid: b91d3c6a3f2de0c489061be1616b0596,
+  wallTemplet: {fileID: 114837793283185662, guid: 7adef138c74f02a449b2a8ecfd2744d5,
     type: 2}
   wallPoolSize: 1
   stairTemplet: {fileID: 114194785172027990, guid: 6b25bb3e79a6f4343a7ae829fbf31d40,
     type: 2}
   stairPoolSize: 1
   holeTiles:
-  - {fileID: 11400000, guid: 3c0b4510f928f5643a20b2396d328d4a, type: 2}
-  - {fileID: 11400000, guid: 7aa9ac051343e0149b9293f2f4372a81, type: 2}
-  - {fileID: 11400000, guid: a4995a47a272c024a87fbbc42d7dfeb0, type: 2}
-  - {fileID: 11400000, guid: 44a87157bf105ad4791df8535569693c, type: 2}
-  - {fileID: 11400000, guid: 626e3a2bd00845443aaebdae15443fdd, type: 2}
-  - {fileID: 11400000, guid: 8e43d380fcf554542aaa77cdabc83074, type: 2}
-  - {fileID: 11400000, guid: b3fc93d4d115f794bb31608a0b75cfcf, type: 2}
-  - {fileID: 11400000, guid: 07ff833562becc54c83254aa7f45fb70, type: 2}
-  - {fileID: 11400000, guid: 9cb75ca23cc2aa74dbf5167450abb8d7, type: 2}
-  - {fileID: 11400000, guid: 3d77e18fad0ff0a408c2994e00a3aa2f, type: 2}
-  - {fileID: 11400000, guid: 52d33b832c83fa641bfbc3bf2edd80a9, type: 2}
-  - {fileID: 11400000, guid: 4fd6ba1f3d4f6e24b995b3283bc8c186, type: 2}
-  - {fileID: 11400000, guid: b026dd57cec5bc24abed9cb01bfef338, type: 2}
-  - {fileID: 11400000, guid: f0a13fadbcd015740a3d4fc3722f385f, type: 2}
-  - {fileID: 11400000, guid: d25ab02c989ca4e4ba26f630d806989f, type: 2}
-  - {fileID: 11400000, guid: 216a523b9c61ec74b9edd603f0985fc7, type: 2}
+  - {fileID: 11400000, guid: ea0873763ce39d241bc0816fae566152, type: 2}
+  - {fileID: 11400000, guid: 55ae38a5adea3fa4fb2572030b84960c, type: 2}
+  - {fileID: 11400000, guid: 1eeed9d1f2412214190b036ca293c6f8, type: 2}
+  - {fileID: 11400000, guid: cdb56ff8093ff834594c4c1652f9df5b, type: 2}
+  - {fileID: 11400000, guid: 8638f29943ad37f4689543c1c70f256d, type: 2}
+  - {fileID: 11400000, guid: d36f856e098d24141862d04d5ac17866, type: 2}
+  - {fileID: 11400000, guid: 1dd3650a9960cec4ba612ec0f0762aff, type: 2}
+  - {fileID: 11400000, guid: db78892278067ac4690bb6d9ac001271, type: 2}
+  - {fileID: 11400000, guid: e5c271eb1e85d884b8c40ae1b44e7096, type: 2}
+  - {fileID: 11400000, guid: 05d48a069b2b8e448b5dbb34f472f319, type: 2}
+  - {fileID: 11400000, guid: 8dfec5188cadcd84c87d7eec4e16cc06, type: 2}
+  - {fileID: 11400000, guid: 8c83fddd7319aa04d8e0305fd8c39c14, type: 2}
+  - {fileID: 11400000, guid: e5893eab5b65cb94f97e55bdd18cb3f5, type: 2}
+  - {fileID: 11400000, guid: 79820b5d9a8376d4b875ae9c668bd999, type: 2}
+  - {fileID: 11400000, guid: b29a5e4560fbf344abd157abcbf391b8, type: 2}
+  - {fileID: 11400000, guid: a3d4dba7997e153468a8ee708a779ed2, type: 2}
   floorTiles:
-  - {fileID: 11400000, guid: 7a96fadf3d6d0674ba52f2571732fa52, type: 2}
-  - {fileID: 11400000, guid: dc945ada07ff7974ea6d07f1306afb9c, type: 2}
-  - {fileID: 11400000, guid: 18aa8362f1a337b429d41c2b2f26f05e, type: 2}
-  - {fileID: 11400000, guid: eab442621f494ec45a16414a7117ab0f, type: 2}
-  - {fileID: 11400000, guid: 1ca71fec787e88d43b222bdf86bf777f, type: 2}
-  - {fileID: 11400000, guid: 0fe487a6e3ab48a439afdbfe6d928ab8, type: 2}
-  - {fileID: 11400000, guid: debd69e5bdfc94a49bb346b9c4d0060d, type: 2}
-  - {fileID: 11400000, guid: e06952bccc226f64f8e7cfb706da8a13, type: 2}
-  - {fileID: 11400000, guid: 721e59e946104ca43914ca83a337d641, type: 2}
-  - {fileID: 11400000, guid: 6399f5d820966ed4eb1fba40f0b35c15, type: 2}
-  - {fileID: 11400000, guid: d5fa5eb163cb6034ea8d110c1f1cdae3, type: 2}
-  - {fileID: 11400000, guid: 67632c6b7cb22ba41b4c0efe05790463, type: 2}
-  - {fileID: 11400000, guid: 145304faf74b95a45a025f3b2f63e726, type: 2}
-  - {fileID: 11400000, guid: b5500fea4656b5c44be10cf7e081955e, type: 2}
-  - {fileID: 11400000, guid: 5e23452ae52e93d46ac3a371970d9c47, type: 2}
-  - {fileID: 11400000, guid: ae6429a5f210019408655be4b634d875, type: 2}
+  - {fileID: 11400000, guid: c4972814da2c58a42a06e983cbe0ad67, type: 2}
+  - {fileID: 11400000, guid: c4972814da2c58a42a06e983cbe0ad67, type: 2}
+  - {fileID: 11400000, guid: c4972814da2c58a42a06e983cbe0ad67, type: 2}
+  - {fileID: 11400000, guid: c4972814da2c58a42a06e983cbe0ad67, type: 2}
+  - {fileID: 11400000, guid: c4972814da2c58a42a06e983cbe0ad67, type: 2}
+  - {fileID: 11400000, guid: c4972814da2c58a42a06e983cbe0ad67, type: 2}
+  - {fileID: 11400000, guid: c4972814da2c58a42a06e983cbe0ad67, type: 2}
+  - {fileID: 11400000, guid: c4972814da2c58a42a06e983cbe0ad67, type: 2}
+  - {fileID: 11400000, guid: c4972814da2c58a42a06e983cbe0ad67, type: 2}
+  - {fileID: 11400000, guid: c4972814da2c58a42a06e983cbe0ad67, type: 2}
+  - {fileID: 11400000, guid: c4972814da2c58a42a06e983cbe0ad67, type: 2}
+  - {fileID: 11400000, guid: c4972814da2c58a42a06e983cbe0ad67, type: 2}
+  - {fileID: 11400000, guid: c4972814da2c58a42a06e983cbe0ad67, type: 2}
+  - {fileID: 11400000, guid: c4972814da2c58a42a06e983cbe0ad67, type: 2}
+  - {fileID: 11400000, guid: c4972814da2c58a42a06e983cbe0ad67, type: 2}
+  - {fileID: 11400000, guid: c4972814da2c58a42a06e983cbe0ad67, type: 2}
 --- !u!114 &1001776144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1179,7 +1133,7 @@ MonoBehaviour:
   - {fileID: 114226745421153134, guid: 7e935a26fae7b9a43b8ad1104687756a, type: 2}
   - {fileID: 114022190580515682, guid: 5c1523f385e28644bb5adf60295951ae, type: 2}
   - {fileID: 114994173406844716, guid: 5742e0305efdc1148924baed77ac2707, type: 2}
-  - {fileID: 114305515479315874, guid: 1a0d0e8106796f74a99784fcbd397ffa, type: 2}
+  - {fileID: 114305515479315874, guid: e2a4ada6325880d45849719d38abeaba, type: 2}
   - {fileID: 114009857556265136, guid: aafc90670703e0c4a895d50abb6b6f9a, type: 2}
   - {fileID: 114552137873342742, guid: 7cdb09bc4e24f9a42998e662d952feff, type: 2}
   enemyPoolSizes: 09000000070000000700000004000000020000000800000001000000
@@ -1963,7 +1917,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1248034009171752, guid: 51ab574ec755c0143b22cef51aa24883, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8195094281588955484, guid: 51ab574ec755c0143b22cef51aa24883,
         type: 2}

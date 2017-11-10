@@ -133,7 +133,7 @@
         /// </summary>
         public void SwitchTileSetType()
         {
-            currentTileSet = currentTileSet == Enums.TileSets.Cavern ? Enums.TileSets.RoyalCourt : Enums.TileSets.Cavern;
+            currentTileSet = (Enums.TileSets)(((int)currentTileSet + 1) % 3);
         }
 
         /// <summary>

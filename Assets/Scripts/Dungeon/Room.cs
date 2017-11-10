@@ -195,7 +195,7 @@
             AllocateDoors();
             AllocateWalls();
             AllocateFloorsAndHoles(floorMap);
-            if(!fullCleared)
+            if((!fullCleared && this.Index != 0) || Managers.DungeonManager.Instance.isTitleScreen)
                 AllocateEnemies();
             AllocateTraps();
         }

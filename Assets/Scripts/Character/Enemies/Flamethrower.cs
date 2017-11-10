@@ -155,7 +155,7 @@
                 this.delta += Time.deltaTime;
                 for (int i = 0; i < this.flames.Length; i++)
                 {
-                    this.flames[i].position = Vector3.Lerp(Vector3.zero, this.positions[i].position, this.delta);
+                    this.flames[i].localPosition = Vector3.Lerp(Vector3.zero, this.positions[i].localPosition, this.delta);
                 }
             }
             else
