@@ -1020,7 +1020,7 @@ MonoBehaviour:
   floors:
   - {fileID: 114336762918798104, guid: 1c3c755b8b305a0439c996d6b631e95f, type: 2}
   - {fileID: 114446231822332768, guid: 150dfe279e56a1342915d105ed16dd62, type: 2}
-  - {fileID: 0}
+  - {fileID: 114485697858903720, guid: b1869acc243b40342838dda749423cc1, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -1135,7 +1135,7 @@ MonoBehaviour:
   - {fileID: 114994173406844716, guid: 5742e0305efdc1148924baed77ac2707, type: 2}
   - {fileID: 114305515479315874, guid: fa9ae7a5724e42d478437399008f5a87, type: 2}
   - {fileID: 114552137873342742, guid: 7cdb09bc4e24f9a42998e662d952feff, type: 2}
-  enemyPoolSizes: 070000000700000007000000030000000200000001000000
+  enemyPoolSizes: 070000000700000007000000050000000200000001000000
 --- !u!114 &1001776146
 MonoBehaviour:
   m_ObjectHideFlags: 0
