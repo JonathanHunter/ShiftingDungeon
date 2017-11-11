@@ -592,8 +592,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   referenceIndex: 0
-  maxHealth: 20
-  type: 5
+  maxHealth: 8
+  type: 6
   healthBar: {fileID: 114881605955489370}
   spriteShake: {fileID: 114746136272005168}
   numDeathParticles: 100
@@ -606,7 +606,7 @@ MonoBehaviour:
   shield: {fileID: 1634193713892828}
   invulnerabilityTime: 3
   flashInterval: 0.02
-  stunTime: 2.5
+  stunTime: 4
   idleTime: 0.75
   meleeRange: 1.5
   moveSpeed: 5

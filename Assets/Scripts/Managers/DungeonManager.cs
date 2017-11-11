@@ -12,6 +12,8 @@
 
     public class DungeonManager : MonoBehaviour
     {
+        public bool isTitleScreen;
+
         [SerializeField]
         private DungeonMap[] floors = null;
         [SerializeField]

@@ -1017,11 +1017,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d22a2d00f1ada342a3653e5e9633d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTitleScreen: 0
   floors:
   - {fileID: 114615734114131174, guid: e3ea69e96ab7df148966e86ffda3e78f, type: 2}
   - {fileID: 114336762918798104, guid: 1c3c755b8b305a0439c996d6b631e95f, type: 2}
   - {fileID: 114111665689012942, guid: a2893ebbd4423964099c3d365a66c2ff, type: 2}
-  nextScene: RoyalCourt
+  nextScene: Dungeon
   dungeonGenerator: {fileID: 1001776142}
   overlay: {fileID: 130384844}
   miniMap: {fileID: 866127063}
@@ -1131,8 +1132,9 @@ MonoBehaviour:
   - {fileID: 114022190580515682, guid: 5c1523f385e28644bb5adf60295951ae, type: 2}
   - {fileID: 114994173406844716, guid: 5742e0305efdc1148924baed77ac2707, type: 2}
   - {fileID: 114305515479315874, guid: fa9ae7a5724e42d478437399008f5a87, type: 2}
+  - {fileID: 114009857556265136, guid: aafc90670703e0c4a895d50abb6b6f9a, type: 2}
   - {fileID: 114552137873342742, guid: 7cdb09bc4e24f9a42998e662d952feff, type: 2}
-  enemyPoolSizes: 070000000700000007000000030000000200000001000000
+  enemyPoolSizes: 07000000070000000700000005000000020000000700000001000000
 --- !u!114 &1001776146
 MonoBehaviour:
   m_ObjectHideFlags: 0

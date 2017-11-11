@@ -57,6 +57,9 @@
         private StaticRoomPiece[] wallPrefabs;
         private GameObject[] wallObjects;
 
+        [SerializeField]
+        private GameObject[] arrows;
+
         /// <summary>
         /// Instantiates all wall types.
         /// </summary>
@@ -130,7 +133,7 @@
         /// </summary>
         public void SwitchTileSetType()
         {
-            currentTileSet = currentTileSet == Enums.TileSets.Cavern ? Enums.TileSets.RoyalCourt : Enums.TileSets.Cavern;
+            currentTileSet = (Enums.TileSets)(((int)currentTileSet + 1) % 3);
         }
 
         /// <summary>
@@ -154,7 +157,10 @@
         /// </summary>
         /// <param name="set">The index of the new tile set type.</param>
         public void SwitchedTo(int set) {
-            // TODO: Hook this into UI.
+            foreach (GameObject g in this.arrows)
+                g.SetActive(false);
+
+            this.arrows[set].SetActive(true);
         }
     }
 }
