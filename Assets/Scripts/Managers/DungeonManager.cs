@@ -12,6 +12,8 @@
 
     public class DungeonManager : MonoBehaviour
     {
+        public bool isTitleScreen;
+
         [SerializeField]
         private DungeonMap[] floors = null;
         [SerializeField]
@@ -143,9 +145,11 @@
             {
                 titleScreenDemo.StartReset();
                 yield return new WaitForSeconds(2);
+                titleScreenDemo.SwitchTileSet();
                 yield return SwitchMaps();
                 Instance.hero.Respawn();
                 Instance.hero.GetComponent<HeroInputDemo>().ResetDemoHero();
+                titleScreenDemo.SwitchDoors(this.map.Rooms[0]);
                 titleScreenDemo.ResetTitleScreen();
             }
         }

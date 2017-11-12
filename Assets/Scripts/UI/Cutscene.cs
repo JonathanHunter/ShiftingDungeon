@@ -77,7 +77,7 @@
             }
             else if (this.state == State.displaying)
             {
-                if (CustomInput.BoolFreshPress(CustomInput.UserInput.Pause))
+                if (CustomInput.BoolFreshPressDeleteOnRead(CustomInput.UserInput.Pause))
                 {
                     this.currentText = new System.Text.StringBuilder(this.pageStrings[this.currentPage]);
                     this.state = State.paused;
@@ -105,9 +105,9 @@
             }
             else
             {
-                if (CustomInput.BoolFreshPress(CustomInput.UserInput.Accept) || 
-                    CustomInput.BoolFreshPress(CustomInput.UserInput.Attack) || 
-                    CustomInput.BoolFreshPress(CustomInput.UserInput.Pause))
+                if (CustomInput.BoolFreshPressDeleteOnRead(CustomInput.UserInput.Accept) || 
+                    CustomInput.BoolFreshPressDeleteOnRead(CustomInput.UserInput.Attack) || 
+                    CustomInput.BoolFreshPressDeleteOnRead(CustomInput.UserInput.Pause))
                 {
                     this.currentLetter = 0;
                     this.currentPage++;

@@ -9,7 +9,7 @@
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (other.gameObject.tag == Enums.Tags.Hero.ToString())
+            if (other.gameObject.tag == Enums.Tags.Hero.ToString() || other.gameObject.tag == Enums.Tags.Enemy.ToString())
             {
                 other.gameObject.GetComponent<Rigidbody2D>().AddForce(this.transform.right * this.pushForce, ForceMode2D.Force);
             }

@@ -35,7 +35,7 @@
             instance = this;
             DontDestroyOnLoad(this.gameObject);
 
-            this.money = 0;
+            this.money = 1000;
         }
     }
 }

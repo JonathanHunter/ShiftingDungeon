@@ -64,6 +64,7 @@
         private List<GameObject> stairs;
         private List<Enemy> enemies;
         private List<Trap> traps;
+        private bool fullCleared;
 
         /// <summary> Initializes this Room. </summary>
         internal void Init(int index, bool hasStairs)
@@ -96,6 +97,7 @@
             this.enemies = new List<Enemy>();
             this.traps = new List<Trap>();
             Deactivate();
+            this.fullCleared = false;
         }
 
         public void Activate(Tilemap floorMap)
@@ -110,7 +112,15 @@
             else
             {
                 foreach (Spawners.Spawner spawner in this.entitiesToSpawn)
-                    spawner.Spawn();
+                {
+                    if (this.fullCleared)
+                    {
+                        if (!(spawner is Spawners.EnemySpawner))
+                            spawner.Spawn();
+                    }
+                    else
+                        spawner.Spawn();
+                }
             }
 
             this.gameObject.SetActive(true);
@@ -134,8 +144,14 @@
                 RoomPool.Instance.ReturnStair(stair);
             this.stairs.Clear();
 
+            this.fullCleared = true;
             foreach (Enemy e in this.enemies)
+            {
+                if (e.gameObject.activeInHierarchy)
+                    this.fullCleared = false;
                 EnemyPool.Instance.ReturnEnemy(e.Type, e.gameObject);
+            }
+
             this.enemies.Clear();
 
             foreach (Trap t in this.traps)
@@ -179,7 +195,8 @@
             AllocateDoors();
             AllocateWalls();
             AllocateFloorsAndHoles(floorMap);
-            AllocateEnemies();
+            if((!fullCleared && this.Index != 0) || Managers.DungeonManager.Instance.isTitleScreen)
+                AllocateEnemies();
             AllocateTraps();
         }
 
@@ -351,6 +368,24 @@
                 sprite |= 0x1;
 
             return RoomPool.Instance.holeTiles[sprite];
+        }
+
+        /// <summary>
+        /// Switches the sprites of doors in the room.
+        /// </summary>
+        /// <param name="newDoor">The reference door object to get new sprites from.</param>
+        public void SwitchDoorSprites(GameObject newDoor)
+        {
+            Sprite newSprite = newDoor.GetComponent<SpriteRenderer>().sprite;
+            RuntimeAnimatorController newAnimator = newDoor.GetComponent<Animator>().runtimeAnimatorController;
+            foreach (GameObject door in this.doors)
+            {
+                door.GetComponent<SpriteRenderer>().sprite = newSprite;
+                bool open = door.GetComponent<Door>().IsOpen;
+                Animator doorAnimator = door.GetComponent<Animator>();
+                doorAnimator.runtimeAnimatorController = newAnimator;
+                doorAnimator.SetBool("open", open);
+            }
         }
     }
 }

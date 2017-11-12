@@ -12,5 +12,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Cavern.unity
     guid: 9deb3e8db3d5ade4ca5f5b4a61a6852b
   - enabled: 1
-    path: Assets/Scenes/Demo.unity
-    guid: bffdd1b518c913d48b7b7b167a1d81fe
+    path: Assets/Scenes/Dungeon.unity
+    guid: a0bc09dfd20ba6b47a6147e77cc3c208
+  - enabled: 1
+    path: Assets/Scenes/RoyalCourt.unity
+    guid: 7197e9fd22f0d4b4098fa03ee9b15fee
