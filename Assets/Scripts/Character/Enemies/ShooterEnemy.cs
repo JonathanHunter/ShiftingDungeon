@@ -19,8 +19,6 @@
         [SerializeField]
         private float stunLength = 0.15f;
         [SerializeField]
-        private float maxTimeBetweenHits = .8f;
-        [SerializeField]
         private SoundPlayer sfx;
         [SerializeField]
         private Animator anim;

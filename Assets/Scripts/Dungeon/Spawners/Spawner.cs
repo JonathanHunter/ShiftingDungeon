@@ -7,5 +7,7 @@
         public abstract void Spawn();
 
         public abstract void Return();
+
+        public abstract bool isAlive();
     }
 }

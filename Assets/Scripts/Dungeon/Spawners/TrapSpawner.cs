@@ -16,7 +16,7 @@
             if (this.trap == null)
             {
                 this.trap = TrapPool.Instance.GetTrap(this.type);
-                this.trap.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, 9);
+                this.trap.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, Constants.ROOM_PART_Z_DEPTH - 2);
                 trap.transform.rotation = this.transform.rotation;
             }
         }
@@ -28,6 +28,11 @@
                 TrapPool.Instance.ReturnTrap(this.type, this.trap);
                 this.trap = null;
             }
+        }
+
+        public override bool isAlive()
+        {
+            return false;
         }
     }
 }

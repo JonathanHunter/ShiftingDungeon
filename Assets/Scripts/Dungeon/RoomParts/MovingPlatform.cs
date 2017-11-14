@@ -40,14 +40,12 @@
         }
 
         void Update() {
-
-
-            if ((transform.position - destination.position).magnitude < distanceToDisableColliders)
+            if (Vector2.Distance(this.transform.position, this.destination.position) < distanceToDisableColliders)
             {
                 foreach (BoxCollider2D collider in collidersToDisableAtDestination)
                     collider.enabled = false;
             }
-            else if ((transform.position - origin).magnitude < distanceToDisableColliders)
+            else if (Vector2.Distance(this.transform.position, this.origin) < distanceToDisableColliders)
             {
                 foreach (BoxCollider2D collider in collidersToDisableAtOrigin)
                     collider.enabled = false;
