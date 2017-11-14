@@ -31,9 +31,7 @@
         private Rigidbody2D rgbdy;
         private float walkCounter;
         private int hitHash;
-
-        private int numHits;
-        private float hitCounter;
+        
         private float stunCounter;
 
         [SerializeField]
@@ -61,8 +59,6 @@
 
         protected override void LocalUpdate()
         {
-            if ((this.hitCounter -= Time.deltaTime) <= 0)
-                this.numHits = 0;
             if ((this.stunCounter -= Time.deltaTime) > 0)
                 return;
 
@@ -111,20 +107,8 @@
                 return;
             if (collider.tag == Enums.Tags.HeroWeapon.ToString())
             {
-                numHits++;
-                if (numHits > 2)
-                {
-                    //Melee weapons
-                    if (collider.transform.parent)
-                        this.rgbdy.AddForce(collider.transform.parent.transform.parent.transform.right * 9f, ForceMode2D.Impulse);
-                    //Everything else
-                    else
-                        this.rgbdy.AddForce(collider.transform.right * 9f, ForceMode2D.Impulse);
-                    numHits = 0;
-                }
                 this.anim.SetTrigger(hitHash);
                 this.stunCounter = stunLength;
-                this.hitCounter = maxTimeBetweenHits;
                 sfx.PlaySongModPitch(0, .1f);
             }
         }

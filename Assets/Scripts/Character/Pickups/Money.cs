@@ -8,9 +8,9 @@
     {
         public int Value {
             get {
-                if (this.transform.localScale.x == 1)
+                if (this.transform.localScale.x == .25f)
                     return 1;
-                else if (this.transform.localScale.x == 2)
+                else if (this.transform.localScale.x == .5f)
                     return 10;
                 else
                     return 50;

@@ -10199,7 +10199,7 @@ GameObject:
   - component: {fileID: 4698569304706106}
   - component: {fileID: 114882421249287298}
   m_Layer: 0
-  m_Name: Bleh
+  m_Name: Cavern3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

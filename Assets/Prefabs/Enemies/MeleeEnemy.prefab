@@ -165,13 +165,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1876848397528076}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.23, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 4431513043576196}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!4 &4229055458509172
 Transform:
   m_ObjectHideFlags: 1
@@ -478,7 +478,7 @@ Animator:
   m_GameObject: {fileID: 1876848397528076}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 53e8d6c65747939458ba7b4aedc1b77a, type: 2}
+  m_Controller: {fileID: 9100000, guid: adaddcb57fa3a4c4480e1d4246e4732c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -499,7 +499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   referenceIndex: 0
-  maxHealth: 2
+  maxHealth: 4
   type: 2
   healthBar: {fileID: 114398906635095506}
   spriteShake: {fileID: 114332344054376012}
@@ -514,8 +514,8 @@ MonoBehaviour:
   sfx: {fileID: 114245367749870440}
   smoke: {fileID: 198026558168572398}
   anim: {fileID: 95168704709330710}
-  weaponLevel: 0
-  trackingError: 0
+  weaponLevel: 3
+  trackingError: 1
 --- !u!114 &114140169512123936
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -779,7 +779,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 510929112
+  randomSeed: -816247992
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -869,7 +869,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.24008772, g: 0.05709342, b: 0.24264705, a: 1}
+      maxColor: {r: 0.66114724, g: 0.052551907, b: 0.7941176, a: 0.491}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4096,7 +4096,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1569761043
+  randomSeed: 823221582
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4186,7 +4186,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.24008772, g: 0.05709342, b: 0.24264705, a: 1}
+      maxColor: {r: 0.7535457, g: 0.08028765, b: 0.99264705, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -7495,7 +7495,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8cc3d1ea965a0e64fb56300995de83c0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fda82f035e3cf8f4babace63c42e19a5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
