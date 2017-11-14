@@ -280,6 +280,13 @@
                 if(g.gameObject.activeInHierarchy)
                     ObjectPooling.PickupPool.Instance.ReturnGold(g.gameObject);
             }
+
+            Character.Weapons.Bullets.Bullet[] bullets = FindObjectsOfType<Character.Weapons.Bullets.Bullet>();
+            foreach (Character.Weapons.Bullets.Bullet b in bullets)
+            {
+                if (b.gameObject.activeInHierarchy)
+                    ObjectPooling.BulletPool.Instance.ReturnBullet(b.Type, b.gameObject);
+            }
         }
     }
 }

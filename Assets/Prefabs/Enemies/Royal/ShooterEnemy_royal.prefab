@@ -650,7 +650,7 @@ MonoBehaviour:
   walkCount: 2
   walkSpeed: 3
   agroRange: 5
-  shotLeadError: 1
+  shotLeadError: 0
   stunLength: 0.15
   maxTimeBetweenHits: 0.8
   sfx: {fileID: 114579065406525662}

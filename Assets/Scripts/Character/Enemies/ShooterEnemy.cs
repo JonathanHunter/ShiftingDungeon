@@ -31,6 +31,7 @@
         private Rigidbody2D rgbdy;
         private float walkCounter;
         private int hitHash;
+        private float desiredAngle;
         
         private float stunCounter;
 
@@ -61,7 +62,7 @@
         {
             if ((this.stunCounter -= Time.deltaTime) > 0)
                 return;
-
+            
             if (isShooting)
             {
                 if (!(isShooting = !gun.WeaponUpdate()))
@@ -89,6 +90,16 @@
                         this.rgbdy.velocity = this.transform.right * this.walkSpeed;
                     }
                     this.walkCounter = this.walkCount;
+                }
+
+                float z = this.transform.rotation.eulerAngles.z;
+                z = z > 180 ? z - 360 : z;
+                if (Mathf.Abs(z - this.desiredAngle) > 0.1f)
+                {
+                    if (z < this.desiredAngle)
+                        this.transform.rotation = Quaternion.Euler(0, 0, z + Time.deltaTime * 100f);
+                    else
+                        this.transform.rotation = Quaternion.Euler(0, 0, z - Time.deltaTime * 100f);
                 }
             }
         }
@@ -136,7 +147,7 @@
         private void RotateToPlayer()
         {
             Vector2 towards = this.hero.position - this.transform.position;
-            this.transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, towards));
+            this.desiredAngle = Vector2.SignedAngle(Vector2.right, towards);
         }
 
         private void RotateToLeadShot()
@@ -147,7 +158,7 @@
             Vector2 futurePlayerPos = (Vector2)hero.position + heroVelocity * deltaT * (1 - shotLeadError);
 
             Vector2 towards = futurePlayerPos - (Vector2)this.transform.position;
-            this.transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, towards));
+            this.desiredAngle = Vector2.SignedAngle(Vector2.right, towards);
         }
     }
 }

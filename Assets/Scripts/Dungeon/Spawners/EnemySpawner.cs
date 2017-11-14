@@ -16,7 +16,7 @@
             if (this.enemy == null)
             {
                 this.enemy = EnemyPool.Instance.GetEnemy(this.type);
-                this.enemy.transform.position = this.transform.position;
+                this.enemy.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, 9);
                 enemy.transform.rotation = this.transform.rotation;
             }
         }

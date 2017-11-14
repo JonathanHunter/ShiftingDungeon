@@ -283,7 +283,7 @@
                         GameObject enemy = EnemyPool.Instance.GetEnemy((Enums.EnemyTypes)Random.Range(0, length));
                         if (enemy != null)
                         {
-                            enemy.transform.position = position;
+                            enemy.transform.position = new Vector3(position.x, position.y, 9);
                             enemy.transform.rotation = Quaternion.identity;
                             this.enemies.Add(enemy.GetComponent<Enemy>());
                             positions.Add(position);
@@ -317,7 +317,7 @@
                                 if (this.Grid[r, c] == 1 && !positions.Contains(position))
                                 {
                                     GameObject trap = TrapPool.Instance.GetTrap((Enums.Traps)i);
-                                    trap.transform.position = position;
+                                    trap.transform.position = new Vector3(position.x, position.y, 9);
                                     trap.transform.rotation = Quaternion.identity;
                                     this.traps.Add(trap.GetComponent<Trap>());
                                     positions.Add(position);

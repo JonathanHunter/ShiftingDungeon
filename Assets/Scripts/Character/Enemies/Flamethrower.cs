@@ -31,6 +31,7 @@
         private State curr;
         private Transform hero;
         private bool doOnce;
+        private float desiredAngle;
         private float delta;
         private float stunCounter;
         private float rotateCounter;
@@ -115,7 +116,7 @@
             float deltaT = (this.transform.position - this.hero.position).magnitude / heroVelocity.magnitude;
             Vector2 futurePlayerPos = (Vector2)hero.position + heroVelocity * deltaT * (1 - this.shotLeadError);
             Vector2 towards = futurePlayerPos - (Vector2)this.transform.position;
-            this.transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, towards));
+            this.desiredAngle = Vector2.SignedAngle(Vector2.right, towards);
         }
 
         private void Idle()
@@ -133,6 +134,16 @@
             }
 
             RotateToLeadShot();
+
+            float z = this.transform.rotation.eulerAngles.z;
+            z = z > 180 ? z - 360 : z;
+            if (Mathf.Abs(z - this.desiredAngle) > 0.1f)
+            {
+                if (z < this.desiredAngle)
+                    this.transform.rotation = Quaternion.Euler(0, 0, z + Time.deltaTime * 100f);
+                else
+                    this.transform.rotation = Quaternion.Euler(0, 0, z - Time.deltaTime * 100f);
+            }
             if ((this.rotateCounter -= Time.deltaTime) < 0)
                 this.curr = State.flaming;
         }
