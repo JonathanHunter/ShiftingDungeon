@@ -20,9 +20,8 @@
     <Gamepad_PrevWeapon>LB</Gamepad_PrevWeapon>
     <Gamepad_Pause>Start</Gamepad_Pause>
     <Gamepad_Accept>A</Gamepad_Accept>
-    <Gamepad_Cancel>Right Trigger</Gamepad_Cancel>
-    <Gamepad_Target>
-    </Gamepad_Target>
+    <Gamepad_Cancel>B</Gamepad_Cancel>
+    <Gamepad_Target>Right Trigger</Gamepad_Target>
   </Player0>
   <Player1>
     <Keyboard_Up>None</Keyboard_Up>

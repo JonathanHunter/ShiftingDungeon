@@ -149,6 +149,7 @@
             {
                 if (e.gameObject.activeInHierarchy)
                     this.fullCleared = false;
+
                 EnemyPool.Instance.ReturnEnemy(e.Type, e.gameObject);
             }
 
@@ -157,9 +158,14 @@
             foreach (Trap t in this.traps)
                 TrapPool.Instance.ReturnTrap(t.Type, t.gameObject);
             this.traps.Clear();
-            
+
             foreach (Spawners.Spawner spawner in this.entitiesToSpawn)
+            {
+                if (spawner.isAlive())
+                    this.fullCleared = false;
+
                 spawner.Return();
+            }
 
             this.gameObject.SetActive(false);
         }
@@ -283,7 +289,7 @@
                         GameObject enemy = EnemyPool.Instance.GetEnemy((Enums.EnemyTypes)Random.Range(0, length));
                         if (enemy != null)
                         {
-                            enemy.transform.position = position;
+                            enemy.transform.position = new Vector3(position.x, position.y, Constants.ROOM_PART_Z_DEPTH - 2);
                             enemy.transform.rotation = Quaternion.identity;
                             this.enemies.Add(enemy.GetComponent<Enemy>());
                             positions.Add(position);
@@ -313,7 +319,7 @@
                             {
                                 int r = Random.Range(1, 15);
                                 int c = Random.Range(1, 15);
-                                Vector3 position = new Vector3(-7 + r, 7 - c, Constants.ROOM_PART_Z_DEPTH - 1);
+                                Vector3 position = new Vector3(-7 + r, 7 - c, Constants.ROOM_PART_Z_DEPTH - 2);
                                 if (this.Grid[r, c] == 1 && !positions.Contains(position))
                                 {
                                     GameObject trap = TrapPool.Instance.GetTrap((Enums.Traps)i);

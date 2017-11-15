@@ -14,6 +14,7 @@
         private bool activeInCutscenes = false;
 
         private float theta;
+        private float initRot;
         private int spins;
         private int spinCount;
         private bool spinForever;
@@ -21,6 +22,7 @@
         private void Start()
         {
             this.theta = 0f;
+            this.initRot = this.transform.localEulerAngles.z;
             this.spins = 0;
             this.spinCount = 0;
             this.spinForever = false;
@@ -43,7 +45,7 @@
                     this.spins++;
                 }
 
-                this.transform.localRotation = Quaternion.Euler(0f, 0f, this.theta);
+                this.transform.localRotation = Quaternion.Euler(0f, 0f, this.theta + this.initRot);
             }
         }
 

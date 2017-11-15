@@ -54,13 +54,13 @@
                         if (gold != null)
                         {
                             float valueChance = Random.Range(0f, 1f);
-                            int value = 0;
-                            if (valueChance < .5f)
-                                value = 3;
+                            float value = 0;
+                            if (valueChance < .15f)
+                                value = .75f;
                             else if (valueChance < .30f)
-                                value = 2;
+                                value = .5f;
                             else
-                                value = 1;
+                                value = .25f;
 
                             gold.transform.position = this.transform.position;
                             gold.transform.localScale = new Vector3(value, value, 1);

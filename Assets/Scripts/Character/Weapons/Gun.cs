@@ -42,7 +42,7 @@
                     b.transform.position = this.transform.position;
                     b.transform.rotation = this.transform.rotation;
                     b.transform.localScale = Vector3.one;
-                    b.GetComponent<Rigidbody2D>().velocity = b.transform.right * (bulletSpeed + this.Level);
+                    b.GetComponent<Rigidbody2D>().velocity = -b.transform.up * (bulletSpeed + this.Level);
                     this.sfx.PlaySong(0);
                 }
 

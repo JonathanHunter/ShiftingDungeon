@@ -43,17 +43,25 @@
         private Animator anim = null;
         [SerializeField]
         private SpriteRenderer sprite = null;
+        [SerializeField]
+        private float invulnerabilityTime = .5f;
+        [SerializeField]
+        private float flashInterval = .002f;
 
         private Rigidbody2D rgbdy = null;
         private HeroInput input = null;
         private StateMap<Enums.HeroState> stateMap = null;
         private bool doOnce = false;
         private bool isSpeedAltered = false;
+        private bool isInvulnerable = false;
+        private bool isVisible = true;
         private int attackHash = 0;
         private int attackFinishedHash = 0;
         private int hitHash = 0;
         private float alteredSpeedPercentage = 0;
         private float alteredSpeedDuration = 0;
+        private float invunTimer = 0;
+        private float flashTimer = 0;
         /// <summary> The index of the last target the player locked onto. </summary>
         private int targetIndex = 0;
         private AnimationOverrideHandler animOverride;
@@ -96,6 +104,11 @@
             this.crosshair = Instantiate(crosshair);
             this.currentClipSet = 0;
             this.deathParticles = GetComponentInChildren<ParticleSystem>();
+            this.isInvulnerable = false;
+            this.isVisible = true;
+            this.invunTimer = 0;
+            this.flashTimer = 0;
+            this.sprite.enabled = isVisible;
             // HACK: Addresses Unity bug where ParticleSystem.Emit() spawns particles
             // at the origin regardless of the particle system's position until a particle is emitted.
             this.deathParticles.Emit(1);
@@ -126,6 +139,25 @@
         {
             if (Managers.GameState.Instance.IsPaused)
                 return;
+
+            if (invunTimer > 0)
+            {
+                if (flashTimer > flashInterval)
+                {
+                    isVisible = !isVisible;
+                    flashTimer = 0;
+                    this.sprite.enabled = isVisible;
+                }
+
+                flashTimer += Time.deltaTime;
+                invunTimer -= Time.deltaTime;
+            }
+            else if (!isVisible || isInvulnerable)
+            {
+                isVisible = true;
+                this.sprite.enabled = true;
+                isInvulnerable = false;
+            }
 
             Enums.HeroState temp = this.CurrentState;
             this.CurrentState = this.stateMap.GetState(this.anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
@@ -182,9 +214,14 @@
         /// <param name="forceDirection">The direction of knockback.</param>
         private void DamageHero(GameObject collideObject, Vector2 forceDirection)
         {
+            if (this.isInvulnerable)
+                return;
+
             if (this.CurrentState != Enums.HeroState.Hurt &&
                 collideObject.GetComponent<IDamageDealer>() != null)
             {
+                this.isInvulnerable = true;
+                this.invunTimer = this.invulnerabilityTime;
                 this.Health -= collideObject.GetComponent<IDamageDealer>().GetDamage();
                 this.cameraShake.StartShake(2);
                 Vector2 position = this.transform.position;

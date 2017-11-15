@@ -15,12 +15,20 @@
         private Animator anim;
         private bool wasActivated;
         private bool isOn;
+        private int onHash;
 
         private void Start()
         {
             this.anim = GetComponent<Animator>();
             this.wasActivated = false;
             this.isOn = false;
+            this.onHash = Animator.StringToHash("on");
+        }
+
+        private void Update()
+        {
+            if(this.isOn)
+                this.anim.SetBool(this.onHash, this.isOn);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -34,7 +42,7 @@
 
                     this.wasActivated = true;
                     this.isOn = !isOn;
-                    this.anim.SetBool("on", this.isOn);
+                    this.anim.SetBool(this.onHash, this.isOn);
                 }
             }
             else

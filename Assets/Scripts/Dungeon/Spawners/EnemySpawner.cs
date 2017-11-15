@@ -16,7 +16,7 @@
             if (this.enemy == null)
             {
                 this.enemy = EnemyPool.Instance.GetEnemy(this.type);
-                this.enemy.transform.position = this.transform.position;
+                this.enemy.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, Constants.ROOM_PART_Z_DEPTH - 2);
                 enemy.transform.rotation = this.transform.rotation;
             }
         }
@@ -28,6 +28,11 @@
                 EnemyPool.Instance.ReturnEnemy(this.type, this.enemy);
                 this.enemy = null;
             }
+        }
+
+        public override bool isAlive()
+        {
+            return this.enemy != null && this.enemy.activeInHierarchy;
         }
     }
 }
