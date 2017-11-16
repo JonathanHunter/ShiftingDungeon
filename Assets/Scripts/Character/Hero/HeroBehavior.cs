@@ -123,7 +123,7 @@
             {
                 HeroData.Instance.weaponLevels = new int[this.weapons.Length];
                 for (int i = 0; i < this.weapons.Length; i++)
-                    HeroData.Instance.weaponLevels[i] = 5;
+                    HeroData.Instance.weaponLevels[i] = 0;
             }
 
             for(int i = 0; i < this.weapons.Length; i++)

@@ -35,7 +35,14 @@
             instance = this;
             DontDestroyOnLoad(this.gameObject);
 
-            this.money = 1000;
+            this.money = 0;
+        }
+
+        public void ResetData()
+        {
+            this.money = 0;
+            for (int i = 0; i < this.weaponLevels.Length; i++)
+                this.weaponLevels[i] = 0;
         }
     }
 }

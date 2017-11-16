@@ -1033,7 +1033,7 @@ MonoBehaviour:
   - {fileID: 114143271812503558, guid: 07d409b640f9a1d4c83623758c04da47, type: 2}
   - {fileID: 114524839395713058, guid: af87ef5783c1e4f4a8e75afcfc5e2a00, type: 2}
   - {fileID: 114693427239130734, guid: a9270da174f9c0447bc4b45a90b828d8, type: 2}
-  nextScene: Demo
+  nextScene: End
   dungeonGenerator: {fileID: 1001776142}
   overlay: {fileID: 130384844}
   miniMap: {fileID: 866127063}
