@@ -803,7 +803,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 6bee96a041688af4cae19b39fa248acf, type: 3}
-    m_FontSize: 20
+    m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -816,9 +816,9 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "Jonathan Hunter - Project lead\r\nBrandon Shockley - Programming\r\nSarah
     Tsai - Art\r\nJake Deerin - Art/Programming\r\nKevin Zhu - Art/Programming\r\nCheng
-    Hann - Programming\r\nMitch McClellan - Art\r\nJames Lee - Art\r\r\nCassie Mullins
-    - Art\nSean Joplin - Music\r\nKevin Tang - Music\r\nMegan Huber, Anthony Teachy
-    - Story"
+    Hann - Programming\r\nMitch McClellan - Art\r\nJames Lee - Art\r\nSean Flanagan-
+    Art\r\nCassie Mullins - Art\r\nS. Joplin - Music\r\nKevin Tang - Music\r\nMegan
+    Huber, Anthony Teachy - Story\r\n"
 --- !u!222 &329423787
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5283,7 +5283,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1950575734}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 548, y: 308.5, z: 0}
+  m_LocalPosition: {x: 600.5, y: 338, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 404877004}
