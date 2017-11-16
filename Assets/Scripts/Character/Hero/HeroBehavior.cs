@@ -192,6 +192,7 @@
             {
                 if (collision.gameObject.GetComponent<Pickups.Money>() != null)
                 {
+                    this.sfx.PlaySong(4);
                     Pickups.Money gold = collision.gameObject.GetComponent<Pickups.Money>();
                     HeroData.Instance.money += gold.Value;
                     ObjectPooling.PickupPool.Instance.ReturnGold(gold.gameObject);
@@ -263,6 +264,8 @@
         public void AddHealth(int amount)
         {
             this.Health += amount;
+            if (this.Health > this.maxHealth)
+                this.Health = this.maxHealth;
         }
 
         /// <summary>

@@ -817,8 +817,8 @@ MonoBehaviour:
   m_Text: "Jonathan Hunter - Project lead\r\nBrandon Shockley - Programming\r\nSarah
     Tsai - Art\r\nJake Deerin - Art/Programming\r\nKevin Zhu - Art/Programming\r\nCheng
     Hann - Programming\r\nMitch McClellan - Art\r\nJames Lee - Art\r\nSean Flanagan-
-    Art\r\nCassie Mullins - Art\r\nS. Joplin - Music\r\nKevin Tang - Music\r\nMegan
-    Huber, Anthony Teachy - Story\r\n"
+    Art\r\nCassie Mullins - Art\r\nS. Joplin - Music\r\nKevin Tang - Music\r\r\nLenno
+    Liu - SFX\nMegan Huber, Anthony Teachy - Story\r\n"
 --- !u!222 &329423787
 CanvasRenderer:
   m_ObjectHideFlags: 0

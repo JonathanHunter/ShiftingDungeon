@@ -20,6 +20,8 @@
         private int weaponIndex;
         [SerializeField]
         private Sprite[] weaponLevelArt;
+        [SerializeField]
+        private Util.SoundPlayer sfx;
         
         private void Start()
         {
@@ -66,6 +68,7 @@
                     int cost = (this.baseCost * (HeroData.Instance.weaponLevels[this.weaponIndex] + 1));
                     if (cost <= HeroData.Instance.money)
                     {
+                        this.sfx.PlaySong(0);
                         HeroData.Instance.money -= cost;
                         HeroData.Instance.weaponLevels[this.weaponIndex]++;
                         Managers.DungeonManager.GetHero().GetComponent<HeroBehavior>().UpdateWeaponLevel(
