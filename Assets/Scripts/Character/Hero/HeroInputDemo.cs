@@ -33,7 +33,7 @@
         /// <summary> The distance away from a target that will cause the player to move. </summary>
         private const float MOVE_THRESHOLD = 0.85f;
         /// <summary> The distance away from a target that will cause the player to attack. </summary>
-        private const float ATTACK_THRESHOLD = MOVE_THRESHOLD * 1.5f;
+        private const float ATTACK_THRESHOLD = MOVE_THRESHOLD * 1.25f;
 
         /// <summary> The radius to consider the hero's size as. </summary>
         private const float HERO_RADIUS = 0.25f;

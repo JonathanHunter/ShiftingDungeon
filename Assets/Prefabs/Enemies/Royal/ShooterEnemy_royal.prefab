@@ -478,7 +478,7 @@ MonoBehaviour:
   song:
   - {fileID: 8300000, guid: 09d98dea574807d4c866fcb4a889ca49, type: 3}
   audio: {fileID: 82193159237304068}
-  SFX: 0
+  SFX: 1
   playOnLoad: 0
   loop: 0
   intro: 0
@@ -652,7 +652,6 @@ MonoBehaviour:
   agroRange: 5
   shotLeadError: 0
   stunLength: 0.15
-  maxTimeBetweenHits: 0.8
   sfx: {fileID: 114579065406525662}
   anim: {fileID: 95046276178873482}
   weaponLevel: 6

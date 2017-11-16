@@ -35,12 +35,14 @@
                 {
                     this.music.value -= .2f;
                     Managers.GameState.Instance.MusicVol = this.music.value;
+                    Managers.GameState.Instance.bgm.GetComponent<AudioSource>().volume = this.music.value;
                 }
 
                 if (Util.CustomInput.BoolFreshPressDeleteOnRead(Util.CustomInput.UserInput.Right))
                 {
                     this.music.value += .2f;
                     Managers.GameState.Instance.MusicVol = this.music.value;
+                    Managers.GameState.Instance.bgm.GetComponent<AudioSource>().volume = this.music.value;
                 }
             }
 
@@ -49,13 +51,13 @@
                 if (Util.CustomInput.BoolFreshPressDeleteOnRead(Util.CustomInput.UserInput.Left))
                 {
                     this.sfx.value -= .2f;
-                    Managers.GameState.Instance.SFXVol = this.sfx.value;
+                    Managers.GameState.Instance.SFXVolbuffer= this.sfx.value;
                 }
 
                 if (Util.CustomInput.BoolFreshPressDeleteOnRead(Util.CustomInput.UserInput.Right))
                 {
                     this.sfx.value += .2f;
-                    Managers.GameState.Instance.SFXVol = this.sfx.value;
+                    Managers.GameState.Instance.SFXVolbuffer = this.sfx.value;
                 }
             }
 
@@ -78,12 +80,13 @@
 
         public void ChangeVolume(float change)
         {
-            Managers.GameState.Instance.SFXVol = change;
+            Managers.GameState.Instance.SFXVolbuffer = change;
         }
 
         public void ChangeMusicVolume(float change)
         {
             Managers.GameState.Instance.MusicVol = change;
+            Managers.GameState.Instance.bgm.GetComponent<AudioSource>().volume = change;
         }
     }
 }

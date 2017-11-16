@@ -410,7 +410,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2cf3700221011e44ba68471da44d3ff2, type: 3}
   - {fileID: 8300000, guid: 5ae21d7e130285948833e70811e929e1, type: 3}
   audio: {fileID: 82972241227609854}
-  SFX: 0
+  SFX: 1
   playOnLoad: 0
   loop: 0
   intro: 0

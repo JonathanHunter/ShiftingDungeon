@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcde6bc94d67f6f40a8186de9b5f1031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SFXVol: 0.5
+  SFXVol: 0
   MusicVol: 0.5
   bgm: {fileID: 492088110}
 --- !u!4 &188388663
@@ -1863,6 +1863,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114370615381050704, guid: bafa36e8ff7909b499c9ab943fca8508,
+        type: 2}
+      propertyPath: weaponLevels.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4343973672719034, guid: bafa36e8ff7909b499c9ab943fca8508, type: 2}
       propertyPath: m_LocalPosition.x
       value: 1.9368439
@@ -1893,6 +1898,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4343973672719034, guid: bafa36e8ff7909b499c9ab943fca8508, type: 2}
       propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114370615381050704, guid: bafa36e8ff7909b499c9ab943fca8508,
+        type: 2}
+      propertyPath: weaponLevels.Array.data[0]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114370615381050704, guid: bafa36e8ff7909b499c9ab943fca8508,
+        type: 2}
+      propertyPath: weaponLevels.Array.data[1]
       value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
