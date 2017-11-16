@@ -113,5 +113,20 @@
                 Managers.GameState.Instance.State = Util.Enums.GameState.Cutscene;
             }
         }
+
+        public void CleanUpTrap()
+        {
+            Managers.GameState.Instance.bgm.loopSong = 0;
+            Managers.GameState.Instance.bgm.loop = true;
+            Managers.GameState.Instance.bgm.PlaySong(0);
+
+            foreach (GameObject e in this.spawnedEnemies)
+                if (e.gameObject.activeInHierarchy)
+                    ObjectPooling.EnemyPool.Instance.ReturnEnemy(e.GetComponent<Enemy>().Type, e);
+
+            this.spawnedEnemies.Clear();
+            foreach (GameObject t in this.traps)
+                t.SetActive(false);
+        }
     }
 }

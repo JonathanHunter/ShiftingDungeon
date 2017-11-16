@@ -161,6 +161,13 @@
 
             if(this.map != null)
             {
+                Arena[] arenas = FindObjectsOfType<Arena>();
+                foreach (Arena arena in arenas)
+                {
+                    if (arena.gameObject.activeInHierarchy)
+                        arena.CleanUpTrap();
+                }
+
                 // Initialize room state
                 for (int i = 0; i < this.map.Rooms.Length; i++)
                 {

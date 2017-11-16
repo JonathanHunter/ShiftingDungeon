@@ -598,6 +598,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4d70d91b1b5f345b1958f02483516580, type: 3}
   - {fileID: 8300000, guid: dbd725574754845ab9443bfd396fd47b, type: 3}
   - {fileID: 8300000, guid: ef9cdb51e95144b29a6c072bd9617b59, type: 3}
+  - {fileID: 8300000, guid: 2f50ae2540a5af4448d26fd276b25aec, type: 3}
   audio: {fileID: 82718110245652546}
   SFX: 0
   playOnLoad: 0
@@ -770,6 +771,8 @@ MonoBehaviour:
   squishing: {fileID: 114323988618682104}
   anim: {fileID: 95077003547629530}
   sprite: {fileID: 212883858472624748}
+  invulnerabilityTime: 0.5
+  flashInterval: 0.002
 --- !u!114 &114914272552446070
 MonoBehaviour:
   m_ObjectHideFlags: 1

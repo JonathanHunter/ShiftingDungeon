@@ -20692,7 +20692,6 @@ MonoBehaviour:
   - {fileID: 114872784949621674}
   - {fileID: 114658095114630086}
   - {fileID: 114023761621683192}
-  - {fileID: 114575649261611830}
   mapSize: {x: 5, y: 4}
 --- !u!114 &114258885786183100
 MonoBehaviour:
@@ -20965,7 +20964,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: The Executioner
+  m_Text: The Tendrilac
 --- !u!114 &114600862602873506
 MonoBehaviour:
   m_ObjectHideFlags: 1

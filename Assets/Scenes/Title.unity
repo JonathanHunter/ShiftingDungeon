@@ -2095,13 +2095,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPools:
-  - {fileID: 114612294171028128, guid: 2b12646ab889a7744bfc7bb714a9d7af, type: 2}
-  - {fileID: 114226745421153134, guid: 7e935a26fae7b9a43b8ad1104687756a, type: 2}
-  - {fileID: 114022190580515682, guid: 5c1523f385e28644bb5adf60295951ae, type: 2}
+  - {fileID: 114496943550184384, guid: 73301c86bdbd7d94e8115d03933b3b83, type: 2}
+  - {fileID: 114814473242604162, guid: d07a3c1d7f0d7e640824f70117a6cccb, type: 2}
+  - {fileID: 114917868882348946, guid: ac49725202feda64bafa08e8f9344d8f, type: 2}
   - {fileID: 114994173406844716, guid: 5742e0305efdc1148924baed77ac2707, type: 2}
   - {fileID: 114305515479315874, guid: fa9ae7a5724e42d478437399008f5a87, type: 2}
-  - {fileID: 114009857556265136, guid: aafc90670703e0c4a895d50abb6b6f9a, type: 2}
-  - {fileID: 114552137873342742, guid: 7cdb09bc4e24f9a42998e662d952feff, type: 2}
+  - {fileID: 114464022998864026, guid: 8448211591626174dbf2ef9677bc1b4c, type: 2}
+  - {fileID: 114774035960197818, guid: f48b1193db8624946a5ddefa3b1626fb, type: 2}
   enemyPoolSizes: 07000000070000000700000004000000020000000700000001000000
 --- !u!114 &832579320
 MonoBehaviour:
@@ -2116,7 +2116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBulletPools:
   - {fileID: 114465480071990346, guid: a1b6433ff53690b4287561932ad4bd2b, type: 2}
-  - {fileID: 114934474935518600, guid: f0349ae32d38d274a9e58082970a3091, type: 2}
+  - {fileID: 114797265013951420, guid: 3a2260d09bf81c74cba707eb6cfa4c03, type: 2}
   playerBulletPoolSizes: 030000000a000000
 --- !u!114 &832579321
 MonoBehaviour:
