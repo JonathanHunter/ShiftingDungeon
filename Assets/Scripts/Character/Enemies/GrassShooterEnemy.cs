@@ -71,20 +71,22 @@
             
             if (!isShooting)
             {
+                RotateToLeadShot();
+                float z = this.transform.rotation.eulerAngles.z;
+                float deltaAngle = Mathf.DeltaAngle(z, this.desiredAngle);
+
                 this.shootCounter -= Time.deltaTime;
-                RotateToPlayer();
-				if (this.shootCounter < 0)
+				if (this.shootCounter < 0 && Mathf.Abs(deltaAngle) < 60f)
 				{
 					this.shootCounter = this.timeBetweenShots;
 					gun.ReInit();
 					isShooting = true;
                 }
 
-                float z = this.transform.rotation.eulerAngles.z;
-                z = z > 180 ? z - 360 : z;
-                if (Mathf.Abs(z - this.desiredAngle) > 0.1f)
+                
+                if (Mathf.Abs(deltaAngle) > 0.1f)
                 {
-                    if (z < this.desiredAngle)
+                    if (deltaAngle > 0)
                         this.transform.rotation = Quaternion.Euler(0, 0, z + Time.deltaTime * 100f);
                     else
                         this.transform.rotation = Quaternion.Euler(0, 0, z - Time.deltaTime * 100f);
