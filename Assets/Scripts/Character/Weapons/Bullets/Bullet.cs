@@ -2,6 +2,7 @@
 {
     using UnityEngine;
     using ObjectPooling;
+    using UI;
     using Util;
 
     public abstract class Bullet : MonoBehaviour, IPoolable, IDamageDealer
@@ -29,7 +30,12 @@
 
         private void OnTriggerEnter2D(Collider2D collider)
         {
-            this.currentLifeTime = 0;
+            if (!collider.GetComponent<Cutscene>())
+            {
+                // Ignoring cutscene colliders would be better handled using collision layers,
+                // but would take some time to convert all cutscenes in the level prefabs.
+                this.currentLifeTime = 0;
+            }
         }
 
         public IPoolable SpawnCopy(int referenceIndex)
