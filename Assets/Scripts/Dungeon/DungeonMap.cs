@@ -1,7 +1,6 @@
 ﻿namespace ShiftingDungeon.Dungeon
 {
     using UnityEngine;
-    using RoomParts;
 
     public class DungeonMap : MonoBehaviour
     {

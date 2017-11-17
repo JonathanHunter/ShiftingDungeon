@@ -18,7 +18,7 @@
         void Start()
         {
             this.music.value = Managers.GameState.Instance.MusicVol;
-            this.sfx.value = Managers.GameState.Instance.SFXVol;
+            this.sfx.value = Managers.GameState.Instance.SFXVolbuffer;
             EventSystem.current.SetSelectedGameObject(backButton);
         }
 
