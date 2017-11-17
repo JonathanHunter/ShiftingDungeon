@@ -213,7 +213,7 @@
             // Initialize room state
             for (int i = 0; i < this.map.Rooms.Length; i++)
             {
-                this.map.Rooms[i].Init(i, i == 2);//(this.map.Rooms.Length - 1));
+                this.map.Rooms[i].Init(i, i == (this.map.Rooms.Length - 1));
                 yield return 0;
             }
 

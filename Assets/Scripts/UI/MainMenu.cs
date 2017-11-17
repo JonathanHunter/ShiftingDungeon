@@ -30,7 +30,8 @@
             inMain = true;
 			inCredits = false;
             EventSystem.current.SetSelectedGameObject(mainSelected);
-            Managers.GameState.Instance.SFXVolbuffer = .5f;
+            Managers.GameState.Instance.SFXVolbuffer = Managers.GameState.Instance.SFXVol;
+            Managers.GameState.Instance.SFXVol = 0f;
         }
 
         void Update()

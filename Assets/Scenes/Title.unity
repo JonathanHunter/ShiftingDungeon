@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcde6bc94d67f6f40a8186de9b5f1031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SFXVol: 0
+  SFXVol: 0.5
   SFXVolbuffer: 0
   MusicVol: 0.5
   bgm: {fileID: 492088110}
@@ -5299,7 +5299,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1950575734}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 439, y: 247, z: 0}
+  m_LocalPosition: {x: 600.5, y: 338, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 404877004}

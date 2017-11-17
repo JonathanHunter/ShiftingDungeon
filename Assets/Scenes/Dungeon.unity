@@ -284,6 +284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SFXVol: 0.5
+  SFXVolbuffer: 0
   MusicVol: 0.5
   bgm: {fileID: 1564812972}
 --- !u!4 &197097519
