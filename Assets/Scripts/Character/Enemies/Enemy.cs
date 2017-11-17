@@ -74,6 +74,7 @@
                     deathParticles.Emit(numDeathParticles);
                 }
 
+                Managers.DeathSoundPlayer.Instance.PlayDeathSound();
                 EnemyPool.Instance.ReturnEnemy(this.type, this.gameObject);
             }
         }
