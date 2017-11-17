@@ -73,12 +73,15 @@
             
             if (!isShooting)
             {
-                RotateToPlayer();
+                RotateToLeadShot();
+
+                float z = this.transform.rotation.eulerAngles.z;
+                float deltaAngle = Mathf.DeltaAngle(z, this.desiredAngle);
+
                 if ((this.walkCounter -= Time.deltaTime) <= 0)
                 {
-                    if (CanSeePlayer())
+                    if (CanSeePlayer() && Mathf.Abs(deltaAngle) < 60)
                     {
-                        RotateToLeadShot();
                         this.rgbdy.velocity = -this.transform.right * this.walkSpeed;
                         gun.ReInit();
                         isShooting = true;
@@ -90,11 +93,9 @@
                     this.walkCounter = this.walkCount;
                 }
 
-                float z = this.transform.rotation.eulerAngles.z;
-                z = z > 180 ? z - 360 : z;
-                if (Mathf.Abs(z - this.desiredAngle) > 0.1f)
+                if (Mathf.Abs(deltaAngle) > 0.1f)
                 {
-                    if (z < this.desiredAngle)
+                    if (deltaAngle > 0)
                         this.transform.rotation = Quaternion.Euler(0, 0, z + Time.deltaTime * 100f);
                     else
                         this.transform.rotation = Quaternion.Euler(0, 0, z - Time.deltaTime * 100f);

@@ -113,7 +113,8 @@
         private void RotateToLeadShot()
         {
             Vector2 heroVelocity = this.hero.GetComponent<Rigidbody2D>().velocity;
-            float deltaT = (this.transform.position - this.hero.position).magnitude / heroVelocity.magnitude;
+            float deltaT = Mathf.Approximately(heroVelocity.magnitude, 0f) 
+                ? 0 : (this.transform.position - this.hero.position).magnitude / heroVelocity.magnitude;
             Vector2 futurePlayerPos = (Vector2)hero.position + heroVelocity * deltaT * (1 - this.shotLeadError);
             Vector2 towards = futurePlayerPos - (Vector2)this.transform.position;
             this.desiredAngle = Vector2.SignedAngle(Vector2.right, towards);
@@ -134,12 +135,11 @@
             }
 
             RotateToLeadShot();
-
             float z = this.transform.rotation.eulerAngles.z;
-            z = z > 180 ? z - 360 : z;
-            if (Mathf.Abs(z - this.desiredAngle) > 0.1f)
+            float deltaAngle = Mathf.DeltaAngle(z, this.desiredAngle);
+            if (Mathf.Abs(deltaAngle) > 0.1f)
             {
-                if (z < this.desiredAngle)
+                if (deltaAngle > 0)
                     this.transform.rotation = Quaternion.Euler(0, 0, z + Time.deltaTime * 100f);
                 else
                     this.transform.rotation = Quaternion.Euler(0, 0, z - Time.deltaTime * 100f);
@@ -157,7 +157,7 @@
                 {
                     this.flames[i].gameObject.SetActive(true);
                 }
-
+                sfx.PlaySongModPitch(1, .1f);
                 this.doOnce = true;
             }
 
