@@ -20,6 +20,8 @@
         private GameObject creditsSelected;
         [SerializeField]
         private string scene;
+        [SerializeField]
+        private GameObject deathsound;
 
         private GameObject currentSelected;
         private bool inMain;
@@ -32,6 +34,7 @@
             EventSystem.current.SetSelectedGameObject(mainSelected);
             Managers.GameState.Instance.SFXVolbuffer = Managers.GameState.Instance.SFXVol;
             Managers.GameState.Instance.SFXVol = 0f;
+            deathsound.SetActive(true);
         }
 
         void Update()
