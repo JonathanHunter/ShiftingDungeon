@@ -123,7 +123,7 @@
             {
                 HeroData.Instance.weaponLevels = new int[this.weapons.Length];
                 for (int i = 0; i < this.weapons.Length; i++)
-                    HeroData.Instance.weaponLevels[i] = 5;
+                    HeroData.Instance.weaponLevels[i] = 0;
             }
 
             for(int i = 0; i < this.weapons.Length; i++)
@@ -192,6 +192,7 @@
             {
                 if (collision.gameObject.GetComponent<Pickups.Money>() != null)
                 {
+                    this.sfx.PlaySong(4);
                     Pickups.Money gold = collision.gameObject.GetComponent<Pickups.Money>();
                     HeroData.Instance.money += gold.Value;
                     ObjectPooling.PickupPool.Instance.ReturnGold(gold.gameObject);
@@ -220,8 +221,6 @@
             if (this.CurrentState != Enums.HeroState.Hurt &&
                 collideObject.GetComponent<IDamageDealer>() != null)
             {
-                this.isInvulnerable = true;
-                this.invunTimer = this.invulnerabilityTime;
                 this.Health -= collideObject.GetComponent<IDamageDealer>().GetDamage();
                 this.cameraShake.StartShake(2);
                 Vector2 position = this.transform.position;
@@ -232,6 +231,11 @@
                 {
                     deathTriggered = true;
                     StartCoroutine(Die());
+                }
+                else
+                {
+                    this.isInvulnerable = true;
+                    this.invunTimer = this.invulnerabilityTime;
                 }
             }
 
@@ -263,6 +267,8 @@
         public void AddHealth(int amount)
         {
             this.Health += amount;
+            if (this.Health > this.maxHealth)
+                this.Health = this.maxHealth;
         }
 
         /// <summary>

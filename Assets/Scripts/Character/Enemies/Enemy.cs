@@ -55,9 +55,9 @@
                         {
                             float valueChance = Random.Range(0f, 1f);
                             float value = 0;
-                            if (valueChance < .15f)
+                            if (valueChance < .25f)
                                 value = .75f;
-                            else if (valueChance < .30f)
+                            else if (valueChance < .50f)
                                 value = .5f;
                             else
                                 value = .25f;

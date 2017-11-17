@@ -14,6 +14,8 @@
         private Text healthLabel;
         [SerializeField]
         private Text shopkeeper;
+        [SerializeField]
+        private Util.SoundPlayer sfx;
         
         private void Start()
         {
@@ -36,6 +38,7 @@
             {
                 if (Util.CustomInput.BoolFreshPress(Util.CustomInput.UserInput.Attack))
                 {
+                    this.sfx.PlaySong(0);
                     int cost = this.baseCost;
                     if (cost <= HeroData.Instance.money)
                     {

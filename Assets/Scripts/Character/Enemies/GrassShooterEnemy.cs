@@ -26,7 +26,8 @@
 
         private Transform hero;
         private int hitHash;
-        
+
+        private float desiredAngle;
         private float stunCounter;
         private float shootCounter;
 		private Quaternion rootRot;
@@ -77,8 +78,19 @@
 					this.shootCounter = this.timeBetweenShots;
 					gun.ReInit();
 					isShooting = true;
-				} 
+                }
+
+                float z = this.transform.rotation.eulerAngles.z;
+                z = z > 180 ? z - 360 : z;
+                if (Mathf.Abs(z - this.desiredAngle) > 0.1f)
+                {
+                    if (z < this.desiredAngle)
+                        this.transform.rotation = Quaternion.Euler(0, 0, z + Time.deltaTime * 100f);
+                    else
+                        this.transform.rotation = Quaternion.Euler(0, 0, z - Time.deltaTime * 100f);
+                }
             }
+
 			this.roots.rotation = rootRot;
         }
 
@@ -120,7 +132,7 @@
 				* (1 - Random.Range(shotLeadError.x, shotLeadError.y));
 
             Vector2 towards = futurePlayerPos - (Vector2)this.transform.position;
-            this.transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, towards));
+            this.desiredAngle = Vector2.SignedAngle(Vector2.right, towards);
         }
 	}
 }

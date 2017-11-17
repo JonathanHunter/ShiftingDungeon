@@ -30,11 +30,12 @@
             inMain = true;
 			inCredits = false;
             EventSystem.current.SetSelectedGameObject(mainSelected);
+            Managers.GameState.Instance.SFXVolbuffer = .5f;
         }
 
         void Update()
         {
-			if (inMain) {
+            if (inMain) {
 				if (Input.GetKey (KeyCode.Escape))
 					Application.Quit ();
 				if (inMain && EventSystem.current.currentSelectedGameObject == null) {
@@ -84,7 +85,9 @@
 
         public void Play()
         {
+            Managers.GameState.Instance.SFXVol = Managers.GameState.Instance.SFXVolbuffer;
             Managers.GameState.Instance.State = Util.Enums.GameState.Playing;
+            Character.Hero.HeroData.Instance.ResetData();
             Random.InitState(System.DateTime.Now.Millisecond);
             SceneManager.LoadScene(this.scene);
         }

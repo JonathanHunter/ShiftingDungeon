@@ -1032,7 +1032,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 114111665689012942, guid: a2893ebbd4423964099c3d365a66c2ff, type: 2}
   - {fileID: 114958845929073440, guid: e6b20c0b9efebf24c81ec6e7c165b457, type: 2}
-  - {fileID: 0}
+  - {fileID: 114197893592049728, guid: e7f32fadd4e2a544eb39c439ec72bc5e, type: 2}
   nextScene: Dungeon
   dungeonGenerator: {fileID: 1001776142}
   overlay: {fileID: 130384844}
@@ -1144,7 +1144,7 @@ MonoBehaviour:
   - {fileID: 114994173406844716, guid: 5742e0305efdc1148924baed77ac2707, type: 2}
   - {fileID: 114305515479315874, guid: fa9ae7a5724e42d478437399008f5a87, type: 2}
   - {fileID: 114464022998864026, guid: 8448211591626174dbf2ef9677bc1b4c, type: 2}
-  - {fileID: 114552137873342742, guid: 7cdb09bc4e24f9a42998e662d952feff, type: 2}
+  - {fileID: 114774035960197818, guid: f48b1193db8624946a5ddefa3b1626fb, type: 2}
   enemyPoolSizes: 07000000070000000700000005000000020000000700000001000000
 --- !u!114 &1001776146
 MonoBehaviour:

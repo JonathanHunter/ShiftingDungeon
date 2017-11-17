@@ -28,6 +28,8 @@
         [Range(0f, 1f)]
         public float SFXVol = .5f;
 
+        public float SFXVolbuffer = 0f;
+
         /// <summary> The current music volume. </summary>
         [Range(0f, 1f)]
         public float MusicVol = .5f;

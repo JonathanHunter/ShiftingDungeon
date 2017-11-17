@@ -598,8 +598,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4d70d91b1b5f345b1958f02483516580, type: 3}
   - {fileID: 8300000, guid: dbd725574754845ab9443bfd396fd47b, type: 3}
   - {fileID: 8300000, guid: ef9cdb51e95144b29a6c072bd9617b59, type: 3}
+  - {fileID: 8300000, guid: 2f50ae2540a5af4448d26fd276b25aec, type: 3}
   audio: {fileID: 82718110245652546}
-  SFX: 0
+  SFX: 1
   playOnLoad: 0
   loop: 0
   intro: 0
@@ -631,7 +632,7 @@ MonoBehaviour:
   song:
   - {fileID: 8300000, guid: 09d98dea574807d4c866fcb4a889ca49, type: 3}
   audio: {fileID: 82937295943719156}
-  SFX: 0
+  SFX: 1
   playOnLoad: 0
   loop: 0
   intro: 0
@@ -740,7 +741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb99d3b3194b70f4f9bd4db30ea3915c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 20
   acceleration: 2
   maxSpeed: 5
   targetRange: 5
@@ -844,7 +845,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1357497200
+  randomSeed: -1163920969
   InitialModule:
     serializedVersion: 3
     enabled: 1
