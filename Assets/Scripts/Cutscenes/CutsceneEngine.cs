@@ -56,6 +56,9 @@
 
         void Update()
         {
+            if(CustomInput.BoolFreshPress(CustomInput.UserInput.Cancel))
+                Skip();
+
             if (!start)
             {
                 if (GameState.Instance.IsPaused && GameState.Instance.State != Enums.GameState.Cutscene)
@@ -184,6 +187,15 @@
                     }
                 }
             }
+        }
+
+        public void Skip()
+        {
+            this.text.text = "";
+            this.canvas.SetActive(false);
+            GameState.Instance.State = Enums.GameState.Playing;
+            DungeonManager.GetHero().SetActive(true);
+            DungeonManager.TransitionMaps();
         }
     }
 }

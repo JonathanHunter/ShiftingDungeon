@@ -44,8 +44,6 @@
                     {
                         HeroData.Instance.money -= cost;
                         Managers.DungeonManager.GetHero().GetComponent<HeroBehavior>().AddHealth(2);
-                        this.storeItem.SetActive(false);
-                        this.healthLabel.gameObject.SetActive(false);
                         this.shopkeeper.text = "Thank you!";
                     }
                 }

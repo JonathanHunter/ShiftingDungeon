@@ -11,10 +11,10 @@
     <Keyboard_Accept>Return</Keyboard_Accept>
     <Keyboard_Cancel>Escape</Keyboard_Cancel>
     <Keyboard_Target>K</Keyboard_Target>
-    <Gamepad_Up>Left Stick Up</Gamepad_Up>
-    <Gamepad_Down>Left Stick Down</Gamepad_Down>
-    <Gamepad_Left>Left Stick Left</Gamepad_Left>
-    <Gamepad_Right>Left Stick Right</Gamepad_Right>
+    <Gamepad_Up>Dpad Up</Gamepad_Up>
+    <Gamepad_Down>Dpad Down</Gamepad_Down>
+    <Gamepad_Left>Dpad Left</Gamepad_Left>
+    <Gamepad_Right>Dpad Right</Gamepad_Right>
     <Gamepad_Attack>A</Gamepad_Attack>
     <Gamepad_NextWeapon>RB</Gamepad_NextWeapon>
     <Gamepad_PrevWeapon>LB</Gamepad_PrevWeapon>

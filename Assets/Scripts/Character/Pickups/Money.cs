@@ -11,9 +11,9 @@
                 if (this.transform.localScale.x == .25f)
                     return 1;
                 else if (this.transform.localScale.x == .5f)
-                    return 10;
+                    return 5;
                 else
-                    return 50;
+                    return 10;
             }
         }
 

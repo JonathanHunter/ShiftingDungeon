@@ -1266,7 +1266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerBulletPools:
-  - {fileID: 114465480071990346, guid: a1b6433ff53690b4287561932ad4bd2b, type: 2}
+  - {fileID: 114688834097943288, guid: a1b6433ff53690b4287561932ad4bd2b, type: 2}
   - {fileID: 114828818134133344, guid: 09be59068f3e796418187cd9781c6427, type: 2}
   playerBulletPoolSizes: 030000000a000000
 --- !u!114 &1001776145

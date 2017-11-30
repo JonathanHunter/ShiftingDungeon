@@ -34,8 +34,12 @@
             {
                 // Ignoring cutscene colliders would be better handled using collision layers,
                 // but would take some time to convert all cutscenes in the level prefabs.
-                this.currentLifeTime = 0;
+                if (ShouldDestroyBullet(collider))
+                {
+                    this.currentLifeTime = 0;
+                }
             }
+
         }
 
         public IPoolable SpawnCopy(int referenceIndex)
@@ -99,5 +103,7 @@
         protected abstract void LocalDeallocate();
         /// <summary> Local Delete for subclasses. </summary>
         protected abstract void LocalDelete();
+        /// <summary> returns where this bullet should be destroyed by this collision. </summary>
+        protected abstract bool ShouldDestroyBullet(Collider2D collider);
     }
 }

@@ -72,10 +72,10 @@
             if (gamepad == null)
                 throw new System.AccessViolationException(UnitializedMessage);
 
-            gamepad[(int)UserInput.Up, 0] = LEFT_STICK_UP;
-            gamepad[(int)UserInput.Down, 0] = LEFT_STICK_DOWN;
-            gamepad[(int)UserInput.Left, 0] = LEFT_STICK_LEFT;
-            gamepad[(int)UserInput.Right, 0] = LEFT_STICK_RIGHT;
+            gamepad[(int)UserInput.Up, 0] = DPAD_UP;
+            gamepad[(int)UserInput.Down, 0] = DPAD_DOWN;
+            gamepad[(int)UserInput.Left, 0] = DPAD_LEFT;
+            gamepad[(int)UserInput.Right, 0] = DPAD_RIGHT;
             gamepad[(int)UserInput.Attack, 0] = A;
             gamepad[(int)UserInput.NextWeapon, 0] = RB;
             gamepad[(int)UserInput.PrevWeapon, 0] = LB;

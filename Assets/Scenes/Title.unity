@@ -1199,7 +1199,7 @@ Transform:
   m_GameObject: {fileID: 410182910}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 5}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 4, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 654360298}
   m_RootOrder: 4
@@ -2131,7 +2131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerBulletPools:
-  - {fileID: 114465480071990346, guid: a1b6433ff53690b4287561932ad4bd2b, type: 2}
+  - {fileID: 114688834097943288, guid: a1b6433ff53690b4287561932ad4bd2b, type: 2}
   - {fileID: 114797265013951420, guid: 3a2260d09bf81c74cba707eb6cfa4c03, type: 2}
   playerBulletPoolSizes: 030000000a000000
 --- !u!114 &832579321
